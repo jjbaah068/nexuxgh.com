@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import logo from "../assets/images/logo.jpeg"
 
-const LINKS = ["Home", "Services", "About", "Work", "Contact"];
+const LINKS = [
+    { name: "Home", path: "/" },
+    { name: "Services", path: "#services" },
+    { name: "About", path: "#about" },
+    { name: "Work", path: "#work" },
+    { name: "Contact", path: "#contact" },
+];
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -34,13 +40,13 @@ export default function Navbar() {
 
                 {/* Desktop nav */}
                 <nav className="hidden md:flex items-center gap-8">
-                    {LINKS.map((l) => (
+                    {LINKS.map((link) => (
                         <a
-                            key={l}
-                            href={`${l.toLowerCase()}`}
+                            key={link.name}
+                            href={link.path}
                             className="text-sm text-white/60 hover:text-white transition-colors duration-200 font-medium"
                         >
-                            {l}
+                            {link.name}
                         </a>
                     ))}
                 </nav>
@@ -77,14 +83,14 @@ export default function Navbar() {
             {/* Mobile menu */}
             {open && (
                 <div className="md:hidden bg-[#0B1F3A] border-t border-white/5 px-6 py-6 flex flex-col gap-5">
-                    {LINKS.map((l) => (
+                    {LINKS.map((link) => (
                         <a
-                            key={l}
-                            href={`#${l.toLowerCase()}`}
+                            key={link.name}
+                            href={link.path}
                             onClick={() => setOpen(false)}
                             className="text-white/70 hover:text-white text-base font-medium transition-colors"
                         >
-                            {l}
+                            {link.name}
                         </a>
                     ))}
                     <a
