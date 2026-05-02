@@ -170,12 +170,12 @@ export default function Home() {
                 </div>
 
                 {/* Badge */}
-                <div className="anim-fade-1 relative z-10 inline-flex items-center gap-2 bg-[#00BFA6]/10 border border-[#00BFA6]/25 rounded-full px-4 py-1.5 mb-7">
+                {/* <div className="anim-fade-1 relative z-10 inline-flex items-center gap-2 bg-[#00BFA6]/10 border border-[#00BFA6]/25 rounded-full px-4 py-1.5 mb-7">
                     <span className="pulse-dot w-1.5 h-1.5 rounded-full bg-[#00BFA6] block" />
                     <span className="text-[#00BFA6] text-[11px] font-semibold tracking-[.12em] uppercase">
                         Marketing Technology Agency
                     </span>
-                </div>
+                </div> */}
 
                 {/* Headline */}
                 <h1 className="anim-fade-2 relative z-10 text-white font-black leading-[1.08] tracking-tight mb-5"
