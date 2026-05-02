@@ -158,7 +158,7 @@ export default function Home() {
             {/* ── 1. HERO ────────────────────────────────────────────── */}
             <section
                 id="home"
-                className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-24 pb-20 overflow-hidden"
+                className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-24 pb-10 overflow-hidden"
                 style={{ background: "linear-gradient(150deg,#060F1D 0%,#0B1F3A 60%,#0D2645 100%)" }}
             >
                 <DotCanvas />
@@ -196,7 +196,7 @@ export default function Home() {
                 </p>
 
                 {/* CTAs */}
-                <div className="anim-fade-4 relative z-10 flex flex-wrap gap-3 justify-center mb-16">
+                <div className="anim-fade-4 relative z-10 flex flex-wrap gap-3 justify-center mb-10">
                     <a href="#contact"
                         className="bg-[#00BFA6] hover:bg-[#00a892] text-[#0B1F3A] font-bold text-sm px-7 py-3.5 rounded-lg transition-colors duration-200"
                         style={{ boxShadow: "0 0 28px rgba(0,191,166,.3)" }}>
@@ -207,32 +207,32 @@ export default function Home() {
                         See Our Services
                     </a>
                 </div>
-                <div className="anim-fade-5 relative z-10 w-full max-w-5xl h-80 md:h-[480px] flex items-center justify-center">
+                {/* <div className="anim-fade-5 relative z-10 w-full max-w-5xl h-80 md:h-[480px] flex items-center justify-center">
 
                     {/* Glow behind Spline */}
-                    <div
+                    {/* <div
                         className="absolute w-[500px] h-[300px] rounded-full opacity-30"
                         style={{
                             background: "radial-gradient(ellipse, rgba(0,191,166,0.35), transparent 70%)",
                             filter: "blur(60px)"
                         }}
-                    />
+                    /> */}
 
                     {/* Spline iframe */}
-                    <div className="relative w-full h-full rounded-2xl overflow-hidden">
+                    {/* <div className="relative w-full h-full rounded-2xl overflow-hidden">
                         <div className="anim-fade-5 relative z-10 w-full max-w-5xl h-80 md:h-[480px] flex items-center justify-center">
 
                             {/* Glow behind */}
-                            <div
+                            {/* <div
                                 className="absolute w-[500px] h-[300px] rounded-full opacity-30"
                                 style={{
                                     background: "radial-gradient(ellipse, rgba(0,191,166,0.35), transparent 70%)",
                                     filter: "blur(60px)"
                                 }}
-                            />
+                            /> */} 
 
                             {/* Floating Image */}
-                            <div
+                            {/* <div
                                 className="floating-img"
                                 onMouseMove={(e) => {
                                     const x = (e.clientX / window.innerWidth - 0.5) * 10;
@@ -246,18 +246,18 @@ export default function Home() {
                                     className="w-full max-w-3xl object-contain opacity-95"
                                     style={{ mixBlendMode: "screen" }}
                                 />
-                            </div>
+                            </div> */}
 
-                        </div>
-                    </div>
+                        {/* </div>
+                    </div> */}
 
-                </div>
+                {/* </div>  */}
 
                 {/* Scroll cue */}
-                <div className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5">
+                {/* <div className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5">
                     <div className="scroll-bar w-px h-8" style={{ background: "linear-gradient(to bottom,rgba(0,191,166,.6),transparent)" }} />
                     <span className="text-white/25 text-[9px] tracking-[.2em] uppercase">Scroll</span>
-                </div>
+                </div> */}
             </section>
 
             {/* ── 2. STATS ───────────────────────────────────────────── */}
