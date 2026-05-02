@@ -72,7 +72,7 @@ export default function Footer() {
                             ))}
                             <li className="mt-1">
                                 <a href="mailto:hello@nexux.co" className="text-[#00BFA6] text-sm font-medium hover:underline">
-                                    hello@nexux.co
+                                    info@nexuxgh.com
                                 </a>
                             </li>
                         </ul>
