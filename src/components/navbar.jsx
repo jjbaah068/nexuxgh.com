@@ -4,8 +4,8 @@ import logo from "../assets/images/logo1.jpeg";
 
 const LINKS = [
     { name: "Home", path: "/" },
-    { name: "Services", path: "/services" },
     { name: "About", path: "/about" },
+    { name: "Services", path: "/services" },
     { name: "Work", path: "/work" },
     { name: "Contact", path: "/contact" },
 ];

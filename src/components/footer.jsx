@@ -82,11 +82,12 @@ export default function Footer() {
                 <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
                     <p className="text-white/25 text-xs">© {new Date().getFullYear()} Nexux. All rights reserved.</p>
                     <div className="flex gap-5">
-                        {SOCIALS.map((s) => (
-                            <a key={s.name} href={s.href} className="text-white/25 hover:text-white/50 text-xs transition-colors">
-                                {s.name}
-                            </a>
-                        ))}
+                        <a 
+                        href="#"
+                        className="text-xs text-white/25">Terms & Conditions</a>
+
+                        <a href="#"
+                        className="text-xs text-white/25">Privacy Policy</a>
                     </div>
                 </div>
             </div>

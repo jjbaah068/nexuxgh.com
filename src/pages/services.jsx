@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import PhoneHero from "../assets/images/phonehero.png";
 
 /* ── Fonts & Animations ─────────────────────────────────────────── */
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
@@ -233,12 +234,16 @@ export default function Services() {
             <Navbar />
 
             {/* ── HERO ────────────────────────────────────────────── */}
-            <section
+            {/* <section
                 className="relative pt-36 pb-24 px-6 overflow-hidden"
+                style={{ background: "linear-gradient(135deg, #f0f4f8 0%, #e8f0f7 50%, #f5f9fc 100%)" }}
+            > */}
+            <section
+                className="relative overflow-hidden"
                 style={{ background: "linear-gradient(135deg, #f0f4f8 0%, #e8f0f7 50%, #f5f9fc 100%)" }}
             >
                 {/* Geometric deco — matches home */}
-                <svg
+                {/* <svg
                     className="absolute pointer-events-none opacity-[0.06]"
                     style={{ right: "-40px", top: "5%", width: "380px" }}
                     viewBox="0 0 380 380"
@@ -254,48 +259,51 @@ export default function Services() {
                     {[0,1,2,3].map(r => [0,1,2,3].map(c => (
                         <circle key={`${r}${c}`} cx={c*28+14} cy={r*28+14} r="2.5" fill="#00BFA6" opacity="0.5" />
                     )))}
-                </svg>
+                </svg> */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[600px]">
 
-                <div className="max-w-6xl mx-auto">
-                    {/* <div className="anim-1 inline-flex items-center gap-2 bg-white/80 border border-[#00BFA6]/20 rounded-full px-4 py-1.5 mb-7 w-fit">
-                        <span className="w-2 h-2 rounded-full bg-[#00BFA6]" />
-                        <span className="text-[#0B1F3A]/60 text-xs font-semibold tracking-wide">What We Offer</span>
-                    </div> */}
-                    <h1
-                        className="anim-2 text-[#0B1F3A] font-extrabold leading-[1.06] tracking-tight mb-5"
-                        style={{ fontSize: "clamp(38px, 5.5vw, 72px)", maxWidth: 700 }}
-                    >
-                        Services built to{" "}
-                        <span className="text-[#00BFA6]">move your business</span>{" "}
-                        forward.
-                    </h1>
-                    <p
-                        className="anim-3 text-[#0B1F3A]/55 leading-relaxed mb-10"
-                        style={{ fontSize: "clamp(15px,1.6vw,18px)", maxWidth: 480 }}
-                    >
-                        From brand foundation to digital growth — we handle the strategy,
-                        design, and systems so you can focus on what you do best.
-                    </p>
-                    <div className="anim-4 flex flex-wrap gap-3">
-                        {/* <a
-                            href="#services-grid"
-                            className="bg-[#0B1F3A] hover:bg-[#0d2848] text-white font-bold text-sm px-7 py-3.5 rounded-lg transition-colors duration-200"
+                    {/* LEFT — text */}
+                    <div className="flex flex-col justify-center py-36 px-6 lg:px-16 max-w-3xl">
+                        <h1
+                            className="anim-2 text-[#0B1F3A] font-extrabold leading-[1.06] tracking-tight mb-5"
+                            style={{ fontSize: "clamp(38px, 5.5vw, 72px)" }}
                         >
-                            Explore Services
-                        </a> */}
-                        <a
-                            href="#contact"
-                            className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-sm px-7 py-3.5 rounded-lg transition-colors duration-200"
-                            style={{ boxShadow: "0 4px 20px rgba(0,191,166,.25)" }}
+                            Services built to{" "}
+                            <span className="text-[#00BFA6]">move your business</span>{" "}
+                            forward.
+                        </h1>
+                        <p
+                            className="anim-3 text-[#0B1F3A]/55 leading-relaxed mb-10"
+                            style={{ fontSize: "clamp(15px,1.6vw,18px)", maxWidth: 480 }}
                         >
-                            Book a free call →
-                        </a>
+                            From brand foundation to digital growth — we handle the strategy,
+                            design, and systems so you can focus on what you do best.
+                        </p>
+                        <div className="anim-4 flex flex-wrap gap-3">
+                            <a
+                                href="#contact"
+                                className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-sm px-7 py-3.5 rounded-lg transition-colors duration-200"
+                                style={{ boxShadow: "0 4px 20px rgba(0,191,166,.25)" }}
+                            >
+                                Book a free call →
+                            </a>
+                        </div>
                     </div>
+
+                    {/* RIGHT — image, sibling NOT child */}
+                    <div className="hidden lg:block">
+                        <img
+                            src={PhoneHero}
+                            alt="Nexux mobile experience"
+                            className="w-full h-full object-cover"
+                        />
+                    </div>
+
                 </div>
-            </section>
+            </section >
 
             {/* ── SERVICES GRID ───────────────────────────────────── */}
-            <section id="services-grid" className="bg-[#F5F7FA] px-6 py-24">
+            < section id="services-grid" className="bg-[#F5F7FA] px-6 py-24" >
                 <div className="max-w-6xl mx-auto">
                     <div className="mb-12">
                         <span className="reveal block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-3">Our Services</span>
@@ -310,10 +318,10 @@ export default function Services() {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* ── DIFFERENTIATOR BAND ─────────────────────────────── */}
-            <section className="bg-[#0B1F3A] px-6 py-16">
+            < section className="bg-[#0B1F3A] px-6 py-16" >
                 <div className="max-w-6xl mx-auto">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {[
@@ -337,10 +345,10 @@ export default function Services() {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* ── PROCESS ─────────────────────────────────────────── */}
-            <section className="bg-white px-6 py-24">
+            < section className="bg-white px-6 py-24" >
                 <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
                     {/* Left: copy */}
@@ -381,10 +389,10 @@ export default function Services() {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* ── FAQ ─────────────────────────────────────────────── */}
-            <section className="bg-[#F5F7FA] px-6 py-24">
+            < section className="bg-[#F5F7FA] px-6 py-24" >
                 <div className="max-w-3xl mx-auto">
                     <span className="reveal block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-3 text-center">FAQ</span>
                     <h2 className="reveal text-[#0B1F3A] font-extrabold leading-tight mb-12 text-center"
@@ -397,10 +405,10 @@ export default function Services() {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* ── CTA BAND ────────────────────────────────────────── */}
-            <section className="relative bg-[#0B1F3A] px-6 py-24 text-center overflow-hidden">
+            < section className="relative bg-[#0B1F3A] px-6 py-24 text-center overflow-hidden" >
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <div className="w-[500px] h-[260px] opacity-20 rounded-full"
                         style={{ background: "radial-gradient(ellipse,#00BFA6,transparent 65%)", filter: "blur(50px)" }} />
@@ -425,7 +433,7 @@ export default function Services() {
                         </a>
                     </div>
                 </div>
-            </section>
+            </section >
 
             <Footer />
         </>
