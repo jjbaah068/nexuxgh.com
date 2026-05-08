@@ -3,6 +3,9 @@ import { Link } from "react-router";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import { Player } from "@lottiefiles/react-lottie-player";
+import abouthero from "../assets/images/abouthero.jpg"
+import arhin from "../assets/images/arhin.JPG"
+import james from "../assets/images/image3.jpeg"
 
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
 
@@ -65,10 +68,10 @@ const VALUES = [
 ];
 
 const TEAM = [
-    { role: "Founder & Strategy Lead", name: "[Founder]" },
-    { role: "Creative Director", name: "[Creative]" },
-    { role: "Lead Developer", name: "[Engineer]" },
-    { role: "Growth & Performance", name: "[Growth]" },
+    { role: "Co-Founder, CEO & Strategy Lead", name: "Arhin Owuraku Agyemang", img: arhin },
+    { role: "Co-Founder, CEO & Lead Engineer", name: "James Junior Baah", img: james },
+    // { role: "Lead Developer", name: "Kwame Asante" },
+    // { role: "Growth & Performance", name: "Ama Mensah"},
 ];
 
 const HOW_WE_OPERATE = [
@@ -102,50 +105,34 @@ export default function About() {
             <Navbar />
 
             {/* ── HERO ────────────────────────────────────────────── */}
-            <section
-                className="relative pt-36 pb-24 px-6 overflow-hidden"
-                style={{ background: "linear-gradient(135deg, #f0f4f8 0%, #e8f0f7 50%, #f5f9fc 100%)" }}
-            >
-                {/* Geometric deco */}
-                {/* <svg className="absolute pointer-events-none opacity-[0.06]" style={{ right: "-40px", top: "5%", width: "380px" }} viewBox="0 0 380 380">
-                    <rect x="50" y="50" width="280" height="280" rx="36" fill="none" stroke="#0B1F3A" strokeWidth="2" transform="rotate(12 190 190)" />
-                    <rect x="90" y="90" width="200" height="200" rx="24" fill="none" stroke="#0B1F3A" strokeWidth="1.5" transform="rotate(28 190 190)" />
-                </svg>
-                <svg className="absolute pointer-events-none opacity-50" style={{ right: "8%", bottom: "10%", width: "110px" }} viewBox="0 0 110 110">
-                    {[0,1,2,3].map(r => [0,1,2,3].map(c => (
-                        <circle key={`${r}${c}`} cx={c*28+14} cy={r*28+14} r="2.5" fill="#00BFA6" opacity="0.5" />
-                    )))}
-                </svg> */}
-                <div className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden">
-                    <svg
-                        width="100%"
-                        height="100%"
-                        viewBox="0 0 680 420"
-                        preserveAspectRatio="xMidYMid slice"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <rect x="50" y="50" width="280" height="280" rx="36" fill="none" stroke="#0B1F3A" strokeWidth="2" transform="rotate(12 190 190)" />
-                        <rect x="90" y="90" width="200" height="200" rx="24" fill="none" stroke="#0B1F3A" strokeWidth="1.5" transform="rotate(28 190 190)" />
-                        {[0, 1, 2, 3].map(r => [0, 1, 2, 3].map(c => (
-                            <circle key={`${r}${c}`} cx={c * 28 + 14} cy={r * 28 + 14} r="2.5" fill="#00BFA6" opacity="0.5" />
-                        )))}
+            <section className="relative pt-36 pb-24 px-6 overflow-hidden">
 
-                    </svg>
-                </div>
+                {/* Background image */}
+                <img
+                    src={abouthero}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover"
+                />
+
+                {/* Dark overlay */}
+                <div
+                    className="absolute inset-0"
+                    style={{ background: "linear-gradient(90deg, rgba(11,31,58,0.85) 0%, rgba(11,31,58,0.60) 55%, rgba(11,31,58,0.20) 100%)" }}
+                />
 
                 <div className="relative max-w-6xl mx-auto">
                     <span className="anim-1 block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-4">
                         About Nexux
                     </span>
                     <h1
-                        className="anim-2 text-[#0B1F3A] font-extrabold leading-[1.06] tracking-tight mb-6"
+                        className="anim-2 text-white font-extrabold leading-[1.06] tracking-tight mb-6"
                         style={{ fontSize: "clamp(38px, 5.5vw, 72px)", maxWidth: 820 }}
                     >
                         A marketing technology agency built for the way{" "}
                         <span className="text-[#00BFA6]">brands actually grow.</span>
                     </h1>
                     <p
-                        className="anim-3 text-[#0B1F3A]/55 leading-relaxed mb-10"
+                        className="anim-3 text-white/70 leading-relaxed mb-10"
                         style={{ fontSize: "clamp(15px,1.6vw,18px)", maxWidth: 560 }}
                     >
                         We combine strategy, design, and digital technology to help small
@@ -162,7 +149,7 @@ export default function About() {
                         </Link>
                         <Link
                             to="/work"
-                            className="border border-[#0B1F3A]/15 hover:border-[#0B1F3A]/30 bg-white hover:bg-gray-50 text-[#0B1F3A]/70 hover:text-[#0B1F3A] font-medium text-sm px-7 py-3.5 rounded-lg transition-all duration-200"
+                            className="border border-white/30 hover:border-white/60 text-white/75 hover:text-white hover:bg-gray-50 font-medium text-sm px-7 py-3.5 rounded-lg transition-all duration-200"
                         >
                             See our work
                         </Link>
@@ -273,7 +260,7 @@ export default function About() {
             </section>
 
             {/* ── STATS STRIP ─────────────────────────────────────── */}
-            <section className="bg-[#0B1F3A] px-6 py-16 text-white relative overflow-hidden">
+            {/* <section className="bg-[#0B1F3A] px-6 py-16 text-white relative overflow-hidden">
                 <div className="absolute inset-0 pointer-events-none opacity-30"
                     style={{ background: "radial-gradient(circle at 80% 50%, rgba(0,191,166,0.18), transparent 55%)" }} />
                 <div className="relative max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -291,7 +278,7 @@ export default function About() {
                         </div>
                     ))}
                 </div>
-            </section>
+            </section> */}
 
             {/* ── VALUES ──────────────────────────────────────────── */}
             <section className="bg-[#F5F7FA] px-6 py-24">
@@ -348,7 +335,13 @@ export default function About() {
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
                         {TEAM.map((m, i) => (
                             <div key={m.role} className="reveal" style={{ transitionDelay: `${i * 60}ms` }}>
-                                <ImgSlot label={m.name} className="w-full aspect-[4/5] rounded-2xl mb-4" />
+                                <div className="w-full aspect-[4/5] rounded-2xl mb-4 overflow-hidden">
+                                    <img
+                                        src={m.img}
+                                        alt={m.name}
+                                        className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
+                                    />
+                                </div>
                                 <p className="text-[#0B1F3A] font-bold text-sm leading-tight mb-1">{m.name}</p>
                                 <p className="text-[#0B1F3A]/45 text-xs tracking-wide">{m.role}</p>
                             </div>

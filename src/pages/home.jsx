@@ -3,6 +3,7 @@ import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import ab from "../assets/images/image2.png"
 import { Player } from '@lottiefiles/react-lottie-player';
+import hero from "../assets/images/hero2.png";
 
 /* ── Google Fonts ───────────────────────────────────────────────── */
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
@@ -143,7 +144,7 @@ function RotatingHeadline() {
             style={{ minHeight: "clamp(180px, 22vw, 320px)" }}
         >
             <h1
-                className="text-[#0B1F3A] font-extrabold leading-[1.06] tracking-tight mb-5"
+                className="text-white font-extrabold leading-[1.06] tracking-tight mb-5"
                 style={{ fontSize: "clamp(36px, 5.5vw, 72px)", maxWidth: 720 }}
             >
                 {h.line1}<br />
@@ -171,22 +172,19 @@ export default function Home() {
             <section
                 id="home"
                 className="relative min-h-screen flex flex-col justify-center px-6 pt-28 pb-16 overflow-hidden"
-                style={{ background: "linear-gradient(135deg, #f0f4f8 0%, #e8f0f7 50%, #f5f9fc 100%)" }}
             >
-                {/* Geometric background shapes (matching screenshot) */}
-                <svg className="geo-shape" style={{ right: "-60px", top: "10%", width: "420px", height: "420px" }} viewBox="0 0 420 420">
-                    <rect x="60" y="60" width="300" height="300" rx="40" fill="none" stroke="#0B1F3A" strokeWidth="2" transform="rotate(15 210 210)" />
-                    <rect x="100" y="100" width="220" height="220" rx="30" fill="none" stroke="#0B1F3A" strokeWidth="1.5" transform="rotate(30 210 210)" />
-                </svg>
-                <svg className="geo-shape" style={{ right: "5%", top: "55%", width: "140px", height: "140px" }} viewBox="0 0 140 140">
-                    {[0,1,2,3,4].map(row => [0,1,2,3,4].map(col => (
-                        <circle key={`${row}-${col}`} cx={col * 28 + 14} cy={row * 28 + 14} r="2.5" fill="#00BFA6" opacity="0.6" />
-                    )))}
-                </svg>
+                {/* Background image */}
+                <img
+                    src={hero}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover"
+                />
 
-                {/* Subtle teal glow top-right */}
-                <div className="absolute top-0 right-0 w-[500px] h-[400px] pointer-events-none"
-                    style={{ background: "radial-gradient(ellipse at top right, rgba(0,191,166,0.08) 0%, transparent 65%)" }} />
+                {/* Dark overlay — heavy left where text is, fades right */}
+                <div
+                    className="absolute inset-0"
+                    style={{ background: "linear-gradient(90deg, rgba(11,31,58,0.88) 0%, rgba(11,31,58,0.60) 55%, rgba(11,31,58,0.25) 100%)" }}
+                />
 
                 <div className="max-w-6xl mx-auto w-full">
                     {/* Badge */}
@@ -201,7 +199,7 @@ export default function Home() {
                     </div>
 
                     {/* Sub */}
-                    <p className="anim-fade-3 text-[#0B1F3A]/55 font-normal leading-relaxed mb-10"
+                    <p className="anim-fade-3 text-white/70 font-normal leading-relaxed mb-10"
                         style={{ fontSize: "clamp(15px,1.6vw,18px)", maxWidth: 460 }}>
                         Built for SMEs ready to move from confusion to clarity.
                     </p>
@@ -214,7 +212,7 @@ export default function Home() {
                             Start a Project →
                         </a>
                         <a href="#work"
-                            className="border border-[#0B1F3A]/15 hover:border-[#0B1F3A]/30 bg-white hover:bg-gray-50 text-[#0B1F3A]/70 hover:text-[#0B1F3A] font-medium text-sm px-8 py-4 rounded-lg transition-all duration-200 flex items-center gap-2">
+                            className="border border-white/30 hover:border-white/60 text-white/75 hover:text-white font-medium text-sm px-8 py-4 rounded-lg transition-all duration-200 flex items-center gap-2">
                             See our work →
                         </a>
                     </div>
@@ -222,8 +220,8 @@ export default function Home() {
             </section>
 
             {/* ── 2. STATS ───────────────────────────────────────────── */}
-            <section className="bg-white px-6 py-12 border-y border-gray-100">
-                <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100 divide-y md:divide-y-0">
+            {/* <section className="bg-white px-6 py-12 border-y border-gray-100"> */}
+                {/* <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100 divide-y md:divide-y-0">
                     {[
                         { n: 50, s: "+", label: "Brands Served" },
                         { n: 98, s: "%", label: "Client Satisfaction" },
@@ -238,8 +236,8 @@ export default function Home() {
                             <span className="text-[#8899AA] text-[11px] font-semibold tracking-wider uppercase">{label}</span>
                         </div>
                     ))}
-                </div>
-            </section>
+                </div> */}
+            {/* </section> */}
 
             {/* ── 3. SERVICES ────────────────────────────────────────── */}
             <section id="services" className="bg-[#F5F7FA] px-6 py-24">
@@ -253,13 +251,13 @@ export default function Home() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
                         <div className="reveal"><ServiceCard icon="🧠" title="Brand Strategy & Identity"
-                            desc="Positioning, messaging, and visual direction that make your brand stand for something real." /></div>
+                            desc="We help brands find clarity through positioning, messaging, and identity systems that create recognition and trust." /></div>
                         <div className="reveal" style={{ transitionDelay: "80ms" }}><ServiceCard icon="📣" title="Digital & Social Media Marketing"
-                            desc="Campaigns and content strategies that grow your audience and drive consistent engagement." /></div>
+                            desc="Strategic content and digital campaigns designed to attract attention, build trust, and drive measurable growth." /></div>
                         <div className="reveal" style={{ transitionDelay: "160ms" }}><ServiceCard icon="💻" title="Web Design & Development"
-                            desc="Clean, fast, responsive websites engineered to convert visitors into customers." /></div>
-                        <div className="reveal" style={{ transitionDelay: "240ms" }}><ServiceCard icon="⚙️" title="Growth Systems"
-                            desc="Lead funnels, automation, and conversion flows built to compound your results over time." /></div>
+                            desc="High-performing websites built to communicate clearly, build credibility, and convert visitors into customers." /></div>
+                        <div className="reveal" style={{ transitionDelay: "240ms" }}><ServiceCard icon="⚙️" title="Growth & Automation Systems"
+                            desc="Funnels, automation, and structured workflows that help your business grow more efficiently." /></div>
                     </div>
                 </div>
             </section>
@@ -274,7 +272,7 @@ export default function Home() {
                         <span className="block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-3">Why Nexux</span>
                         <h2 className="text-[#0B1F3A] font-black leading-tight tracking-tight mb-4"
                             style={{ fontSize: "clamp(26px,3.5vw,42px)" }}>
-                            We don't just build — we grow your business
+                            We don't just build — we grow with your business
                         </h2>
                         <p className="text-[#556677] text-base leading-relaxed mb-7">
                             Nexux is built for businesses serious about growth. We combine brand thinking,
@@ -283,9 +281,9 @@ export default function Home() {
                         </p>
                         <ul className="flex flex-col gap-3 mb-8">
                             {[
-                                "Strategy-first on every project",
+                                "Strategy before execution",
                                 "Design that converts, not just impresses",
-                                "Data-driven at every stage",
+                                "Marketing tied to real business outcomes",
                                 "Transparent process, real accountability",
                             ].map((item) => (
                                 <li key={item} className="flex items-center gap-3 text-[#334455] text-sm font-medium">
@@ -316,14 +314,14 @@ export default function Home() {
                             Our four-step process
                         </h2>
                         <div className="mt-4">
-                            <Step n={1} title="Discovery & Strategy"
-                                desc="We study your business, audience, and market to set a clear direction before anything else." />
-                            <Step n={2} title="Design & Creative Direction"
-                                desc="We craft brand systems, visuals, and messaging that resonate with the right people." />
-                            <Step n={3} title="Build & Launch"
-                                desc="We execute fast and precisely — websites, campaigns, funnels — clean and on spec." />
-                            <Step n={4} title="Optimize & Grow"
-                                desc="We measure results and keep improving, turning early wins into compounding growth." />
+                            <Step n={1} title="Discovery"
+                                desc="We learn about your business, audience, and goals before making any decisions." />
+                            <Step n={2} title="Strategize"
+                                desc="We create a clear direction for your brand, content, and growth." />
+                            <Step n={3} title="Build"
+                                desc="We execute the right assets — websites, campaigns, and systems built to perform." />
+                            <Step n={4} title="Optimize"
+                                desc="We measure, refine, and improve continuously for better results over time." />
                         </div>
                     </div>
                     <div className="reveal lg:sticky lg:top-24">
@@ -382,7 +380,7 @@ export default function Home() {
                         and where you want to be.
                     </p>
                     <div className="reveal flex flex-wrap gap-3 justify-center">
-                        <a href="mailto:hello@nexux.co"
+                        <a href="mailto:info@nexuxgh.com"
                             className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-[15px] px-9 py-4 rounded-lg transition-colors duration-200"
                             style={{ boxShadow: "0 0 32px rgba(0,191,166,.3)" }}>
                             Start a Conversation →

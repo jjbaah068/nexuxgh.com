@@ -239,69 +239,55 @@ export default function Services() {
                 style={{ background: "linear-gradient(135deg, #f0f4f8 0%, #e8f0f7 50%, #f5f9fc 100%)" }}
             > */}
             <section
-                className="relative overflow-hidden"
-                style={{ background: "linear-gradient(135deg, #f0f4f8 0%, #e8f0f7 50%, #f5f9fc 100%)" }}
+                className="relative overflow-hidden min-h-[600px] flex items-center"
             >
-                {/* Geometric deco — matches home */}
-                {/* <svg
-                    className="absolute pointer-events-none opacity-[0.06]"
-                    style={{ right: "-40px", top: "5%", width: "380px" }}
-                    viewBox="0 0 380 380"
-                >
-                    <rect x="50" y="50" width="280" height="280" rx="36" fill="none" stroke="#0B1F3A" strokeWidth="2" transform="rotate(12 190 190)" />
-                    <rect x="90" y="90" width="200" height="200" rx="24" fill="none" stroke="#0B1F3A" strokeWidth="1.5" transform="rotate(28 190 190)" />
-                </svg>
-                <svg
-                    className="absolute pointer-events-none opacity-50"
-                    style={{ right: "8%", bottom: "10%", width: "110px" }}
-                    viewBox="0 0 110 110"
-                >
-                    {[0,1,2,3].map(r => [0,1,2,3].map(c => (
-                        <circle key={`${r}${c}`} cx={c*28+14} cy={r*28+14} r="2.5" fill="#00BFA6" opacity="0.5" />
-                    )))}
-                </svg> */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[600px]">
+                {/* Background image */}
+                <img
+                    src={PhoneHero}
+                    alt="Nexux mobile experience"
+                    className="absolute inset-0 w-full h-full object-cover"
+                />
 
-                    {/* LEFT — text */}
-                    <div className="flex flex-col justify-center py-36 px-6 lg:px-16 max-w-3xl">
-                        <h1
-                            className="anim-2 text-[#0B1F3A] font-extrabold leading-[1.06] tracking-tight mb-5"
-                            style={{ fontSize: "clamp(38px, 5.5vw, 72px)" }}
+                {/* Dark overlay so text stays readable */}
+                <div
+                    className="absolute inset-0"
+                    style={{ background: "linear-gradient(90deg, rgba(11,31,58,0.82) 0%, rgba(11,31,58,0.55) 60%, rgba(11,31,58,0.2) 100%)" }}
+                />
+
+                {/* Text content */}
+                <div className="relative z-10 max-w-6xl mx-auto px-6 py-36 w-full">
+                    <h1
+                        className="anim-2 text-white font-extrabold leading-[1.06] tracking-tight mb-5"
+                        style={{ fontSize: "clamp(38px, 5.5vw, 72px)", maxWidth: 700 }}
+                    >
+                        Services built to{" "}
+                        <span className="text-[#00BFA6]">move your business</span>{" "}
+                        forward.
+                    </h1>
+                    <p
+                        className="anim-3 text-white/70 leading-relaxed mb-10"
+                        style={{ fontSize: "clamp(15px,1.6vw,18px)", maxWidth: 480 }}
+                    >
+                        From brand foundation to digital growth — we handle the strategy,
+                        design, and systems so you can focus on what you do best.
+                    </p>
+                    <div className="anim-4 flex flex-wrap gap-3">
+                        <a
+                            href="#contact"
+                            className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-sm px-7 py-3.5 rounded-lg transition-colors duration-200"
+                            style={{ boxShadow: "0 4px 20px rgba(0,191,166,.35)" }}
                         >
-                            Services built to{" "}
-                            <span className="text-[#00BFA6]">move your business</span>{" "}
-                            forward.
-                        </h1>
-                        <p
-                            className="anim-3 text-[#0B1F3A]/55 leading-relaxed mb-10"
-                            style={{ fontSize: "clamp(15px,1.6vw,18px)", maxWidth: 480 }}
+                            Book a free call →
+                        </a>
+                        <a
+                            href="#services-grid"
+                            className="border border-white/30 hover:border-white/60 text-white/75 hover:text-white font-medium text-sm px-7 py-3.5 rounded-lg transition-all duration-200"
                         >
-                            From brand foundation to digital growth — we handle the strategy,
-                            design, and systems so you can focus on what you do best.
-                        </p>
-                        <div className="anim-4 flex flex-wrap gap-3">
-                            <a
-                                href="#contact"
-                                className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-sm px-7 py-3.5 rounded-lg transition-colors duration-200"
-                                style={{ boxShadow: "0 4px 20px rgba(0,191,166,.25)" }}
-                            >
-                                Book a free call →
-                            </a>
-                        </div>
+                            Explore Services
+                        </a>
                     </div>
-
-                    {/* RIGHT — image, sibling NOT child */}
-                    <div className="hidden lg:block">
-                        <img
-                            src={PhoneHero}
-                            alt="Nexux mobile experience"
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-
                 </div>
-            </section >
-
+            </section>
             {/* ── SERVICES GRID ───────────────────────────────────── */}
             < section id="services-grid" className="bg-[#F5F7FA] px-6 py-24" >
                 <div className="max-w-6xl mx-auto">

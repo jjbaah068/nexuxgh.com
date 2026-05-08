@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router";
-import logo from "../assets/images/logo1.jpeg";
+import logo from "../assets/images/logo.png";
 
 const LINKS = [
     { name: "Home", path: "/" },
@@ -39,7 +39,7 @@ export default function Navbar() {
                     <img
                         src={logo}
                         alt="NexUX"
-                        className="h-12 w-auto object-contain bg-white"
+                        className="h-full w-full object-contain bg"
                         style={{ filter: "none", maxWidth: "160px" }}
                     />
                 </Link>

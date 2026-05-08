@@ -1,4 +1,4 @@
-import logo from "../assets/images/logo1.jpeg"
+import logo from "../assets/images/logo.png"
 
 const SERVICES = ["Brand Strategy & Identity", "Social Media Marketing", "Web Design & Dev", "Growth Systems"];
 const COMPANY = ["About Us", "Our Work", "Case Studies", "Contact"];
@@ -13,14 +13,15 @@ export default function Footer() {
                 <div className="h-px w-full mb-14" style={{ background: "linear-gradient(90deg, transparent, #00BFA6, transparent)" }} />
 
                 {/* Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 mb-12 items-start">
 
                     {/* Brand */}
                     <div className="lg:col-span-1">
                         <img
                             src={logo}
                             alt="Nexux"
-                            className="h-10 w-auto object-contain mb-4"
+                            className="h-20 w-auto object-contain mb-4"
+                            style={{ maxWidth: "180px" }}
                         />
                         <p className="text-white/45 text-sm leading-relaxed max-w-[220px] mb-5">
                             We connect strategy, design & technology to drive real business growth.
@@ -70,7 +71,7 @@ export default function Footer() {
                                 </li>
                             ))}
                             <li className="mt-1">
-                                <a href="mailto:hello@nexux.co" className="text-[#00BFA6] text-sm font-medium hover:underline">
+                                <a href="mailto:info@nexuxgh.com" className="text-[#00BFA6] text-sm font-medium hover:underline">
                                     info@nexuxgh.com
                                 </a>
                             </li>
@@ -82,12 +83,12 @@ export default function Footer() {
                 <div className="border-t border-white/5 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
                     <p className="text-white/25 text-xs">© {new Date().getFullYear()} Nexux. All rights reserved.</p>
                     <div className="flex gap-5">
-                        <a 
-                        href="#"
-                        className="text-xs text-white/25">Terms & Conditions</a>
+                        <a
+                            href="#"
+                            className="text-xs text-white/25">Terms & Conditions</a>
 
                         <a href="#"
-                        className="text-xs text-white/25">Privacy Policy</a>
+                            className="text-xs text-white/25">Privacy Policy</a>
                     </div>
                 </div>
             </div>
