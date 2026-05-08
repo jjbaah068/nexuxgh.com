@@ -1,30 +1,23 @@
 import { useEffect, useRef, useState } from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
-import cubes from "../assets/images/image1.jpg"
 import ab from "../assets/images/image2.png"
-import Spline from '@splinetool/react-spline';
 import { Player } from '@lottiefiles/react-lottie-player';
 
 /* ── Google Fonts ───────────────────────────────────────────────── */
-const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap');`;
+const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
 
-/* ── Minimal keyframes only (can't do in Tailwind) ──────────────── */
+/* ── Keyframes & styles ─────────────────────────────────────────── */
 const ANIM_STYLES = `
   @keyframes fadeUp   { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
   @keyframes pulse    { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.4;transform:scale(1.6);} }
-  @keyframes scrollY  { 0%,100%{opacity:1;transform:scaleY(1);} 50%{opacity:.3;transform:scaleY(.5);} }
-  @keyframes glow     { 0%,100%{box-shadow:0 0 0 0 rgba(0,191,166,0);} 50%{box-shadow:0 0 28px 6px rgba(0,191,166,.12);} }
 
-  @keyframes floatRotate {
-  0%   { transform: translateY(0px) rotate(0deg) scale(1); }
-  50%  { transform: translateY(-12px) rotate(1.5deg) scale(1.02); }
-  100% { transform: translateY(0px) rotate(0deg) scale(1); }
-}
+  /* Headline cycling animation */
+  @keyframes headlineIn  { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes headlineOut { from { opacity:1; transform:translateY(0); }    to { opacity:0; transform:translateY(-28px); } }
 
-.floating-img {
-  animation: floatRotate 6s ease-in-out infinite;
-}
+  .headline-enter { animation: headlineIn 0.55s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .headline-exit  { animation: headlineOut 0.4s ease-in forwards; }
 
   .anim-fade-1 { animation: fadeUp .7s .1s both; }
   .anim-fade-2 { animation: fadeUp .7s .25s both; }
@@ -32,59 +25,27 @@ const ANIM_STYLES = `
   .anim-fade-4 { animation: fadeUp .7s .55s both; }
   .anim-fade-5 { animation: fadeUp .7s .7s both; }
 
-  .pulse-dot   { animation: pulse 2s infinite; }
-  .scroll-bar  { animation: scrollY 2s infinite; }
-  
-
   .reveal { opacity:0; transform:translateY(20px); transition: opacity .6s ease, transform .6s ease; }
   .reveal.in { opacity:1; transform:translateY(0); }
 
-  /* service card bottom sweep */
   .svc-card { transition: transform .25s, box-shadow .25s, border-color .25s; }
-  .svc-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,.25); border-color: rgba(0,191,166,.25) !important; }
+  .svc-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,.08); border-color: rgba(0,191,166,.3) !important; }
 
-  /* ind card */
   .ind-card { transition: transform .2s, border-color .2s; }
   .ind-card:hover { transform:translateY(-4px); border-color:rgba(0,191,166,.3) !important; }
 
-  /* process step */
   .proc-step { transition: padding-left .2s; }
   .proc-step:hover { padding-left: 8px; }
 
-  body { font-family:'DM Sans',sans-serif; }
-  h1,h2,h3,h4 { font-family:'Syne',sans-serif; }
-`;
+  /* Geometric background shapes */
+  .geo-shape {
+    position: absolute;
+    opacity: 0.06;
+  }
 
-/* ── Animated dot canvas background ────────────────────────────── */
-function DotCanvas() {
-    const ref = useRef(null);
-    useEffect(() => {
-        const c = ref.current;
-        const ctx = c.getContext("2d");
-        let raf, t = 0;
-        const resize = () => { c.width = c.offsetWidth; c.height = c.offsetHeight; };
-        resize();
-        window.addEventListener("resize", resize);
-        const draw = () => {
-            ctx.clearRect(0, 0, c.width, c.height);
-            const gap = 40, cols = Math.ceil(c.width / gap) + 1, rows = Math.ceil(c.height / gap) + 1;
-            const cx = c.width / 2, cy = c.height / 2;
-            for (let r = 0; r < rows; r++) {
-                for (let col = 0; col < cols; col++) {
-                    const x = col * gap, y = r * gap;
-                    const d = Math.sqrt((x - cx) ** 2 + (y - cy) ** 2);
-                    const a = (Math.sin(d / 60 - t) * .5 + .5) * .15 + .025;
-                    ctx.beginPath(); ctx.arc(x, y, 1.2, 0, Math.PI * 2);
-                    ctx.fillStyle = `rgba(0,191,166,${a})`; ctx.fill();
-                }
-            }
-            t += .016; raf = requestAnimationFrame(draw);
-        };
-        draw();
-        return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", resize); };
-    }, []);
-    return <canvas ref={ref} className="absolute inset-0 w-full h-full pointer-events-none opacity-80" />;
-}
+  body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
+`;
 
 /* ── Scroll-reveal hook ─────────────────────────────────────────── */
 function useReveal() {
@@ -119,11 +80,11 @@ function Counter({ to, suffix }) {
 /* ── Service card ───────────────────────────────────────────────── */
 function ServiceCard({ icon, title, desc }) {
     return (
-        <div className="svc-card flex flex-col gap-4 p-7 rounded-xl bg-white/[.03] border border-white/[.07] cursor-default">
+        <div className="svc-card flex flex-col gap-4 p-7 rounded-xl bg-white border border-gray-100 cursor-default shadow-sm">
             <div className="w-11 h-11 rounded-lg bg-[#00BFA6]/10 flex items-center justify-center text-xl">{icon}</div>
             <div>
-                <h3 className="text-white text-base font-bold mb-2 leading-snug">{title}</h3>
-                <p className="text-white/45 text-sm leading-relaxed">{desc}</p>
+                <h3 className="text-[#0B1F3A] text-base font-bold mb-2 leading-snug">{title}</h3>
+                <p className="text-[#0B1F3A]/45 text-sm leading-relaxed">{desc}</p>
             </div>
             <span className="text-[#00BFA6] text-sm font-semibold mt-auto">Learn more →</span>
         </div>
@@ -133,12 +94,63 @@ function ServiceCard({ icon, title, desc }) {
 /* ── Process step ───────────────────────────────────────────────── */
 function Step({ n, title, desc }) {
     return (
-        <div className="proc-step reveal flex gap-6 py-6 border-b border-white/[.06]">
+        <div className="proc-step reveal flex gap-6 py-6 border-b border-[#0B1F3A]/[.06]">
             <span className="text-[#00BFA6] text-xs font-bold tracking-widest mt-1 shrink-0 w-6">{String(n).padStart(2, "0")}</span>
             <div>
-                <h4 className="text-white text-base font-bold mb-1.5">{title}</h4>
-                <p className="text-white/45 text-sm leading-relaxed">{desc}</p>
+                <h4 className="text-[#0B1F3A] text-base font-bold mb-1.5">{title}</h4>
+                <p className="text-[#0B1F3A]/45 text-sm leading-relaxed">{desc}</p>
             </div>
+        </div>
+    );
+}
+
+/* ── Rotating Headline ──────────────────────────────────────────── */
+const HEADLINES = [
+    { line1: "We connect strategy,", line2: "design & technology", line3: "to drive", highlight: "real business growth." },
+    { line1: "We build brands", line2: "that convert,", line3: "systems that", highlight: "compound results." },
+    { line1: "From confusion", line2: "to clarity —", line3: "strategy built for", highlight: "SMEs." },
+];
+
+function RotatingHeadline() {
+    const [index, setIndex] = useState(0);
+    const [phase, setPhase] = useState("enter"); // "enter" | "exit"
+
+    useEffect(() => {
+        const cycle = () => {
+            // After 3s visible, start exit
+            const exitTimer = setTimeout(() => {
+                setPhase("exit");
+                // After exit anim (400ms), switch text and re-enter
+                const switchTimer = setTimeout(() => {
+                    setIndex((i) => (i + 1) % HEADLINES.length);
+                    setPhase("enter");
+                }, 420);
+                return () => clearTimeout(switchTimer);
+            }, 3000);
+            return () => clearTimeout(exitTimer);
+        };
+
+        const cleanup = cycle();
+        return cleanup;
+    }, [index]);
+
+    const h = HEADLINES[index];
+
+    return (
+        <div
+            key={index}
+            className={`${phase === "enter" ? "headline-enter" : "headline-exit"}`}
+            style={{ minHeight: "clamp(180px, 22vw, 320px)" }}
+        >
+            <h1
+                className="text-[#0B1F3A] font-extrabold leading-[1.06] tracking-tight mb-5"
+                style={{ fontSize: "clamp(36px, 5.5vw, 72px)", maxWidth: 720 }}
+            >
+                {h.line1}<br />
+                {h.line2}<br />
+                {h.line3}{" "}
+                <span className="text-[#00BFA6]">{h.highlight}</span>
+            </h1>
         </div>
     );
 }
@@ -158,111 +170,60 @@ export default function Home() {
             {/* ── 1. HERO ────────────────────────────────────────────── */}
             <section
                 id="home"
-                className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-24 pb-10 overflow-hidden"
-                style={{ background: "linear-gradient(150deg,#060F1D 0%,#0B1F3A 60%,#0D2645 100%)" }}
+                className="relative min-h-screen flex flex-col justify-center px-6 pt-28 pb-16 overflow-hidden"
+                style={{ background: "linear-gradient(135deg, #f0f4f8 0%, #e8f0f7 50%, #f5f9fc 100%)" }}
             >
-                <DotCanvas />
+                {/* Geometric background shapes (matching screenshot) */}
+                <svg className="geo-shape" style={{ right: "-60px", top: "10%", width: "420px", height: "420px" }} viewBox="0 0 420 420">
+                    <rect x="60" y="60" width="300" height="300" rx="40" fill="none" stroke="#0B1F3A" strokeWidth="2" transform="rotate(15 210 210)" />
+                    <rect x="100" y="100" width="220" height="220" rx="30" fill="none" stroke="#0B1F3A" strokeWidth="1.5" transform="rotate(30 210 210)" />
+                </svg>
+                <svg className="geo-shape" style={{ right: "5%", top: "55%", width: "140px", height: "140px" }} viewBox="0 0 140 140">
+                    {[0,1,2,3,4].map(row => [0,1,2,3,4].map(col => (
+                        <circle key={`${row}-${col}`} cx={col * 28 + 14} cy={row * 28 + 14} r="2.5" fill="#00BFA6" opacity="0.6" />
+                    )))}
+                </svg>
 
-                {/* Soft centre glow */}
-                <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                    <div className="w-[700px] h-[500px] rounded-full opacity-20"
-                        style={{ background: "radial-gradient(ellipse,#00BFA6 0%,transparent 65%)", filter: "blur(60px)" }} />
-                </div>
+                {/* Subtle teal glow top-right */}
+                <div className="absolute top-0 right-0 w-[500px] h-[400px] pointer-events-none"
+                    style={{ background: "radial-gradient(ellipse at top right, rgba(0,191,166,0.08) 0%, transparent 65%)" }} />
 
-                {/* Badge */}
-                {/* <div className="anim-fade-1 relative z-10 inline-flex items-center gap-2 bg-[#00BFA6]/10 border border-[#00BFA6]/25 rounded-full px-4 py-1.5 mb-7">
-                    <span className="pulse-dot w-1.5 h-1.5 rounded-full bg-[#00BFA6] block" />
-                    <span className="text-[#00BFA6] text-[11px] font-semibold tracking-[.12em] uppercase">
-                        Marketing Technology Agency
-                    </span>
-                </div> */}
-
-                {/* Headline */}
-                <h1 className="anim-fade-2 relative z-10 text-white font-black leading-[1.08] tracking-tight mb-5"
-                    style={{ fontSize: "clamp(40px,7vw,88px)", maxWidth: 860 }}>
-                    Strategy. Design.{" "}
-                    <span className="text-[#00BFA6]">Technology.</span>
-                    <br />
-                    <span style={{ WebkitTextStroke: "1.5px rgba(255,255,255,0.28)", color: "transparent" }}>
-                        Built to grow your brand.
-                    </span>
-                </h1>
-
-                {/* Sub */}
-                <p className="anim-fade-3 relative z-10 text-white/55 font-light leading-relaxed mb-10"
-                    style={{ fontSize: "clamp(15px,1.8vw,18px)", maxWidth: 480 }}>
-                    We help SMEs, startups, and service brands grow with clear positioning,
-                    sharp design, and digital systems that convert.
-                </p>
-
-                {/* CTAs */}
-                <div className="anim-fade-4 relative z-10 flex flex-wrap gap-3 justify-center mb-10">
-                    <a href="#contact"
-                        className="bg-[#00BFA6] hover:bg-[#00a892] text-[#0B1F3A] font-bold text-sm px-7 py-3.5 rounded-lg transition-colors duration-200"
-                        style={{ boxShadow: "0 0 28px rgba(0,191,166,.3)" }}>
-                        Start a Project →
-                    </a>
-                    <a href="#services"
-                        className="border border-white/20 hover:border-white/40 text-white/70 hover:text-white font-medium text-sm px-7 py-3.5 rounded-lg transition-all duration-200">
-                        See Our Services
-                    </a>
-                </div>
-                {/* <div className="anim-fade-5 relative z-10 w-full max-w-5xl h-80 md:h-[480px] flex items-center justify-center">
-
-                    {/* Glow behind Spline */}
-                    {/* <div
-                        className="absolute w-[500px] h-[300px] rounded-full opacity-30"
-                        style={{
-                            background: "radial-gradient(ellipse, rgba(0,191,166,0.35), transparent 70%)",
-                            filter: "blur(60px)"
-                        }}
-                    /> */}
-
-                    {/* Spline iframe */}
-                    {/* <div className="relative w-full h-full rounded-2xl overflow-hidden">
-                        <div className="anim-fade-5 relative z-10 w-full max-w-5xl h-80 md:h-[480px] flex items-center justify-center">
-
-                            {/* Glow behind */}
-                            {/* <div
-                                className="absolute w-[500px] h-[300px] rounded-full opacity-30"
-                                style={{
-                                    background: "radial-gradient(ellipse, rgba(0,191,166,0.35), transparent 70%)",
-                                    filter: "blur(60px)"
-                                }}
-                            /> */} 
-
-                            {/* Floating Image */}
-                            {/* <div
-                                className="floating-img"
-                                onMouseMove={(e) => {
-                                    const x = (e.clientX / window.innerWidth - 0.5) * 10;
-                                    const y = (e.clientY / window.innerHeight - 0.5) * 10;
-                                    e.currentTarget.style.transform = `translate(${x}px, ${y}px)`;
-                                }}
-                            >
-                                <img
-                                    src={cubes}
-                                    alt="3D cubes"
-                                    className="w-full max-w-3xl object-contain opacity-95"
-                                    style={{ mixBlendMode: "screen" }}
-                                />
-                            </div> */}
-
-                        {/* </div>
+                <div className="max-w-6xl mx-auto w-full">
+                    {/* Badge */}
+                    {/* <div className="anim-fade-1 inline-flex items-center gap-2 bg-white/80 border border-[#00BFA6]/20 rounded-full px-4 py-1.5 mb-8 w-fit">
+                        <span className="w-2 h-2 rounded-full bg-[#00BFA6]" />
+                        <span className="text-[#0B1F3A]/70 text-xs font-semibold tracking-wide">Marketing Technology Agency · Accra, Ghana</span>
                     </div> */}
 
-                {/* </div>  */}
+                    {/* Rotating headline */}
+                    <div className="anim-fade-2">
+                        <RotatingHeadline />
+                    </div>
 
-                {/* Scroll cue */}
-                {/* <div className="absolute bottom-7 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5">
-                    <div className="scroll-bar w-px h-8" style={{ background: "linear-gradient(to bottom,rgba(0,191,166,.6),transparent)" }} />
-                    <span className="text-white/25 text-[9px] tracking-[.2em] uppercase">Scroll</span>
-                </div> */}
+                    {/* Sub */}
+                    <p className="anim-fade-3 text-[#0B1F3A]/55 font-normal leading-relaxed mb-10"
+                        style={{ fontSize: "clamp(15px,1.6vw,18px)", maxWidth: 460 }}>
+                        Built for SMEs ready to move from confusion to clarity.
+                    </p>
+
+                    {/* CTAs */}
+                    <div className="anim-fade-4 flex flex-wrap gap-3 mb-0">
+                        <a href="#contact"
+                            className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-sm px-8 py-4 rounded-lg transition-colors duration-200 flex items-center gap-2"
+                            style={{ boxShadow: "0 4px 24px rgba(0,191,166,.25)" }}>
+                            Start a Project →
+                        </a>
+                        <a href="#work"
+                            className="border border-[#0B1F3A]/15 hover:border-[#0B1F3A]/30 bg-white hover:bg-gray-50 text-[#0B1F3A]/70 hover:text-[#0B1F3A] font-medium text-sm px-8 py-4 rounded-lg transition-all duration-200 flex items-center gap-2">
+                            See our work →
+                        </a>
+                    </div>
+                </div>
             </section>
 
             {/* ── 2. STATS ───────────────────────────────────────────── */}
-            <section className="bg-[#F5F7FA] px-6 py-12">
-                <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-[#0B1F3A]/10 divide-y md:divide-y-0">
+            <section className="bg-white px-6 py-12 border-y border-gray-100">
+                <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100 divide-y md:divide-y-0">
                     {[
                         { n: 50, s: "+", label: "Brands Served" },
                         { n: 98, s: "%", label: "Client Satisfaction" },
@@ -281,11 +242,11 @@ export default function Home() {
             </section>
 
             {/* ── 3. SERVICES ────────────────────────────────────────── */}
-            <section id="services" className="bg-[#0B1F3A] px-6 py-24">
+            <section id="services" className="bg-[#F5F7FA] px-6 py-24">
                 <div className="max-w-6xl mx-auto">
                     <div className="mb-12">
                         <span className="reveal block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-3">What We Do</span>
-                        <h2 className="reveal text-white font-black leading-tight tracking-tight"
+                        <h2 className="reveal text-[#0B1F3A] font-black leading-tight tracking-tight"
                             style={{ fontSize: "clamp(28px,4vw,48px)", maxWidth: 480 }}>
                             Everything your brand needs to grow
                         </h2>
@@ -293,7 +254,7 @@ export default function Home() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
                         <div className="reveal"><ServiceCard icon="🧠" title="Brand Strategy & Identity"
                             desc="Positioning, messaging, and visual direction that make your brand stand for something real." /></div>
-                        <div className="reveal" style={{ transitionDelay: "80ms" }}><ServiceCard icon="📣" title="Social Media & Digital Marketing"
+                        <div className="reveal" style={{ transitionDelay: "80ms" }}><ServiceCard icon="📣" title="Digital & Social Media Marketing"
                             desc="Campaigns and content strategies that grow your audience and drive consistent engagement." /></div>
                         <div className="reveal" style={{ transitionDelay: "160ms" }}><ServiceCard icon="💻" title="Web Design & Development"
                             desc="Clean, fast, responsive websites engineered to convert visitors into customers." /></div>
@@ -304,27 +265,11 @@ export default function Home() {
             </section>
 
             {/* ── 4. ABOUT ───────────────────────────────────────────── */}
-            <section id="about" className="bg-[#F5F7FA] px-6 py-24">
+            <section id="about" className="bg-white px-6 py-24">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-
-                    {/* Image slot
-              ───────────────────────────────────────────────────────
-              REPLACE with a real photo. Good options on unsplash.com:
-              Search "digital agency team", "brand strategy desk", or
-              "startup team macbook". Download and place in /public/images/
-              Then use: <img src="/images/about.jpg" className="w-full h-full object-cover rounded-2xl" />
-              ─────────────────────────────────────────────────────── */}
-                    <div className="reveal w-full h-80 lg:h-[420px] rounded-2xl flex items-center justify-center"
-                        style={{ background: "linear-gradient(135deg,#0B1F3A,#0D2E4A)" }}>
-                        {/* <div className="text-center">
-                            <p className="text-white/15 text-xs tracking-widest uppercase mb-1">[ Team / Studio Photo ]</p>
-                            <p className="text-[#00BFA6]/30 text-xs italic">Replace with a real image from Unsplash</p>
-                        </div> */}
-                        <img src={ab}
-                            className="w-full h-full object-cover rounded-2xl" />
+                    <div className="reveal w-full h-80 lg:h-[420px] rounded-2xl overflow-hidden">
+                        <img src={ab} className="w-full h-full object-cover rounded-2xl" alt="About Nexux" />
                     </div>
-
-                    {/* Copy */}
                     <div className="reveal">
                         <span className="block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-3">Why Nexux</span>
                         <h2 className="text-[#0B1F3A] font-black leading-tight tracking-tight mb-4"
@@ -336,7 +281,6 @@ export default function Home() {
                             digital strategy, and precise execution to deliver results that compound — not
                             just one-off deliverables.
                         </p>
-
                         <ul className="flex flex-col gap-3 mb-8">
                             {[
                                 "Strategy-first on every project",
@@ -354,7 +298,6 @@ export default function Home() {
                                 </li>
                             ))}
                         </ul>
-
                         <a href="#contact"
                             className="inline-flex items-center gap-2 bg-[#0B1F3A] hover:bg-[#0d2545] text-white font-bold text-sm px-6 py-3 rounded-lg transition-colors duration-200">
                             Work With Us →
@@ -364,12 +307,11 @@ export default function Home() {
             </section>
 
             {/* ── 5. PROCESS ─────────────────────────────────────────── */}
-            <section id="work" className="bg-[#060F1D] px-6 py-24 text-white">
+            <section id="work" className="bg-[#F5F7FA] px-6 py-24">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-
                     <div>
                         <span className="reveal block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-3">How We Work</span>
-                        <h2 className="reveal font-black leading-tight tracking-tight mb-1"
+                        <h2 className="reveal text-[#0B1F3A] font-black leading-tight tracking-tight mb-1"
                             style={{ fontSize: "clamp(26px,3.8vw,46px)" }}>
                             Our four-step process
                         </h2>
@@ -384,30 +326,22 @@ export default function Home() {
                                 desc="We measure results and keep improving, turning early wins into compounding growth." />
                         </div>
                     </div>
-
                     <div className="reveal lg:sticky lg:top-24">
                         <div
-                            className="w-full h-80 lg:h-96 rounded-2xl border border-[#00BFA6]/10 flex items-center justify-center overflow-hidden"
-                            style={{
-                                background: "linear-gradient(135deg,rgba(0,191,166,.04),rgba(0,191,166,.01))"
-                            }}
+                            className="w-full h-80 lg:h-96 rounded-2xl border border-gray-200 flex items-center justify-center bg-white overflow-hidden"
                         >
-                            <Player
-                                autoplay
-                                loop
-                                src="https://assets10.lottiefiles.com/packages/lf20_jcikwtux.json"
-                                style={{ width: "100%", height: "100%" }}
-                            />
+                            {/* Lottie player — keep existing import if you have it */}
+                            <Player autoplay loop src="https://assets10.lottiefiles.com/packages/lf20_jcikwtux.json" style={{ width: "100%", height: "100%" }} />
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* 6. WHO WE SERVE  */}
-            <section className="bg-[#0B1F3A] px-6 py-24 text-white text-center">
+            {/* ── 6. WHO WE SERVE ────────────────────────────────────── */}
+            <section className="bg-white px-6 py-24 text-center">
                 <div className="max-w-5xl mx-auto">
                     <span className="reveal block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-3">Who We Serve</span>
-                    <h2 className="reveal font-black leading-tight tracking-tight mb-14 mx-auto"
+                    <h2 className="reveal text-[#0B1F3A] font-black leading-tight tracking-tight mb-14 mx-auto"
                         style={{ fontSize: "clamp(26px,4vw,48px)", maxWidth: 540 }}>
                         Built for businesses that mean business
                     </h2>
@@ -419,11 +353,11 @@ export default function Home() {
                             { icon: "🛠️", title: "Service Businesses", desc: "Local & professional brands needing leads" },
                         ].map(({ icon, title, desc }, i) => (
                             <div key={title}
-                                className="ind-card reveal border border-white/[.07] rounded-xl px-5 py-7 cursor-default"
+                                className="ind-card reveal border border-gray-100 rounded-xl px-5 py-7 cursor-default bg-[#F5F7FA]"
                                 style={{ transitionDelay: `${i * 60}ms` }}>
                                 <div className="text-3xl mb-3">{icon}</div>
-                                <h4 className="text-white font-bold text-sm mb-1.5 leading-snug">{title}</h4>
-                                <p className="text-white/40 text-[13px] leading-relaxed">{desc}</p>
+                                <h4 className="text-[#0B1F3A] font-bold text-sm mb-1.5 leading-snug">{title}</h4>
+                                <p className="text-[#0B1F3A]/40 text-[13px] leading-relaxed">{desc}</p>
                             </div>
                         ))}
                     </div>
@@ -432,12 +366,10 @@ export default function Home() {
 
             {/* ── 7. CTA ─────────────────────────────────────────────── */}
             <section id="contact" className="relative bg-[#0B1F3A] px-6 py-28 text-white text-center overflow-hidden">
-                {/* Background glow */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <div className="w-[600px] h-[300px] opacity-20 rounded-full"
                         style={{ background: "radial-gradient(ellipse,#00BFA6,transparent 65%)", filter: "blur(50px)" }} />
                 </div>
-
                 <div className="relative z-10 max-w-2xl mx-auto">
                     <span className="reveal block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-4">Let's Talk</span>
                     <h2 className="reveal font-black leading-tight tracking-tight mb-5"
@@ -451,7 +383,7 @@ export default function Home() {
                     </p>
                     <div className="reveal flex flex-wrap gap-3 justify-center">
                         <a href="mailto:hello@nexux.co"
-                            className="bg-[#00BFA6] hover:bg-[#00a892] text-[#0B1F3A] font-bold text-[15px] px-9 py-4 rounded-lg transition-colors duration-200"
+                            className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-[15px] px-9 py-4 rounded-lg transition-colors duration-200"
                             style={{ boxShadow: "0 0 32px rgba(0,191,166,.3)" }}>
                             Start a Conversation →
                         </a>

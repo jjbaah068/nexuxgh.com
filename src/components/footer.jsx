@@ -1,4 +1,4 @@
-import logo from "../assets/images/logo.jpeg"
+import logo from "../assets/images/logo1.jpeg"
 
 const SERVICES = ["Brand Strategy & Identity", "Social Media Marketing", "Web Design & Dev", "Growth Systems"];
 const COMPANY = ["About Us", "Our Work", "Case Studies", "Contact"];
@@ -20,8 +20,7 @@ export default function Footer() {
                         <img
                             src={logo}
                             alt="Nexux"
-                            className="h-9 w-9 object-contain rounded-full ring-1 ring-white/10"
-                            style={{ mixBlendMode: "screen" }}
+                            className="h-10 w-auto object-contain mb-4"
                         />
                         <p className="text-white/45 text-sm leading-relaxed max-w-[220px] mb-5">
                             We connect strategy, design & technology to drive real business growth.
