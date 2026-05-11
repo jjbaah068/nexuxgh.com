@@ -1,4 +1,4 @@
-import logo from "../assets/images/logo.png"
+import logo from "../assets/images/footerlogo.png"
 
 const SERVICES = ["Brand Strategy & Identity", "Social Media Marketing", "Web Design & Dev", "Growth Systems"];
 const COMPANY = ["About Us", "Our Work", "Case Studies", "Contact"];

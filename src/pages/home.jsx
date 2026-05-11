@@ -376,8 +376,7 @@ export default function Home() {
                         your <span className="text-[#00BFA6]">brand?</span>
                     </h2>
                     <p className="reveal text-white/50 text-base leading-relaxed mb-10 mx-auto" style={{ maxWidth: 400 }}>
-                        No pitch, no pressure — just a real conversation about where you are
-                        and where you want to be.
+                        Let’s talk about where your business is and where it could be.
                     </p>
                     <div className="reveal flex flex-wrap gap-3 justify-center">
                         <a href="mailto:info@nexuxgh.com"

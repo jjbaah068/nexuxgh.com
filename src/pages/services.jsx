@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import PhoneHero from "../assets/images/phonehero.png";
+import servicesHero from "../assets/images/servicehero.jpeg";
 
 /* ── Fonts & Animations ─────────────────────────────────────────── */
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
@@ -91,59 +92,79 @@ function useReveal() {
 const SERVICES = [
     {
         id: "brand",
-        icon: "🧠",
-        label: "Brand Strategy",
-        title: "Brand Strategy & Identity",
-        tagline: "Stand for something real.",
-        desc: "Most brands blend in. We build ones that stand out — with sharp positioning, clear messaging, and a visual identity that actually means something to your audience.",
-        deliverables: ["Brand positioning framework", "Messaging & tone of voice", "Logo & visual identity system", "Brand style guide"],
+        label: "Brand Strategy & Identity",
+        title: "Build a brand that stands out.",
+        desc: "We help you define who you are, what you stand for, and how you show up in the market.",
+        tags: ["Positioning", "Messaging", "Identity"],
         color: "#3B5BDB",
+        icon: (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
+                <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
+                <path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+        ),
     },
     {
         id: "social",
-        icon: "📣",
-        label: "Social & Marketing",
-        title: "Digital & Social Media Marketing",
-        tagline: "Grow your audience. Own the feed.",
-        desc: "Scroll-stopping content, intentional strategy, and data-backed campaigns that build real audiences — not just vanity metrics. Consistent presence that compounds.",
-        deliverables: ["Content strategy & calendar", "Platform management", "Ad campaign creation", "Monthly performance reports"],
+        label: "Social & Content Marketing",
+        title: "Content that attracts and converts.",
+        desc: "We create and manage content that builds your presence, engages your audience, and drives results.",
+        tags: ["Strategy", "Content", "Campaigns"],
         color: "#00BFA6",
+        icon: (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M22 4L11 15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                <path d="M22 4L15 21L11 15L5 11L22 4Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+        ),
     },
     {
         id: "web",
-        icon: "💻",
-        label: "Web Design & Dev",
-        title: "Web Design & Development",
-        tagline: "Fast. Beautiful. Built to convert.",
-        desc: "Clean, responsive websites engineered to turn visitors into customers. Every layout decision is intentional. Every interaction is polished. No fluff, just results.",
-        deliverables: ["UI/UX design & prototyping", "Responsive development", "CMS integration", "Performance & SEO optimisation"],
+        label: "Web Design & Development",
+        title: "Websites built to convert.",
+        desc: "We design fast, responsive, and user-friendly websites that turn visitors into customers.",
+        tags: ["UI/UX Design", "Development", "CMS"],
         color: "#F59F00",
+        icon: (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <rect x="2" y="4" width="20" height="15" rx="2" stroke="currentColor" strokeWidth="1.8" />
+                <path d="M8 20h8M12 19v1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                <path d="M8 10l2 2-2 2M12 14h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+        ),
     },
     {
         id: "growth",
-        icon: "⚙️",
-        label: "Growth Systems",
-        title: "Growth Systems & Automation",
-        tagline: "Compound your results over time.",
-        desc: "Lead funnels, automation flows, and CRM systems that work while you sleep. We build the infrastructure that turns a trickle of leads into a predictable pipeline.",
-        deliverables: ["Lead funnel architecture", "Email automation setup", "CRM configuration", "Conversion rate optimisation"],
+        label: "Growth Systems & Automation",
+        title: "Systems that drive consistent growth.",
+        desc: "We build marketing systems, automations, and funnels that help you generate leads and scale.",
+        tags: ["Automation", "CRM", "Funnels"],
         color: "#E64980",
+        icon: (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+                <path d="M2 17l10 5 10-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+        ),
     },
 ];
 
 const PROCESS = [
-    { n: "01", title: "Discovery Call", desc: "We learn your business, goals, and challenges in a focused 45-minute session. No fluff — just real clarity." },
-    { n: "02", title: "Strategy & Proposal", desc: "We map out a tailored plan and present a clear scope, timeline, and investment — before any work begins." },
-    { n: "03", title: "Design & Build", desc: "Our team executes with precision. You get regular updates and feedback checkpoints throughout." },
-    { n: "04", title: "Launch & Optimise", desc: "We go live, monitor performance, and keep improving. Your growth doesn't stop at launch — neither do we." },
+    { n: "01", title: "Discovery Call", desc: "We learn about your business, goals, and current challenges so we can understand where you are and where you want to go." },
+    { n: "02", title: "Strategy & Proposal", desc: "We create a clear roadmap, timeline, and scope before execution begins." },
+    { n: "03", title: "Design & Execution", desc: "We design, build, and refine with regular updates throughout the project. " },
+    { n: "04", title: "Launch & Optimise", desc: "Once everything goes live, we monitor performance, improve continuously, and support long-term growth." },
 ];
 
 const FAQS = [
-    { q: "How long does a typical project take?", a: "It depends on scope. A brand identity project usually takes 3–4 weeks. A full website is typically 4–6 weeks. We'll give you a clear timeline before we start." },
-    { q: "Do you work with early-stage startups?", a: "Absolutely. Some of our best work has been with founders who are just getting started. We love helping new brands build a strong foundation from day one." },
-    { q: "Can I hire you for just one service?", a: "Yes. You can engage us for a single service or a full-stack package. We'll recommend what makes the most sense for your goals." },
+    { q: "What timelines should I expect?", a: "It depends on scope. A brand identity project usually takes 3–4 weeks. A full website is typically 4–6 weeks. We'll give you a clear timeline before we start." },
+    { q: "Who do you typically work with?", a: "We primarily work with SMEs, startups, and growing brands that want clearer positioning, stronger digital presence, and marketing that drives real business results." },
+    { q: "Can we start with a single service?", a: "Yes. You can engage us for a single service or a full-stack package. We'll recommend what makes the most sense for your goals." },
     { q: "What does the pricing look like?", a: "Every project is scoped individually. After your discovery call, we'll send a transparent proposal with a clear breakdown. No hidden fees." },
     { q: "Do you work with clients outside Ghana?", a: "Yes — we work with clients across Africa and internationally. Most of our process is remote-friendly." },
+    { q: "What makes Nexux different from other agencies?", a: "We combine strategy, design, and technology under one roof to build marketing systems that create long-term business growth, not just short-term activity." },
 ];
 
 /* ── Sub-components ─────────────────────────────────────────────── */
@@ -151,50 +172,48 @@ const FAQS = [
 function ServiceCard({ svc, index }) {
     return (
         <div
-            className="srv reveal bg-white border border-gray-100 rounded-2xl p-8 flex flex-col gap-5"
+            className="srv reveal bg-white border border-gray-100 rounded-2xl p-7 flex flex-col gap-5"
             style={{ transitionDelay: `${index * 70}ms` }}
         >
             {/* Icon */}
             <div
-                className="srv-icon w-14 h-14 rounded-xl flex items-center justify-center text-2xl shrink-0"
-                style={{ background: `${svc.color}14`, border: `1.5px solid ${svc.color}25` }}
+                className="srv-icon w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+                style={{ background: `${svc.color}12`, color: svc.color, border: `1.5px solid ${svc.color}20` }}
             >
                 {svc.icon}
             </div>
 
-            {/* Text */}
+            {/* Label */}
+            <p className="text-[10px] font-bold tracking-widest uppercase" style={{ color: svc.color }}>
+                {svc.label}
+            </p>
+
+            {/* Title + desc */}
             <div className="flex-1">
-                <p className="text-[10px] font-bold tracking-widest uppercase mb-2" style={{ color: svc.color }}>
-                    {svc.label}
-                </p>
-                <h3 className="text-[#0B1F3A] font-extrabold text-lg leading-snug mb-2">{svc.title}</h3>
+                <h3 className="text-[#0B1F3A] font-extrabold text-lg leading-snug mb-3">{svc.title}</h3>
                 <p className="text-[#0B1F3A]/50 text-sm leading-relaxed">{svc.desc}</p>
             </div>
 
-            {/* Deliverables */}
-            <ul className="flex flex-col gap-2 border-t border-gray-100 pt-5 mt-1">
-                {svc.deliverables.map((d) => (
-                    <li key={d} className="flex items-center gap-2.5 text-[#334455] text-sm">
-                        <span
-                            className="w-4 h-4 rounded-full flex items-center justify-center shrink-0"
-                            style={{ background: `${svc.color}18` }}
-                        >
-                            <svg width="7" height="5" viewBox="0 0 7 5" fill="none">
-                                <path d="M1 2.5l1.5 1.5L6 1" stroke={svc.color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
-                        </span>
-                        {d}
-                    </li>
+            {/* Tag pills */}
+            <div className="flex flex-wrap gap-2">
+                {svc.tags.map((tag) => (
+                    <span
+                        key={tag}
+                        className="text-[11px] font-semibold px-2.5 py-1 rounded-full"
+                        style={{ background: `${svc.color}10`, color: svc.color }}
+                    >
+                        {tag}
+                    </span>
                 ))}
-            </ul>
+            </div>
 
             {/* CTA */}
             <a
                 href="#contact"
-                className="inline-flex items-center gap-1.5 text-sm font-bold transition-colors duration-200 mt-1"
+                className="inline-flex items-center gap-1.5 text-sm font-bold transition-colors duration-200"
                 style={{ color: svc.color }}
             >
-                Get started →
+                Learn more →
             </a>
         </div>
     );
@@ -243,7 +262,7 @@ export default function Services() {
             >
                 {/* Background image */}
                 <img
-                    src={PhoneHero}
+                    src={servicesHero}
                     alt="Nexux mobile experience"
                     className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -260,16 +279,14 @@ export default function Services() {
                         className="anim-2 text-white font-extrabold leading-[1.06] tracking-tight mb-5"
                         style={{ fontSize: "clamp(38px, 5.5vw, 72px)", maxWidth: 700 }}
                     >
-                        Services built to{" "}
-                        <span className="text-[#00BFA6]">move your business</span>{" "}
-                        forward.
+                        Strategy, design & systems that{" "}
+                        <span className="text-[#00BFA6]">grow your business</span>
                     </h1>
                     <p
                         className="anim-3 text-white/70 leading-relaxed mb-10"
                         style={{ fontSize: "clamp(15px,1.6vw,18px)", maxWidth: 480 }}
                     >
-                        From brand foundation to digital growth — we handle the strategy,
-                        design, and systems so you can focus on what you do best.
+                        We combine strategy, design, and technology to help brands grow with clarity and consistency.
                     </p>
                     <div className="anim-4 flex flex-wrap gap-3">
                         <a
@@ -277,7 +294,7 @@ export default function Services() {
                             className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-sm px-7 py-3.5 rounded-lg transition-colors duration-200"
                             style={{ boxShadow: "0 4px 20px rgba(0,191,166,.35)" }}
                         >
-                            Book a free call →
+                            Start a Project →
                         </a>
                         <a
                             href="#services-grid"
@@ -288,23 +305,31 @@ export default function Services() {
                     </div>
                 </div>
             </section>
+
             {/* ── SERVICES GRID ───────────────────────────────────── */}
-            < section id="services-grid" className="bg-[#F5F7FA] px-6 py-24" >
+            <section id="services-grid" className="bg-[#F5F7FA] px-6 py-24">
                 <div className="max-w-6xl mx-auto">
-                    <div className="mb-12">
-                        <span className="reveal block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-3">Our Services</span>
-                        <h2 className="reveal text-[#0B1F3A] font-extrabold leading-tight"
-                            style={{ fontSize: "clamp(26px,3.5vw,44px)", maxWidth: 460 }}>
-                            Everything under one roof
+
+                    {/* Header */}
+                    <div className="mb-14 text-center">
+                        <span className="reveal block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-4">Our Services</span>
+                        <h2 className="reveal text-[#0B1F3A] font-extrabold leading-tight tracking-tight mb-4"
+                            style={{ fontSize: "clamp(32px,4.5vw,56px)" }}>
+                            Everything under one roof.
                         </h2>
+                        <p className="reveal text-[#556677] text-base leading-relaxed mx-auto" style={{ maxWidth: 420 }}>
+                            Strategic thinking. Creative execution. Powerful systems.<br />
+                            All working together to grow your business.
+                        </p>
                     </div>
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
                         {SERVICES.map((svc, i) => (
                             <ServiceCard key={svc.id} svc={svc} index={i} />
                         ))}
                     </div>
                 </div>
-            </section >
+            </section>
 
             {/* ── DIFFERENTIATOR BAND ─────────────────────────────── */}
             < section className="bg-[#0B1F3A] px-6 py-16" >
@@ -313,7 +338,7 @@ export default function Services() {
                         {[
                             { icon: "🎯", title: "Strategy First", desc: "We never skip the thinking. Every project starts with a clear plan before we touch design or code." },
                             { icon: "🔁", title: "Built to Compound", desc: "Our work doesn't stop at delivery. We build systems that keep generating results over time." },
-                            { icon: "📍", title: "Africa-Focused", desc: "We understand the local market, the local customer, and the context your brand lives in." },
+                            { icon: "🗣️", title: "Clear Communication", desc: "No confusing jargon, hidden processes, or unclear timelines. You always know what’s happening" },
                         ].map(({ icon, title, desc }, i) => (
                             <div
                                 key={title}
@@ -345,8 +370,7 @@ export default function Services() {
                             From first call to lasting results
                         </h2>
                         <p className="reveal text-[#556677] text-base leading-relaxed" style={{ maxWidth: 380 }}>
-                            A clear, collaborative process — no confusion, no surprises.
-                            Just momentum from day one.
+                            A focused process built for clarity and steady execution.
                         </p>
                     </div>
 
@@ -399,7 +423,7 @@ export default function Services() {
                     <div className="w-[500px] h-[260px] opacity-20 rounded-full"
                         style={{ background: "radial-gradient(ellipse,#00BFA6,transparent 65%)", filter: "blur(50px)" }} />
                 </div>
-                <div className="relative z-10 max-w-xl mx-auto">
+                <div className="relative z-10 mx-auto">
                     <span className="reveal block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-4">Ready to Start?</span>
                     <h2 className="reveal text-white font-extrabold leading-tight mb-5"
                         style={{ fontSize: "clamp(30px,4.5vw,56px)" }}>
@@ -407,7 +431,7 @@ export default function Services() {
                         <span className="text-[#00BFA6]">worth talking about.</span>
                     </h2>
                     <p className="reveal text-white/45 text-base leading-relaxed mb-10" style={{ maxWidth: 380, margin: "0 auto 2.5rem" }}>
-                        Book a free discovery call — no commitment, just clarity on what's possible for your business.
+                       Let’s explore the right strategy, systems, and next steps for your business.
                     </p>
                     <div className="reveal flex flex-wrap gap-3 justify-center">
                         <a
@@ -415,7 +439,7 @@ export default function Services() {
                             className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-[15px] px-9 py-4 rounded-lg transition-colors"
                             style={{ boxShadow: "0 0 32px rgba(0,191,166,.3)" }}
                         >
-                            Start a Conversation →
+                            Start a Project →
                         </a>
                     </div>
                 </div>
