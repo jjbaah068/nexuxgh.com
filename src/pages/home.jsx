@@ -3,7 +3,7 @@ import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import ab from "../assets/images/image2.png"
 import { Player } from '@lottiefiles/react-lottie-player';
-import hero from "../assets/images/hero2.png";
+import hero from "../assets/images/homehero.jpeg";
 
 /* ── Google Fonts ───────────────────────────────────────────────── */
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
