@@ -402,13 +402,13 @@ export default function Work() {
                         Let's talk about what you're building and how we can help you grow it.
                     </p>
                     <div className="reveal flex flex-wrap gap-3 justify-center">
-                        <Link
-                            to="/contact"
+                        <a
+                            href="mailto:info@nexuxgh.com"
                             className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-[15px] px-9 py-4 rounded-lg transition-colors"
                             style={{ boxShadow: "0 0 32px rgba(0,191,166,.3)" }}
                         >
                             Start a conversation →
-                        </Link>
+                        </a>
                         <Link
                             to="/services"
                             className="border border-white/20 hover:border-white/40 text-white/65 hover:text-white font-medium text-[15px] px-9 py-4 rounded-lg transition-all"

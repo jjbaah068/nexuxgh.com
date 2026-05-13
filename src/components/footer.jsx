@@ -1,8 +1,27 @@
+import { Link } from "react-router";
 import logo from "../assets/images/footerlogo.png"
 
-const SERVICES = ["Brand Strategy & Identity", "Social Media Marketing", "Web Design & Dev", "Growth Systems"];
-const COMPANY = ["About Us", "Our Work", "Case Studies", "Contact"];
-const SOCIALS = [{ name: "LinkedIn", href: "#" }, { name: "Instagram", href: "#" }, { name: "Twitter / X", href: "#" }];
+const SERVICES = [
+    { name: "Brand Strategy & Identity", path: "/services" },
+    { name: "Social Media Marketing", path: "/services" },
+    { name: "Web Design & Dev", path: "/services" },
+    { name: "Growth Systems", path: "/services" },
+];
+
+const COMPANY = [
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Services", path: "/services" },
+    { name: "Work", path: "/work" },
+    { name: "Insight", path: "/insight" },
+    // { name: "Contact", path: "/contact" },
+];
+
+const SOCIALS = [
+    { name: "LinkedIn", href: "#", target: "_blank" },
+    { name: "Instagram", href: "https://instagram.com/nexuxgh", target: "_blank" },
+    { name: "Facebook", href: "https://web.facebook.com/profile.php?id=61565329845637", target: "_blank" },
+];
 
 export default function Footer() {
     return (
@@ -36,10 +55,10 @@ export default function Footer() {
                         <p className="text-white/30 text-[11px] font-bold tracking-widest uppercase mb-5">Services</p>
                         <ul className="flex flex-col gap-3">
                             {SERVICES.map((s) => (
-                                <li key={s}>
-                                    <a href="#services" className="text-white/55 hover:text-[#00BFA6] text-sm transition-colors duration-200">
-                                        {s}
-                                    </a>
+                                <li key={s.name}>
+                                    <Link to={s.path} className="text-white/55 hover:text-[#00BFA6] text-sm transition-colors duration-200">
+                                        {s.name}
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
@@ -50,10 +69,10 @@ export default function Footer() {
                         <p className="text-white/30 text-[11px] font-bold tracking-widest uppercase mb-5">Company</p>
                         <ul className="flex flex-col gap-3">
                             {COMPANY.map((c) => (
-                                <li key={c}>
-                                    <a href="#" className="text-white/55 hover:text-[#00BFA6] text-sm transition-colors duration-200">
-                                        {c}
-                                    </a>
+                                <li key={c.name}>
+                                    <Link to={c.path} className="text-white/55 hover:text-[#00BFA6] text-sm transition-colors duration-200">
+                                        {c.name}
+                                    </Link>
                                 </li>
                             ))}
                         </ul>
@@ -65,7 +84,12 @@ export default function Footer() {
                         <ul className="flex flex-col gap-3">
                             {SOCIALS.map((s) => (
                                 <li key={s.name}>
-                                    <a href={s.href} className="text-white/55 hover:text-[#00BFA6] text-sm transition-colors duration-200">
+                                    <a
+                                        href={s.href}
+                                        target={s.target || "_self"}
+                                        rel={s.target === "_blank" ? "noopener noreferrer" : undefined}
+                                        className="text-white/55 hover:text-[#00BFA6] text-sm transition-colors duration-200"
+                                    >
                                         {s.name}
                                     </a>
                                 </li>

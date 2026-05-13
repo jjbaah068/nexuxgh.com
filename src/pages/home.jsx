@@ -206,12 +206,12 @@ export default function Home() {
 
                     {/* CTAs */}
                     <div className="anim-fade-4 flex flex-wrap gap-3 mb-0">
-                        <a href="#contact"
+                        <a href="/contact"
                             className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-sm px-8 py-4 rounded-lg transition-colors duration-200 flex items-center gap-2"
                             style={{ boxShadow: "0 4px 24px rgba(0,191,166,.25)" }}>
                             Start a Project →
                         </a>
-                        <a href="#work"
+                        <a href="/work"
                             className="border border-white/30 hover:border-white/60 text-white/75 hover:text-white font-medium text-sm px-8 py-4 rounded-lg transition-all duration-200 flex items-center gap-2">
                             See our work →
                         </a>
@@ -296,7 +296,7 @@ export default function Home() {
                                 </li>
                             ))}
                         </ul>
-                        <a href="#contact"
+                        <a href="/contact"
                             className="inline-flex items-center gap-2 bg-[#0B1F3A] hover:bg-[#0d2545] text-white font-bold text-sm px-6 py-3 rounded-lg transition-colors duration-200">
                             Work With Us →
                         </a>
@@ -384,7 +384,7 @@ export default function Home() {
                             style={{ boxShadow: "0 0 32px rgba(0,191,166,.3)" }}>
                             Start a Conversation →
                         </a>
-                        <a href="#work"
+                        <a href="/work"
                             className="border border-white/20 hover:border-white/40 text-white/65 hover:text-white font-medium text-[15px] px-9 py-4 rounded-lg transition-all duration-200">
                             See Our Work
                         </a>

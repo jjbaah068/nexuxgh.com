@@ -7,7 +7,8 @@ const LINKS = [
     { name: "About", path: "/about" },
     { name: "Services", path: "/services" },
     { name: "Work", path: "/work" },
-    { name: "Contact", path: "/contact" },
+    { name: "Insight", path: "/insight" },
+    // { name: "Contact", path: "/contact" },
 ];
 
 export default function Navbar() {

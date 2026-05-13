@@ -41,8 +41,28 @@ const STYLES = `
     transition: background .25s, color .25s, transform .25s;
   }
 
-  /* Tab pill */
-  .tab-pill {
+  /* Card flip */
+.flip-container { perspective: 1000px; }
+.flip-inner { 
+  position: relative; 
+  width: 100%; 
+  height: 100%;
+  transition: transform 0.55s cubic-bezier(0.4,0.2,0.2,1);
+  transform-style: preserve-3d;
+}
+.flip-inner.flipped { transform: rotateY(180deg); }
+.flip-front, .flip-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.flip-back { transform: rotateY(180deg); }
+
+/* Tab pill */
+.tab-pill {
     transition: background .2s, color .2s, box-shadow .2s;
   }
   .tab-pill.active {
@@ -89,6 +109,68 @@ function useReveal() {
 }
 
 /* ── Data ───────────────────────────────────────────────────────── */
+// const SERVICES = [
+//     {
+//         id: "brand",
+//         label: "Brand Strategy & Identity",
+//         title: "Build a brand that stands out.",
+//         desc: "We help you define who you are, what you stand for, and how you show up in the market.",
+//         tags: ["Positioning", "Messaging", "Identity"],
+//         color: "#3B5BDB",
+//         icon: (
+//             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+//                 <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
+//                 <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
+//                 <path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+//             </svg>
+//         ),
+//     },
+//     {
+//         id: "social",
+//         label: "Social & Content Marketing",
+//         title: "Content that attracts and converts.",
+//         desc: "We create and manage content that builds your presence, engages your audience, and drives results.",
+//         tags: ["Strategy", "Content", "Campaigns"],
+//         color: "#00BFA6",
+//         icon: (
+//             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+//                 <path d="M22 4L11 15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+//                 <path d="M22 4L15 21L11 15L5 11L22 4Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+//             </svg>
+//         ),
+//     },
+//     {
+//         id: "web",
+//         label: "Web Design & Development",
+//         title: "Websites built to convert.",
+//         desc: "We design fast, responsive, and user-friendly websites that turn visitors into customers.",
+//         tags: ["UI/UX Design", "Development", "CMS"],
+//         color: "#F59F00",
+//         icon: (
+//             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+//                 <rect x="2" y="4" width="20" height="15" rx="2" stroke="currentColor" strokeWidth="1.8" />
+//                 <path d="M8 20h8M12 19v1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+//                 <path d="M8 10l2 2-2 2M12 14h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+//             </svg>
+//         ),
+//     },
+//     {
+//         id: "growth",
+//         label: "Growth Systems & Automation",
+//         title: "Systems that drive consistent growth.",
+//         desc: "We build marketing systems, automations, and funnels that help you generate leads and scale.",
+//         tags: ["Automation", "CRM", "Funnels"],
+//         color: "#E64980",
+//         icon: (
+//             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+//                 <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+//                 <path d="M2 17l10 5 10-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+//                 <path d="M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+//             </svg>
+//         ),
+//     },
+// ];
+
 const SERVICES = [
     {
         id: "brand",
@@ -97,13 +179,22 @@ const SERVICES = [
         desc: "We help you define who you are, what you stand for, and how you show up in the market.",
         tags: ["Positioning", "Messaging", "Identity"],
         color: "#3B5BDB",
-        icon: (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
-                <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
-                <path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-            </svg>
-        ),
+        icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                 <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
+                 <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
+               <path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+           </svg>),
+        details: {
+            heading: "What's included",
+            points: [
+                "Brand positioning framework",
+                "Messaging & tone of voice guide",
+                "Logo & visual identity system",
+                "Brand style guide & asset kit",
+                "Competitor & market analysis",
+            ],
+            outcome: "A brand that means something — and shows up consistently everywhere.",
+        },
     },
     {
         id: "social",
@@ -112,12 +203,21 @@ const SERVICES = [
         desc: "We create and manage content that builds your presence, engages your audience, and drives results.",
         tags: ["Strategy", "Content", "Campaigns"],
         color: "#00BFA6",
-        icon: (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        icon: (  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M22 4L11 15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-                <path d="M22 4L15 21L11 15L5 11L22 4Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-        ),
+                 <path d="M22 4L15 21L11 15L5 11L22 4Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>),
+        details: {
+            heading: "What's included",
+            points: [
+                "Content strategy & monthly calendar",
+                "Platform management (IG, Facebook, LinkedIn)",
+                "Ad campaign creation & management",
+                "Community engagement",
+                "Monthly analytics reports",
+            ],
+            outcome: "A consistent, strategic presence that builds real audiences over time.",
+        },
     },
     {
         id: "web",
@@ -126,13 +226,22 @@ const SERVICES = [
         desc: "We design fast, responsive, and user-friendly websites that turn visitors into customers.",
         tags: ["UI/UX Design", "Development", "CMS"],
         color: "#F59F00",
-        icon: (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <rect x="2" y="4" width="20" height="15" rx="2" stroke="currentColor" strokeWidth="1.8" />
+        icon: ( <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                 <rect x="2" y="4" width="20" height="15" rx="2" stroke="currentColor" strokeWidth="1.8" />
                 <path d="M8 20h8M12 19v1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
                 <path d="M8 10l2 2-2 2M12 14h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-        ),
+           </svg>),
+        details: {
+            heading: "What's included",
+            points: [
+                "UI/UX design & prototyping",
+                "Responsive frontend development",
+                "CMS integration (Webflow, WordPress)",
+                "Performance & SEO optimisation",
+                "Post-launch support & training",
+            ],
+            outcome: "A fast, beautiful site that turns visitors into paying customers.",
+        },
     },
     {
         id: "growth",
@@ -141,13 +250,22 @@ const SERVICES = [
         desc: "We build marketing systems, automations, and funnels that help you generate leads and scale.",
         tags: ["Automation", "CRM", "Funnels"],
         color: "#E64980",
-        icon: (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        icon: (   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
                 <path d="M2 17l10 5 10-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 <path d="M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-        ),
+           </svg>),
+        details: {
+            heading: "What's included",
+            points: [
+                "Lead funnel architecture & setup",
+                "Email automation sequences",
+                "CRM configuration & integration",
+                "Conversion rate optimisation",
+                "Analytics & performance tracking",
+            ],
+            outcome: "A system that generates and nurtures leads while you focus on your business.",
+        },
     },
 ];
 
@@ -170,51 +288,111 @@ const FAQS = [
 /* ── Sub-components ─────────────────────────────────────────────── */
 
 function ServiceCard({ svc, index }) {
+    const [flipped, setFlipped] = useState(false);
+
     return (
         <div
-            className="srv reveal bg-white border border-gray-100 rounded-2xl p-7 flex flex-col gap-5"
-            style={{ transitionDelay: `${index * 70}ms` }}
+            className="srv reveal flip-container"
+            style={{ transitionDelay: `${index * 70}ms`, height: "480px" }}
         >
-            {/* Icon */}
-            <div
-                className="srv-icon w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                style={{ background: `${svc.color}12`, color: svc.color, border: `1.5px solid ${svc.color}20` }}
-            >
-                {svc.icon}
-            </div>
+            <div className={`flip-inner ${flipped ? "flipped" : ""}`}>
 
-            {/* Label */}
-            <p className="text-[10px] font-bold tracking-widest uppercase" style={{ color: svc.color }}>
-                {svc.label}
-            </p>
-
-            {/* Title + desc */}
-            <div className="flex-1">
-                <h3 className="text-[#0B1F3A] font-extrabold text-lg leading-snug mb-3">{svc.title}</h3>
-                <p className="text-[#0B1F3A]/50 text-sm leading-relaxed">{svc.desc}</p>
-            </div>
-
-            {/* Tag pills */}
-            <div className="flex flex-wrap gap-2">
-                {svc.tags.map((tag) => (
-                    <span
-                        key={tag}
-                        className="text-[11px] font-semibold px-2.5 py-1 rounded-full"
-                        style={{ background: `${svc.color}10`, color: svc.color }}
+                {/* ── FRONT ── */}
+                <div className="flip-front bg-white border border-gray-100 p-7 flex flex-col gap-5">
+                    <div
+                        className="srv-icon w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
+                        style={{ background: `${svc.color}12`, color: svc.color, border: `1.5px solid ${svc.color}20` }}
                     >
-                        {tag}
-                    </span>
-                ))}
-            </div>
+                        {svc.icon}
+                    </div>
+                    <p className="text-[10px] font-bold tracking-widest uppercase" style={{ color: svc.color }}>
+                        {svc.label}
+                    </p>
+                    <div className="flex-1">
+                        <h3 className="text-[#0B1F3A] font-extrabold text-lg leading-snug mb-3">{svc.title}</h3>
+                        <p className="text-[#0B1F3A]/50 text-sm leading-relaxed">{svc.desc}</p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                        {svc.tags.map((tag) => (
+                            <span
+                                key={tag}
+                                className="text-[11px] font-semibold px-2.5 py-1 rounded-full"
+                                style={{ background: `${svc.color}10`, color: svc.color }}
+                            >
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                    <button
+                        onClick={() => setFlipped(true)}
+                        className="inline-flex items-center gap-1.5 text-sm font-bold transition-colors duration-200 text-left cursor-pointer"
+                        style={{ color: svc.color }}
+                    >
+                        Learn more →
+                    </button>
+                </div>
 
-            {/* CTA */}
-            <a
-                href="#contact"
-                className="inline-flex items-center gap-1.5 text-sm font-bold transition-colors duration-200"
-                style={{ color: svc.color }}
-            >
-                Learn more →
-            </a>
+                {/* ── BACK ── */}
+                <div
+                    className="flip-back p-7 flex flex-col gap-4"
+                    style={{ background: `linear-gradient(145deg, #0B1F3A, #0d2848)` }}
+                >
+                    <div className="flex items-center justify-between">
+                        <p
+                            className="text-[10px] font-bold tracking-widest uppercase"
+                            style={{ color: svc.color }}
+                        >
+                            {svc.label}
+                        </p>
+                        <button
+                            onClick={() => setFlipped(false)}
+                            className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                        >
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                                <path d="M9 3L3 9M3 3l6 6" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <p className="text-white/50 text-[11px] font-semibold tracking-widest uppercase">
+                        {svc.details.heading}
+                    </p>
+
+                    <ul className="flex flex-col gap-2.5 flex-1">
+                        {svc.details.points.map((point) => (
+                            <li key={point} className="flex items-start gap-2.5">
+                                <span
+                                    className="w-4 h-4 rounded-full flex items-center justify-center shrink-0 mt-0.5"
+                                    style={{ background: `${svc.color}25` }}
+                                >
+                                    <svg width="7" height="5" viewBox="0 0 7 5" fill="none">
+                                        <path d="M1 2.5l1.5 1.5L6 1" stroke={svc.color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                    </svg>
+                                </span>
+                                <span className="text-white/75 text-sm leading-relaxed">{point}</span>
+                            </li>
+                        ))}
+                    </ul>
+
+                    <div
+                        className="rounded-xl p-3 mt-auto"
+                        style={{ background: `${svc.color}15`, border: `1px solid ${svc.color}25` }}
+                    >
+                        <p className="text-white/60 text-xs leading-relaxed italic">
+                            "{svc.details.outcome}"
+                        </p>
+                    </div>
+
+                    {/* <a
+                        href="/contact"
+                        className="inline-flex items-center justify-center gap-2 text-sm font-bold py-2.5 rounded-lg transition-colors"
+                        style={{ background: svc.color, color: "white" }}
+                    >
+                        Start this service →
+                    </a> */}
+                </div>
+
+            </div>
         </div>
     );
 }
@@ -290,7 +468,7 @@ export default function Services() {
                     </p>
                     <div className="anim-4 flex flex-wrap gap-3">
                         <a
-                            href="#contact"
+                            href="/contact"
                             className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-sm px-7 py-3.5 rounded-lg transition-colors duration-200"
                             style={{ boxShadow: "0 4px 20px rgba(0,191,166,.35)" }}
                         >
@@ -435,7 +613,7 @@ export default function Services() {
                     </p>
                     <div className="reveal flex flex-wrap gap-3 justify-center">
                         <a
-                            href="mailto:info@nexuxgh.com"
+                            href="/contact"
                             className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-[15px] px-9 py-4 rounded-lg transition-colors"
                             style={{ boxShadow: "0 0 32px rgba(0,191,166,.3)" }}
                         >

@@ -94,38 +94,61 @@ const CONTACT_INFO = [
     {
         icon: (
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M2.5 5.833C2.5 5.373 2.873 5 3.333 5h13.334C17.127 5 17.5 5.373 17.5 5.833v8.334c0 .46-.373.833-.833.833H3.333A.833.833 0 012.5 14.167V5.833z" stroke="#00BFA6" strokeWidth="1.5" />
-                <path d="M2.5 6.25l7.5 5 7.5-5" stroke="#00BFA6" strokeWidth="1.5" strokeLinecap="round" />
+                <path d="M2.5 5.833C2.5 5.373 2.873 5 3.333 5h13.334C17.127 5 17.5 5.373 17.5 5.833v8.334c0 .46-.373.833-.833.833H3.333A.833.833 0 012.5 14.167V5.833z" stroke="#00BFA6" strokeWidth="1.5"/>
+                <path d="M2.5 6.25l7.5 5 7.5-5" stroke="#00BFA6" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
         ),
         label: "Email us",
         value: "info@nexuxgh.com",
         href: "mailto:info@nexuxgh.com",
     },
+   
     {
         icon: (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <rect x="2" y="2" width="20" height="20" rx="5" stroke="#00BFA6" strokeWidth="1.5"/>
+                <circle cx="12" cy="12" r="4" stroke="#00BFA6" strokeWidth="1.5"/>
+                <circle cx="17" cy="7" r="1" fill="#00BFA6"/>
+            </svg>
+        ),
+        target: "_blank",
+        label: "Instagram",
+        value: "@nexuxgh",
+        href: "https://instagram.com/nexuxgh",
+    },
+    {
+        icon: (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3V2z" stroke="#00BFA6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+        ),
+        target: "_blank",
+        label: "Facebook",
+        value: "@nexux",
+        href: "https://web.facebook.com/profile.php?id=61565329845637",
+    },
+    {
+    icon: (
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#00BFA6"/>
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.978-1.413A9.953 9.953 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z" stroke="#00BFA6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+    ),
+    target: "_blank",
+    label: "WhatsApp",
+    value: "+233 50 050 5319",
+    href: "https://wa.me/233500505319?text=Hi%20Nexux%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%20you.",
+},
+     {
+        icon: (
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M10 2C7.239 2 5 4.239 5 7c0 4.418 5 11 5 11s5-6.582 5-11c0-2.761-2.239-5-5-5z" stroke="#00BFA6" strokeWidth="1.5" />
-                <circle cx="10" cy="7" r="1.5" stroke="#00BFA6" strokeWidth="1.5" />
+                <path d="M10 2C7.239 2 5 4.239 5 7c0 4.418 5 11 5 11s5-6.582 5-11c0-2.761-2.239-5-5-5z" stroke="#00BFA6" strokeWidth="1.5"/>
+                <circle cx="10" cy="7" r="1.5" stroke="#00BFA6" strokeWidth="1.5"/>
             </svg>
         ),
         label: "Based in",
         value: "Accra, Ghana",
         href: null,
-    },
-    {
-        icon: (
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <rect x="2" y="2" width="7" height="7" rx="1.5" stroke="#00BFA6" strokeWidth="1.5" />
-                <rect x="11" y="2" width="7" height="7" rx="1.5" stroke="#00BFA6" strokeWidth="1.5" />
-                <rect x="2" y="11" width="7" height="7" rx="1.5" stroke="#00BFA6" strokeWidth="1.5" />
-                <rect x="11" y="11" width="7" height="7" rx="1.5" stroke="#00BFA6" strokeWidth="1.5" />
-            </svg>
-        ),
-        target: "_blank",
-        label: "Follow us",
-        value: "@nexuxgh",
-        href: "https://instagram.com/nexuxgh",
     },
 ];
 
@@ -184,11 +207,6 @@ export default function Contact() {
                 </svg>
 
                 <div className="max-w-6xl mx-auto">
-                    {/* <div className="anim-1 flex items-center gap-2 mb-8">
-                        <Link to="/" className="text-[#0B1F3A]/35 text-xs font-medium hover:text-[#0B1F3A]/60 transition-colors">Home</Link>
-                        <span className="text-[#0B1F3A]/20 text-xs">/</span>
-                        <span className="text-[#00BFA6] text-xs font-semibold">Contact</span>
-                    </div> */}
                     <h1
                         className="anim-2 text-[#0B1F3A] font-extrabold leading-[1.06] tracking-tight mb-5"
                         style={{ fontSize: "clamp(38px, 5.5vw, 68px)", maxWidth: 640 }}
@@ -200,8 +218,7 @@ export default function Contact() {
                         className="anim-3 text-[#0B1F3A]/55 leading-relaxed"
                         style={{ fontSize: "clamp(15px,1.6vw,18px)", maxWidth: 480 }}
                     >
-                        Tell us about your project and we'll get back to you within 24 hours.
-                        No pitch, no pressure — just a real conversation.
+                       Whether you need strategy, design, or a smarter digital system, we’ll help you find the clearest next step.
                     </p>
                 </div>
             </section>
@@ -365,7 +382,7 @@ export default function Contact() {
                                 {/* Budget */}
                                 <div className="flex flex-col gap-3">
                                     <label className="text-[#0B1F3A] text-xs font-bold tracking-wide uppercase">
-                                        Budget Range
+                                        Project Budget
                                         <span className="text-[#0B1F3A]/30 font-normal normal-case ml-1">(optional)</span>
                                     </label>
                                     <div className="flex flex-wrap gap-2">
@@ -388,7 +405,7 @@ export default function Contact() {
                                 {/* Message */}
                                 <div className="flex flex-col gap-2">
                                     <label className="text-[#0B1F3A] text-xs font-bold tracking-wide uppercase">
-                                        Tell us about your project <span className="text-[#00BFA6]">*</span>
+                                        What are you trying to achieve? <span className="text-[#00BFA6]">*</span>
                                     </label>
                                     <textarea
                                         name="message"
@@ -419,7 +436,7 @@ export default function Contact() {
                                 </button>
 
                                 <p className="text-[#0B1F3A]/30 text-xs text-center">
-                                    We respond within 24 hours. No spam, ever.
+                                  We respect your privacy. No spams
                                 </p>
                             </form>
                         )}

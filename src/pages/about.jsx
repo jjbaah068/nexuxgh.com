@@ -466,12 +466,11 @@ export default function About() {
                         className="reveal font-extrabold leading-tight tracking-tight mb-5"
                         style={{ fontSize: "clamp(30px,5vw,56px)" }}
                     >
-                        Think we'd be a fit?{" "}
-                        <span className="text-[#00BFA6]">Let's find out.</span>
+                         Let’s build something that{" "}
+                        <span className="text-[#00BFA6]">grows.</span>
                     </h2>
                     <p className="reveal text-white/55 text-base leading-relaxed mb-9 mx-auto" style={{ maxWidth: 420 }}>
-                        One call. No pitch deck. Just a real conversation about where you
-                        are and where you want to go next.
+                       Let’s talk about where your business is and where it could be.
                     </p>
                     <Link
                         to="/contact"
