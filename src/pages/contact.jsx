@@ -136,8 +136,8 @@ const CONTACT_INFO = [
     ),
     target: "_blank",
     label: "WhatsApp",
-    value: "+233 50 050 5319",
-    href: "https://wa.me/233500505319?text=Hi%20Nexux%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%20you.",
+    value: "+233 502 713 141",
+    href: "https://wa.me/233502713141?text=Hi%20Nexux%2C%20I%27d%20like%20to%20discuss%20a%20project%20with%20you.",
 },
      {
         icon: (
