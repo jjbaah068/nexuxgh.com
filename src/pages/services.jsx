@@ -3,6 +3,11 @@ import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import PhoneHero from "../assets/images/phonehero.png";
 import servicesHero from "../assets/images/servicehero.jpeg";
+import brandImg from "../assets/images/brandImg.png";
+import socialImg from "../assets/images/socialImg.png";
+import wbdev1 from "../assets/images/wbdev1.png";
+import wbdev2 from "../assets/images/wbdev2.png";
+import growthImg from "../assets/images/growthImg.png";
 
 /* ── Fonts & Animations ─────────────────────────────────────────── */
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
@@ -175,99 +180,105 @@ const SERVICES = [
     {
         id: "brand",
         label: "Brand Strategy & Identity",
-        title: "Build a brand that stands out.",
-        desc: "We help you define who you are, what you stand for, and how you show up in the market.",
+        title: "Build a brand people remember.",
+        desc: "We create strategic brand identities that communicate who you are, connect with your audience, and stand the test of time.",
         tags: ["Positioning", "Messaging", "Identity"],
         color: "#3B5BDB",
-        icon: (<svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                 <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
-                 <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
-               <path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-           </svg>),
+        cardImg: brandImg,
+        cardImgLabel: "Brand identity visuals — bags, packaging, logo",
+        icon: (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
+                <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
+                <path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+        ),
         details: {
             heading: "What's included",
-            points: [
-                "Brand positioning framework",
-                "Messaging & tone of voice guide",
-                "Logo & visual identity system",
-                "Brand style guide & asset kit",
-                "Competitor & market analysis",
+            cols: [
+                ["Brand strategy & positioning", "Messaging & tone of voice", "Visual identity design", "Logo & identity system"],
+                ["Brand guidelines", "Packaging design", "Campaign look & feel", "Brand rollout support"],
             ],
-            outcome: "A brand that means something — and shows up consistently everywhere.",
+            outcome: "Strong brands aren't built by accident. They're designed intentionally.",
         },
     },
     {
         id: "social",
         label: "Social & Content Marketing",
         title: "Content that attracts and converts.",
-        desc: "We create and manage content that builds your presence, engages your audience, and drives results.",
+        desc: "We create and manage content that builds your presence, engages your audience, and drives measurable results.",
         tags: ["Strategy", "Content", "Campaigns"],
         color: "#00BFA6",
-        icon: (  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        cardImg: socialImg,
+        cardImgLabel: "Social media content calendar dashboard",
+        icon: (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M22 4L11 15" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-                 <path d="M22 4L15 21L11 15L5 11L22 4Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>),
+                <path d="M22 4L15 21L11 15L5 11L22 4Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+        ),
         details: {
             heading: "What's included",
-            points: [
-                "Content strategy & monthly calendar",
-                "Platform management (IG, Facebook, LinkedIn)",
-                "Ad campaign creation & management",
-                "Community engagement",
-                "Monthly analytics reports",
+            cols: [
+                ["Content strategy & planning", "Platform management", "Social media content creation", "Community engagement"],
+                ["Campaign creation & management", "Monthly content calendar", "Analytics & performance reports"],
             ],
-            outcome: "A consistent, strategic presence that builds real audiences over time.",
+            outcome: "A consistent content engine builds visibility today and compounding growth tomorrow.",
         },
     },
     {
         id: "web",
         label: "Web Design & Development",
         title: "Websites built to convert.",
-        desc: "We design fast, responsive, and user-friendly websites that turn visitors into customers.",
+        desc: "We design fast, responsive, and user-friendly websites that not only look great but are built to convert, perform, and scale with your business.",
         tags: ["UI/UX Design", "Development", "CMS"],
         color: "#F59F00",
-        icon: ( <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                 <rect x="2" y="4" width="20" height="15" rx="2" stroke="currentColor" strokeWidth="1.8" />
+        cardImg: wbdev1,
+        cardImg2: wbdev2,
+        cardImgLabel: "Laptop and phone showing Nexux web design",
+        icon: (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <rect x="2" y="4" width="20" height="15" rx="2" stroke="currentColor" strokeWidth="1.8" />
                 <path d="M8 20h8M12 19v1" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
                 <path d="M8 10l2 2-2 2M12 14h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-           </svg>),
+            </svg>
+        ),
         details: {
             heading: "What's included",
-            points: [
-                "UI/UX design & prototyping",
-                "Responsive frontend development",
-                "CMS integration (Webflow, WordPress)",
-                "Performance & SEO optimisation",
-                "Post-launch support & training",
+            cols: [
+                ["UI/UX design & prototyping", "Responsive frontend development", "CMS integration (Webflow, WordPress)", "E-commerce development", "Performance & SEO optimisation"],
+                ["Website maintenance & support", "Analytics & conversion tracking", "Speed & security optimisation", "Post-launch support & training"],
             ],
-            outcome: "A fast, beautiful site that turns visitors into paying customers.",
+            outcome: "A fast, seamless website experience turns visitors into paying customers.",
         },
     },
     {
         id: "growth",
-        label: "Growth Systems & Automation",
+        label: "Growth & Automation Systems",
         title: "Systems that drive consistent growth.",
-        desc: "We build marketing systems, automations, and funnels that help you generate leads and scale.",
+        desc: "We design and implement automated marketing systems that help you attract the right leads, nurture them, and convert them — automatically.",
         tags: ["Automation", "CRM", "Funnels"],
         color: "#E64980",
-        icon: (   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+        cardImg: growthImg,
+        cardImgLabel: "Growth funnel dashboard with lead metrics",
+        icon: (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
                 <path d="M2 17l10 5 10-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 <path d="M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-           </svg>),
+            </svg>
+        ),
         details: {
             heading: "What's included",
-            points: [
-                "Lead funnel architecture & setup",
-                "Email automation sequences",
-                "CRM configuration & integration",
-                "Conversion rate optimisation",
-                "Analytics & performance tracking",
+            cols: [
+                ["Lead funnel architecture & setup", "Email automation sequences", "CRM configuration & integration", "Workflow automation", "Lead scoring & segmentation"],
+                ["Landing pages & opt-in funnels", "Conversion rate optimisation", "Analytics & performance tracking", "Reporting & insights", "Ongoing optimisation & support"],
             ],
-            outcome: "A system that generates and nurtures leads while you focus on your business.",
+            outcome: "Great growth isn't random. It's built on systems that work while you focus.",
         },
     },
 ];
+
 
 const PROCESS = [
     { n: "01", title: "Discovery Call", desc: "We learn about your business, goals, and current challenges so we can understand where you are and where you want to go." },
@@ -293,110 +304,146 @@ function ServiceCard({ svc, index }) {
     return (
         <div
             className="srv reveal flip-container"
-            style={{ transitionDelay: `${index * 70}ms`, height: "480px" }}
+            style={{ transitionDelay: `${index * 70}ms`, height: "320px" }}
         >
             <div className={`flip-inner ${flipped ? "flipped" : ""}`}>
 
                 {/* ── FRONT ── */}
-                <div className="flip-front bg-white border border-gray-100 p-7 flex flex-col gap-5">
-                    <div
-                        className="srv-icon w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                        style={{ background: `${svc.color}12`, color: svc.color, border: `1.5px solid ${svc.color}20` }}
-                    >
-                        {svc.icon}
+
+                <div className="flip-front bg-white border border-gray-100 flex flex-col">
+
+                    {/* TOP — icon + label */}
+                    <div className="px-6 pt-6 pb-3 shrink-0">
+                        <div
+                            className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
+                            style={{ background: `${svc.color}12`, color: svc.color, border: `1.5px solid ${svc.color}20` }}
+                        >
+                            <div style={{ transform: "scale(0.85)" }}>{svc.icon}</div>
+                        </div>
+                        <p className="text-[10px] font-bold tracking-widest uppercase" style={{ color: svc.color }}>
+                            {svc.label}
+                        </p>
                     </div>
-                    <p className="text-[10px] font-bold tracking-widest uppercase" style={{ color: svc.color }}>
-                        {svc.label}
-                    </p>
-                    <div className="flex-1">
-                        <h3 className="text-[#0B1F3A] font-extrabold text-lg leading-snug mb-3">{svc.title}</h3>
-                        <p className="text-[#0B1F3A]/50 text-sm leading-relaxed">{svc.desc}</p>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                        {svc.tags.map((tag) => (
-                            <span
-                                key={tag}
-                                className="text-[11px] font-semibold px-2.5 py-1 rounded-full"
-                                style={{ background: `${svc.color}10`, color: svc.color }}
+
+                    {/* MIDDLE — text left, image right side by side */}
+                    <div className="flex flex-row flex-1 overflow-hidden">
+
+                        {/* Left: text + cta */}
+                        <div className="flex flex-col px-6 pb-6 pt-0 gap-3 flex-1 min-w-0 justify-between">
+                            <div className="flex flex-col gap-3">
+                                <h3
+                                    className="text-[#0B1F3A] font-extrabold leading-tight tracking-tight"
+                                    style={{ fontSize: "clamp(16px, 1.3vw, 19px)" }}
+                                >
+                                    {svc.title}
+                                </h3>
+                                <p className="text-[#556677] text-[11px] leading-relaxed">{svc.desc}</p>
+                            </div>
+                            <button
+                                onClick={() => setFlipped(true)}
+                                className="inline-flex items-center gap-1.5 text-sm font-bold cursor-pointer w-fit"
+                                style={{ color: svc.color }}
                             >
-                                {tag}
-                            </span>
-                        ))}
+                                Learn more →
+                            </button>
+                        </div>
+
+                        {/* Right: image panel */}
+                        <div
+                            className="relative shrink-0 overflow-hidden rounded-r-2xl"
+                            style={{ width: "44%" }}
+                        >
+                            {svc.id === "web" && svc.cardImg && svc.cardImg2 ? (
+                                <>
+                                    <img
+                                        src={svc.cardImg}
+                                        alt="Laptop"
+                                        className="absolute object-contain"
+                                        style={{ width: "105%", height: "auto", bottom: "0", left: "-8%", zIndex: 1, filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.12))" }}
+                                    />
+                                    <img
+                                        src={svc.cardImg2}
+                                        alt="Phone"
+                                        className="absolute object-contain"
+                                        style={{ width: "52%", height: "auto", bottom: "0", right: "0%", zIndex: 2, filter: "drop-shadow(0 6px 12px rgba(0,0,0,0.15))" }}
+                                    />
+                                </>
+                            ) : svc.cardImg ? (
+                                <img
+                                    src={svc.cardImg}
+                                    alt={svc.cardImgLabel}
+                                    className="absolute object-contain"
+                                    style={{ width: "110%", height: "110%", bottom: "-5%", left: "50%", transform: "translateX(-50%)", filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.10))" }}
+                                />
+                            ) : null}
+                        </div>
                     </div>
-                    <button
-                        onClick={() => setFlipped(true)}
-                        className="inline-flex items-center gap-1.5 text-sm font-bold transition-colors duration-200 text-left cursor-pointer"
-                        style={{ color: svc.color }}
-                    >
-                        Learn more →
-                    </button>
                 </div>
 
                 {/* ── BACK ── */}
                 <div
-                    className="flip-back p-7 flex flex-col gap-4"
-                    style={{ background: `linear-gradient(145deg, #0B1F3A, #0d2848)` }}
+                    className="flip-back p-6 flex flex-col gap-4"
+                    style={{ background: "linear-gradient(145deg, #0B1F3A, #0d2848)" }}
                 >
-                    <div className="flex items-center justify-between">
-                        <p
-                            className="text-[10px] font-bold tracking-widest uppercase"
-                            style={{ color: svc.color }}
-                        >
-                            {svc.label}
-                        </p>
+                    {/* Header */}
+                    <div className="flex items-center justify-between gap-3">
+                        <div className="flex items-center gap-3">
+                            <div
+                                className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                                style={{ background: `${svc.color}25`, color: svc.color }}
+                            >
+                                {svc.icon}
+                            </div>
+                            <p className="text-[10px] font-bold tracking-widest uppercase" style={{ color: svc.color }}>
+                                {svc.label}
+                            </p>
+                        </div>
                         <button
                             onClick={() => setFlipped(false)}
-                            className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors"
+                            className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors shrink-0"
                         >
                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                                <path d="M9 3L3 9M3 3l6 6" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+                                <path d="M9 3L3 9M3 3l6 6" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
                             </svg>
                         </button>
                     </div>
 
-                    <p className="text-white/50 text-[11px] font-semibold tracking-widest uppercase">
+                    <p className="text-white/40 text-[10px] font-bold tracking-widest uppercase">
                         {svc.details.heading}
                     </p>
 
-                    <ul className="flex flex-col gap-2.5 flex-1">
-                        {svc.details.points.map((point) => (
-                            <li key={point} className="flex items-start gap-2.5">
+                    {/* 2-column checklist */}
+                    <div className="grid grid-cols-2 gap-x-3 gap-y-2 flex-1">
+                        {svc.details.cols.flat().map((point) => (
+                            <div key={point} className="flex items-start gap-1.5">
                                 <span
-                                    className="w-4 h-4 rounded-full flex items-center justify-center shrink-0 mt-0.5"
-                                    style={{ background: `${svc.color}25` }}
+                                    className="w-3.5 h-3.5 rounded-full flex items-center justify-center shrink-0 mt-0.5"
+                                    style={{ background: `${svc.color}30` }}
                                 >
-                                    <svg width="7" height="5" viewBox="0 0 7 5" fill="none">
-                                        <path d="M1 2.5l1.5 1.5L6 1" stroke={svc.color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <svg width="6" height="4" viewBox="0 0 6 4" fill="none">
+                                        <path d="M1 2l1.2 1.2L5 1" stroke={svc.color} strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
                                 </span>
-                                <span className="text-white/75 text-sm leading-relaxed">{point}</span>
-                            </li>
+                                <span className="text-white/70 text-[11px] leading-snug">{point}</span>
+                            </div>
                         ))}
-                    </ul>
-
-                    <div
-                        className="rounded-xl p-3 mt-auto"
-                        style={{ background: `${svc.color}15`, border: `1px solid ${svc.color}25` }}
-                    >
-                        <p className="text-white/60 text-xs leading-relaxed italic">
-                            "{svc.details.outcome}"
-                        </p>
                     </div>
 
-                    {/* <a
-                        href="/contact"
-                        className="inline-flex items-center justify-center gap-2 text-sm font-bold py-2.5 rounded-lg transition-colors"
-                        style={{ background: svc.color, color: "white" }}
+                    {/* Quote */}
+                    <div
+                        className="rounded-xl p-3"
+                        style={{ background: `${svc.color}12`, border: `1px solid ${svc.color}20` }}
                     >
-                        Start this service →
-                    </a> */}
+                        <p className="text-white/55 text-[11px] leading-relaxed italic">
+                            ❝ {svc.details.outcome} ❞
+                        </p>
+                    </div>
                 </div>
 
             </div>
         </div>
     );
 }
-
 function FaqItem({ q, a }) {
     const [open, setOpen] = useState(false);
     return (
@@ -501,7 +548,7 @@ export default function Services() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         {SERVICES.map((svc, i) => (
                             <ServiceCard key={svc.id} svc={svc} index={i} />
                         ))}
@@ -609,7 +656,7 @@ export default function Services() {
                         <span className="text-[#00BFA6]">worth talking about.</span>
                     </h2>
                     <p className="reveal text-white/45 text-base leading-relaxed mb-10" style={{ maxWidth: 380, margin: "0 auto 2.5rem" }}>
-                       Let’s explore the right strategy, systems, and next steps for your business.
+                        Let’s explore the right strategy, systems, and next steps for your business.
                     </p>
                     <div className="reveal flex flex-wrap gap-3 justify-center">
                         <a

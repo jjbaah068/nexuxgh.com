@@ -3,9 +3,9 @@ import logo from "../assets/images/footerlogo.png"
 
 const SERVICES = [
     { name: "Brand Strategy & Identity", path: "/services" },
-    { name: "Social Media Marketing", path: "/services" },
+    { name: "Social & Content Marketing", path: "/services" },
     { name: "Web Design & Dev", path: "/services" },
-    { name: "Growth Systems", path: "/services" },
+    { name: "Growth Systems & Auto", path: "/services" },
 ];
 
 const COMPANY = [

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import workHero from "../assets/images/workshero.jpeg";
 
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
 
@@ -166,9 +167,9 @@ function ProjectImgSlot({ label, accent }) {
                 style={{ background: `${accent}18`, border: `1.5px solid ${accent}30` }}
             >
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <rect x="2" y="3" width="16" height="13" rx="2" stroke={accent} strokeWidth="1.5"/>
-                    <path d="M2 13l4-4 3 3 3-3 4 4" stroke={accent} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    <circle cx="13.5" cy="7.5" r="1.5" fill={accent}/>
+                    <rect x="2" y="3" width="16" height="13" rx="2" stroke={accent} strokeWidth="1.5" />
+                    <path d="M2 13l4-4 3 3 3-3 4 4" stroke={accent} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="13.5" cy="7.5" r="1.5" fill={accent} />
                 </svg>
             </div>
             <p className="text-[11px] font-medium text-center px-4" style={{ color: `${accent}80` }}>{label}</p>
@@ -252,30 +253,23 @@ export default function Work() {
             <Navbar />
 
             {/* ── HERO ────────────────────────────────────────────── */}
-            <section
-                className="relative pt-36 pb-20 px-6 overflow-hidden"
-                style={{ background: "linear-gradient(135deg, #f0f4f8 0%, #e8f0f7 50%, #f5f9fc 100%)" }}
-            >
-                {/* Geometric deco */}
-                <svg className="absolute pointer-events-none opacity-[0.06]" style={{ right: "-40px", top: "5%", width: "380px" }} viewBox="0 0 380 380">
-                    <rect x="50" y="50" width="280" height="280" rx="36" fill="none" stroke="#0B1F3A" strokeWidth="2" transform="rotate(12 190 190)" />
-                    <rect x="90" y="90" width="200" height="200" rx="24" fill="none" stroke="#0B1F3A" strokeWidth="1.5" transform="rotate(28 190 190)" />
-                </svg>
-                <svg className="absolute pointer-events-none" style={{ right: "8%", bottom: "12%", width: "100px", opacity: 0.35 }} viewBox="0 0 100 100">
-                    {[0,1,2,3].map(r => [0,1,2,3].map(c => (
-                        <circle key={`${r}${c}`} cx={c*26+13} cy={r*26+13} r="2.5" fill="#00BFA6" opacity="0.6" />
-                    )))}
-                </svg>
+            <section className="relative overflow-hidden min-h-[520px] flex items-center">
 
-                <div className="max-w-6xl mx-auto">
-                    {/* Breadcrumb */}
-                    {/* <div className="anim-1 flex items-center gap-2 mb-8">
-                        <Link to="/" className="text-[#0B1F3A]/35 text-xs font-medium hover:text-[#0B1F3A]/60 transition-colors">Home</Link>
-                        <span className="text-[#0B1F3A]/20 text-xs">/</span>
-                        <span className="text-[#00BFA6] text-xs font-semibold">Our Work</span>
-                    </div> */}
+                {/* Background image */}
+                <img
+                    src={workHero}
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-cover object-center"
+                />
 
-                    <div className="max-w-3xl">
+                {/* Light overlay — image is bright so use a soft white fade on the left */}
+                <div
+                    className="absolute inset-0"
+                    style={{ background: "linear-gradient(90deg, rgba(240,244,248,0.92) 0%, rgba(240,244,248,0.75) 50%, rgba(240,244,248,0.2) 100%)" }}
+                />
+
+                <div className="relative z-10 max-w-6xl mx-auto px-6 py-36 w-full">
+                    <div className="max-w-2xl">
                         <h1
                             className="anim-2 text-[#0B1F3A] font-extrabold leading-[1.06] tracking-tight mb-5"
                             style={{ fontSize: "clamp(38px, 5.5vw, 68px)" }}
@@ -284,25 +278,11 @@ export default function Work() {
                             <span className="text-[#00BFA6]">the needle.</span>
                         </h1>
                         <p
-                            className="anim-3 text-[#0B1F3A]/55 leading-relaxed mb-10"
+                            className="anim-3 text-[#0B1F3A]/60 leading-relaxed"
                             style={{ fontSize: "clamp(15px,1.6vw,18px)", maxWidth: 500 }}
                         >
-                            Real projects. Real results. Every engagement is built around one goal — measurable growth for our clients.
+                            Real projects. Real results. Every engagement is built around one measurable growth for our clients.
                         </p>
-
-                        {/* Stats row */}
-                        {/* <div className="anim-4 flex flex-wrap gap-8">
-                            {[
-                                { n: "50+", label: "Projects Delivered" },
-                                { n: "98%", label: "Client Satisfaction" },
-                                { n: "3×", label: "Avg Growth Multiplier" },
-                            ].map(({ n, label }) => (
-                                <div key={label}>
-                                    <p className="text-[#0B1F3A] font-black text-2xl leading-none mb-0.5">{n}</p>
-                                    <p className="text-[#0B1F3A]/40 text-[11px] font-semibold tracking-wider uppercase">{label}</p>
-                                </div>
-                            ))}
-                        </div> */}
                     </div>
                 </div>
             </section>
@@ -311,26 +291,9 @@ export default function Work() {
             <section className="bg-[#F5F7FA] px-6 py-20">
                 <div className="max-w-6xl mx-auto">
 
-                    {/* Filter pills */}
-                    <div className="reveal flex flex-wrap gap-2 mb-12">
-                        {FILTERS.map((f) => (
-                            <button
-                                key={f.value}
-                                onClick={() => setActiveFilter(f.value)}
-                                className={`filter-pill text-sm font-semibold px-5 py-2 rounded-full border transition-all ${
-                                    activeFilter === f.value
-                                        ? "active"
-                                        : "border-gray-200 bg-white text-[#0B1F3A]/60 hover:border-[#0B1F3A]/30 hover:text-[#0B1F3A]"
-                                }`}
-                            >
-                                {f.label}
-                            </button>
-                        ))}
-                    </div>
-
-                    {/* Project grid */}
+                    {/* Project grid — all projects, no filter */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {filtered.map((project, i) => (
+                        {PROJECTS.map((project, i) => (
                             <ProjectCard key={project.id} project={project} delay={i * 60} />
                         ))}
                     </div>
@@ -362,7 +325,7 @@ export default function Work() {
                             >
                                 {/* Quote mark */}
                                 <svg width="28" height="20" viewBox="0 0 28 20" fill="none">
-                                    <path d="M0 20V12C0 8.667 .733 6 2.2 4.4 3.667 2.667 5.8 1.467 8.6.8L9.8 3.2C8.2 3.6 6.933 4.333 6 5.4 5.067 6.333 4.6 7.667 4.6 9.4H8.6V20H0ZM16 20V12c0-3.333.733-6 2.2-7.6 1.467-1.733 3.6-2.933 6.4-3.6L25.8 3.2c-1.6.4-2.867 1.133-3.8 2.2-.933.933-1.4 2.267-1.4 4H24.6V20H16Z" fill="#00BFA6" opacity="0.25"/>
+                                    <path d="M0 20V12C0 8.667 .733 6 2.2 4.4 3.667 2.667 5.8 1.467 8.6.8L9.8 3.2C8.2 3.6 6.933 4.333 6 5.4 5.067 6.333 4.6 7.667 4.6 9.4H8.6V20H0ZM16 20V12c0-3.333.733-6 2.2-7.6 1.467-1.733 3.6-2.933 6.4-3.6L25.8 3.2c-1.6.4-2.867 1.133-3.8 2.2-.933.933-1.4 2.267-1.4 4H24.6V20H16Z" fill="#00BFA6" opacity="0.25" />
                                 </svg>
 
                                 <p className="text-[#334455] text-sm leading-relaxed flex-1">"{t.quote}"</p>
