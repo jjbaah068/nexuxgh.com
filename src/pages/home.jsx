@@ -87,7 +87,7 @@ function ServiceCard({ icon, title, desc }) {
                 <h3 className="text-[#0B1F3A] text-base font-bold mb-2 leading-snug">{title}</h3>
                 <p className="text-[#0B1F3A]/45 text-sm leading-relaxed">{desc}</p>
             </div>
-            <span className="text-[#00BFA6] text-sm font-semibold mt-auto">Learn more →</span>
+            {/* <span className="text-[#00BFA6] text-sm font-semibold mt-auto">Learn more →</span> */}
         </div>
     );
 }

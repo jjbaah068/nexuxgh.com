@@ -3,6 +3,13 @@ import { Link } from "react-router";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import workHero from "../assets/images/workshero.jpeg";
+import nexuxVideo from "../assets/videos/nexuxvid.mp4";
+import philgoodImg from "../assets/images/philgoodmockup1.png";
+import melanuImg from "../assets/images/melanumockup.png";
+
+
+
+
 
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
 
@@ -25,6 +32,21 @@ const STYLES = `
   .proj-card:hover { transform: translateY(-6px); box-shadow: 0 24px 56px rgba(11,31,58,0.12); }
   .proj-card:hover .proj-img { transform: scale(1.04); }
   .proj-img { transition: transform .5s ease; }
+  /* Float animation for phone mockup */
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes fadeScale {
+  from { opacity: 0; transform: scale(0.92) translateY(16px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.mockup-float {
+  animation: floatUp 4s ease-in-out 0.7s infinite;
+}
+.mockup-enter {
+  animation: fadeScale 0.7s ease both;
+}
   .proj-card:hover .proj-tag { background: #00BFA6; color: white; }
 
   /* Filter pill */
@@ -52,77 +74,29 @@ function useReveal() {
 const PROJECTS = [
     {
         id: 1,
-        client: "Finova",
+        client: "PhilGood Homes",
         category: "Web Design & Development",
         tag: "web",
-        headline: "A fintech dashboard built to handle complexity without losing clarity.",
-        result: "40% faster user onboarding",
-        // IMAGE: import and replace `null` with your imported image
-        // e.g. import finova from "../assets/images/work/finova.jpg"  → img: finova
-        img: null,
-        imgLabel: "Finova — Dashboard screenshot",
-        accent: "#3B5BDB",
+        headline: "An apartment booking platform built for PhilGood Homes designed to convert visitors into guests.",
+        result: "Live booking system launched",
+        img: philgoodImg,
+        accent: "#F59F00",
         featured: true,
+        isMockup: true,
+        mockupBg: "#f0f4f8",
     },
     {
         id: 2,
-        client: "Elevate Brand Co.",
-        category: "Brand Strategy & Identity",
-        tag: "brand",
-        headline: "Full brand identity system for a lifestyle brand entering the Ghanaian market.",
-        result: "Brand launched in 6 weeks",
-        img: null,
-        imgLabel: "Elevate — Brand identity visuals",
-        accent: "#E64980",
-        featured: true,
-    },
-    {
-        id: 3,
-        client: "StayNest",
-        category: "Digital Marketing",
-        tag: "marketing",
-        headline: "Social strategy and ad campaigns for a short-stay property brand in Accra.",
-        result: "3× booking rate in 90 days",
-        img: null,
-        imgLabel: "StayNest — Campaign creatives",
-        accent: "#00BFA6",
-        featured: false,
-    },
-    {
-        id: 4,
-        client: "Kairos Kitchen",
+        client: "Melanu",
         category: "Web Design & Development",
         tag: "web",
-        headline: "Restaurant website with online reservation and menu management system.",
-        result: "60% increase in reservations",
-        img: null,
-        imgLabel: "Kairos Kitchen — Website screenshot",
-        accent: "#F59F00",
-        featured: false,
-    },
-    {
-        id: 5,
-        client: "Meridian Logistics",
-        category: "Growth Systems",
-        tag: "growth",
-        headline: "Lead funnel and CRM automation for a B2B logistics company.",
-        result: "2× qualified leads per month",
-        img: null,
-        imgLabel: "Meridian — Funnel diagram",
-        accent: "#3B5BDB",
-        featured: false,
-    },
-    {
-        id: 6,
-        client: "Osei & Partners",
-        category: "Brand Strategy & Identity",
-        tag: "brand",
-        headline: "Repositioning and visual identity for an established legal firm.",
-        result: "New client enquiries up 45%",
-        img: null,
-        imgLabel: "Osei & Partners — Brand visuals",
-        accent: "#0B1F3A",
-        featured: false,
+        headline: "A skincare brand website built to celebrate African beauty and convert browsers into buyers.",
+        result: "Brand presence launched online",
+        img: melanuImg,
+        accent: "#C8860A",
+        featured: true,
+        isMockup: true,
+        mockupBg: "#f5ede0",
     },
 ];
 
@@ -136,22 +110,16 @@ const FILTERS = [
 
 const TESTIMONIALS = [
     {
-        quote: "Nexux didn't just build us a website — they built us a system. The results spoke for themselves within the first month.",
-        name: "Kwame A.",
-        role: "Founder, Finova",
-        initials: "KA",
+        quote:"Working with the Nexux team was a smooth experience from start to finish. They were calm, attentive, and really took time to understand exactly what we wanted for PhilGood Homes. Instead of rushing the process, they listened carefully, presented us with multiple creative options, and guided us through the best direction for our apartment booking website.When the final product was presented, my immediate reaction was simple ‘This is solid.’ The website truly captured our vision and elevated our brand online", 
+        name: "Nana Kwame",
+        role: "Founder, PhilGood Homes",
+        initials: "NK",
     },
     {
-        quote: "The brand identity they created was exactly what we needed to stand out. Clean, intentional, and completely on-brief.",
-        name: "Ama S.",
-        role: "CEO, Elevate Brand Co.",
-        initials: "AS",
-    },
-    {
-        quote: "Our bookings tripled in 90 days. I didn't think digital marketing could move that fast — Nexux proved me wrong.",
-        name: "David O.",
-        role: "Director, StayNest",
-        initials: "DO",
+        quote: "From the very first meeting, it was clear that James and the Nexux team genuinely cared about bringing the MelAnu vision to life. They didn’t just build a website — they took time to understand our brand identity, target audience, and the feeling we wanted customers to experience online.The process was thoughtful and stress-free. Every idea we shared was received with attention, and we were presented with creative options that made decision-making easy.",
+        name: "Anita Asige",
+        role: "CEO, Melanu Skincare",
+        initials: "AA",
     },
 ];
 
@@ -189,11 +157,31 @@ function ProjectCard({ project, delay = 0 }) {
             {/* Image area */}
             <div className={`w-full overflow-hidden ${isFeatured ? "h-72" : "h-52"}`}>
                 {project.img ? (
-                    <img
-                        src={project.img}
-                        alt={project.client}
-                        className="proj-img w-full h-full object-cover"
-                    />
+                    <div
+                        className="w-full h-full flex items-center justify-center py-3"
+                        style={{
+                            background: project.isMockup
+                                ? project.mockupBg || "#f5ede0"
+                                : "#f8f9fb"
+                        }}
+                    >
+                        {project.isMockup ? (
+                            <div className="mockup-enter" style={{ maxHeight: "240px" }}>
+                                <img
+                                    src={project.img}
+                                    alt={project.client}
+                                    className="proj-img mockup-float object-contain"
+                                    style={{ maxHeight: "240px", width: "auto" }}
+                                />
+                            </div>
+                        ) : (
+                            <img
+                                src={project.img}
+                                alt={project.client}
+                                className="proj-img w-full h-full object-contain"
+                            />
+                        )}
+                    </div>
                 ) : (
                     <ProjectImgSlot label={project.imgLabel} accent={project.accent} />
                 )}
@@ -224,13 +212,13 @@ function ProjectCard({ project, delay = 0 }) {
                     <span className="text-[#00BFA6] text-xs font-bold">{project.result}</span>
                 </div>
 
-                <a
+                {/* <a
                     href="#contact"
                     className="inline-flex items-center gap-1.5 text-sm font-bold mt-auto transition-colors duration-200"
                     style={{ color: project.accent }}
                 >
                     View case study →
-                </a>
+                </a> */}
             </div>
         </div>
     );
@@ -287,7 +275,31 @@ export default function Work() {
                 </div>
             </section>
 
-            {/* ── FILTER + GRID ────────────────────────────────────── */}
+            {/* ── VIDEO SECTION ───────────────────────────────────── */}
+            <section className="bg-[#0B1F3A] px-6 py-20">
+                <div className="max-w-5xl mx-auto">
+                    <div className="reveal text-center mb-10">
+                        {/* <span className="block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-3">Showreel</span> */}
+                        <h2 className="text-white font-extrabold leading-tight tracking-tight"
+                            style={{ fontSize: "clamp(24px,3vw,40px)" }}>
+                            See the work in motion.
+                        </h2>
+                    </div>
+                    <div className="reveal rounded-2xl overflow-hidden shadow-2xl"
+                        style={{ boxShadow: "0 0 80px rgba(0,191,166,0.15)" }}>
+                        <video
+                            src={nexuxVideo}
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="w-full aspect-video object-contain"
+                        />
+                    </div>
+                </div>
+            </section>
+
+            {/* ── PROJECTS GRID ───────────────────────────────────── */}
             <section className="bg-[#F5F7FA] px-6 py-20">
                 <div className="max-w-6xl mx-auto">
 

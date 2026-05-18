@@ -19,7 +19,7 @@ const COMPANY = [
 ];
 
 const SOCIALS = [
-    { name: "LinkedIn", href: "#", target: "_blank" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/company/nexux-martech/", target: "_blank" },
     { name: "Instagram", href: "https://instagram.com/nexuxgh", target: "_blank" },
     { name: "Facebook", href: "https://web.facebook.com/profile.php?id=61565329845637", target: "_blank" },
 ];

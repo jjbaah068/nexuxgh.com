@@ -204,7 +204,7 @@ const SERVICES = [
     },
     {
         id: "social",
-        label: "Social & Content Marketing",
+        label: "Digital & Social Media Marketing",
         title: "Content that attracts and converts.",
         desc: "We create and manage content that builds your presence, engages your audience, and drives measurable results.",
         tags: ["Strategy", "Content", "Campaigns"],
