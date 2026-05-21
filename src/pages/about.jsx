@@ -7,6 +7,7 @@ import abouthero from "../assets/images/abouthero.jpg"
 import arhin from "../assets/images/arhin.JPG"
 import james from "../assets/images/james1.jpg"
 import operateImg from "../assets/images/operateImg.jpeg";
+import { Helmet } from 'react-helmet-async';
 
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
 
@@ -99,7 +100,13 @@ export default function About() {
     useReveal();
 
     return (
+
         <>
+            <Helmet>
+                <title>About Nexux</title>
+                <meta name="description" content="Learn about Nexux — a marketing technology agency in Accra built to help Ghanaian SMEs and startups grow with clarity and strategy." />
+            </Helmet>
+
             <style>{FONTS + STYLES}</style>
             <Navbar />
 
@@ -466,11 +473,11 @@ export default function About() {
                         className="reveal font-extrabold leading-tight tracking-tight mb-5"
                         style={{ fontSize: "clamp(30px,5vw,56px)" }}
                     >
-                         Let’s build something that{" "}
+                        Let’s build something that{" "}
                         <span className="text-[#00BFA6]">grows.</span>
                     </h2>
                     <p className="reveal text-white/55 text-base leading-relaxed mb-9 mx-auto" style={{ maxWidth: 420 }}>
-                       Let’s talk about where your business is and where it could be.
+                        Let’s talk about where your business is and where it could be.
                     </p>
                     <Link
                         to="/contact"

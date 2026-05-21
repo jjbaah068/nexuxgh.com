@@ -6,6 +6,7 @@ import workHero from "../assets/images/workshero.jpeg";
 import nexuxVideo from "../assets/videos/nexuxvid.mp4";
 import philgoodImg from "../assets/images/philgoodmockup1.png";
 import melanuImg from "../assets/images/melanumockup.png";
+import { Helmet } from 'react-helmet-async';
 
 
 
@@ -110,7 +111,7 @@ const FILTERS = [
 
 const TESTIMONIALS = [
     {
-        quote:"Working with the Nexux team was a smooth experience from start to finish. They were calm, attentive, and really took time to understand exactly what we wanted for PhilGood Homes. Instead of rushing the process, they listened carefully, presented us with multiple creative options, and guided us through the best direction for our apartment booking website.When the final product was presented, my immediate reaction was simple ‘This is solid.’ The website truly captured our vision and elevated our brand online", 
+        quote: "Working with the Nexux team was a smooth experience from start to finish. They were calm, attentive, and really took time to understand exactly what we wanted for PhilGood Homes. Instead of rushing the process, they listened carefully, presented us with multiple creative options, and guided us through the best direction for our apartment booking website.When the final product was presented, my immediate reaction was simple ‘This is solid.’ The website truly captured our vision and elevated our brand online",
         name: "Nana Kwame",
         role: "Founder, PhilGood Homes",
         initials: "NK",
@@ -237,6 +238,10 @@ export default function Work() {
 
     return (
         <>
+            <Helmet>
+                <title>Our Work</title>
+                <meta name="description" content="See how Nexux has helped brands in Ghana grow through web design, brand strategy, digital marketing, and growth systems." />
+            </Helmet>
             <style>{FONTS + STYLES}</style>
             <Navbar />
 

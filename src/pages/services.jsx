@@ -8,6 +8,7 @@ import socialImg from "../assets/images/socialImg.png";
 import wbdev1 from "../assets/images/wbdev1.png";
 import wbdev2 from "../assets/images/wbdev2.png";
 import growthImg from "../assets/images/growthImg.png";
+import { Helmet } from 'react-helmet-async';
 
 /* ── Fonts & Animations ─────────────────────────────────────────── */
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
@@ -474,6 +475,11 @@ export default function Services() {
 
     return (
         <>
+            <Helmet>
+                <title>Our Services</title>
+                <meta name="description" content="Explore Nexux's services — brand strategy, social media marketing, web design, and growth systems for SMEs and startups in Ghana." />
+            </Helmet>
+            
             <style>{FONTS + STYLES}</style>
             <Navbar />
 

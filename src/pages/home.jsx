@@ -4,6 +4,7 @@ import Footer from "../components/footer";
 import ab from "../assets/images/image2.png"
 import { Player } from '@lottiefiles/react-lottie-player';
 import hero from "../assets/images/homehero.jpeg";
+import { Helmet } from 'react-helmet-async';
 
 /* ── Google Fonts ───────────────────────────────────────────────── */
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
@@ -164,6 +165,11 @@ export default function Home() {
 
     return (
         <>
+            <Helmet>
+                <title>Home - Nexux</title>
+                <meta name="description" content="Nexux is a marketing technology agency in Accra, Ghana helping SMEs grow through brand strategy, digital marketing, website design, and growth systems." />
+            </Helmet>
+
             <style>{FONTS + ANIM_STYLES}</style>
 
             <Navbar />
@@ -221,7 +227,7 @@ export default function Home() {
 
             {/* ── 2. STATS ───────────────────────────────────────────── */}
             {/* <section className="bg-white px-6 py-12 border-y border-gray-100"> */}
-                {/* <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100 divide-y md:divide-y-0">
+            {/* <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100 divide-y md:divide-y-0">
                     {[
                         { n: 50, s: "+", label: "Brands Served" },
                         { n: 98, s: "%", label: "Client Satisfaction" },

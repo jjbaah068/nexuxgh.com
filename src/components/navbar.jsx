@@ -8,7 +8,6 @@ const LINKS = [
     { name: "Services", path: "/services" },
     { name: "Work", path: "/work" },
     { name: "Insight", path: "/insight" },
-    // { name: "Contact", path: "/contact" },
 ];
 
 export default function Navbar() {
@@ -39,9 +38,9 @@ export default function Navbar() {
                 <Link to="/" className="flex items-center gap-2 shrink-0">
                     <img
                         src={logo}
-                        alt="NexUX"
-                        className="h-full w-full object-contain bg"
-                        style={{ filter: "none", maxWidth: "160px" }}
+                        alt="Nexux marketing technology agency logo"
+                        className="h-full w-full object-contain"
+                        style={{ maxWidth: "160px" }}
                     />
                 </Link>
 

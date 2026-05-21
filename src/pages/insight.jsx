@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import { Helmet } from 'react-helmet-async';
 
 const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
 
@@ -201,9 +202,9 @@ function ImgSlot({ label, accent, className = "" }) {
             <div className="w-10 h-10 rounded-xl flex items-center justify-center"
                 style={{ background: `${accent}18`, border: `1.5px solid ${accent}30` }}>
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-                    <rect x="1.5" y="2.5" width="15" height="12" rx="2" stroke={accent} strokeWidth="1.3"/>
-                    <path d="M1.5 11.5l3.5-3.5 2.5 2.5 3-3.5 4 4.5" stroke={accent} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
-                    <circle cx="12" cy="6" r="1.2" fill={accent}/>
+                    <rect x="1.5" y="2.5" width="15" height="12" rx="2" stroke={accent} strokeWidth="1.3" />
+                    <path d="M1.5 11.5l3.5-3.5 2.5 2.5 3-3.5 4 4.5" stroke={accent} strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="12" cy="6" r="1.2" fill={accent} />
                 </svg>
             </div>
             <p className="text-[10px] font-medium text-center px-4" style={{ color: `${accent}70` }}>{label}</p>
@@ -293,6 +294,11 @@ export default function Insight() {
 
     return (
         <>
+            <Helmet>
+                <title>Insights</title>
+                <meta name="description" content="Read Nexux's insights on brand strategy, digital marketing, web design, and business growth for SMEs in Ghana." />
+            </Helmet>
+
             <style>{FONTS + STYLES}</style>
             <Navbar />
 
@@ -317,8 +323,8 @@ export default function Insight() {
                                 background: i === 0
                                     ? "linear-gradient(135deg, #0B1F3A 0%, #1a3d6e 100%)"
                                     : i === 1
-                                    ? "linear-gradient(135deg, #0d2848 0%, #0B1F3A 100%)"
-                                    : "linear-gradient(135deg, #1a1040 0%, #0B1F3A 100%)",
+                                        ? "linear-gradient(135deg, #0d2848 0%, #0B1F3A 100%)"
+                                        : "linear-gradient(135deg, #1a1040 0%, #0B1F3A 100%)",
                             }}
                         />
                     )
@@ -453,11 +459,10 @@ export default function Insight() {
                             <button
                                 key={cat}
                                 onClick={() => setActiveCategory(cat)}
-                                className={`cat-pill text-sm font-semibold px-4 py-2 rounded-full border transition-all ${
-                                    activeCategory === cat
+                                className={`cat-pill text-sm font-semibold px-4 py-2 rounded-full border transition-all ${activeCategory === cat
                                         ? "active"
                                         : "border-gray-200 bg-white text-[#0B1F3A]/55 hover:border-[#0B1F3A]/25 hover:text-[#0B1F3A]"
-                                }`}
+                                    }`}
                             >
                                 {cat}
                             </button>
