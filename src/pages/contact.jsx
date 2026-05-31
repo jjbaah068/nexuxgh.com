@@ -180,16 +180,33 @@ export default function Contact() {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setLoading(true);
-        // Replace this with your actual form submission logic
-        // e.g. EmailJS, Formspree, or your own API endpoint
-        setTimeout(() => {
-            setLoading(false);
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+        const res = await fetch("https://formspree.io/f/xvzynywj", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name: form.name,
+                email: form.email,
+                company: form.company,
+                message: form.message,
+                budget: form.budget,
+                services: selectedServices.join(", "),
+            }),
+        });
+        if (res.ok) {
             setSubmitted(true);
-        }, 1500);
-    };
+        } else {
+            throw new Error("Submission failed");
+        }
+    } catch (err) {
+        alert("Something went wrong. Please try again or email us directly at info@nexuxgh.com");
+    } finally {
+        setLoading(false);
+    }
+};
 
     return (
         <>
@@ -200,7 +217,7 @@ export default function Contact() {
             <style>{FONTS + STYLES}</style>
             <Navbar />
 
-            {/* ── HERO ────────────────────────────────────────────── */}
+            {/* ── HERO  */}
             <section
                 className="relative pt-36 pb-16 px-6 overflow-hidden"
                 style={{ background: "linear-gradient(135deg, #f0f4f8 0%, #e8f0f7 50%, #f5f9fc 100%)" }}

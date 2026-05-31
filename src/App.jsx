@@ -6,6 +6,7 @@ import Work from "./pages/work";
 import Contact from "./pages/contact";
 import Insight from "./pages/insight";
 import ScrollToTop from "./components/scrolltop";
+import InsightArticle from "./pages/insightarticle";
 
 function RootLayout() {
     return (
@@ -26,6 +27,7 @@ const nexuxRouter = createBrowserRouter([
             { path: "/work", element: <Work /> },
             { path: "/contact", element: <Contact /> },
             { path: "/insight", element: <Insight /> },
+            { path: "/insight/:slug", element: <InsightArticle /> },
         ],
     },
 ]);
