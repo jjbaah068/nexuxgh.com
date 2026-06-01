@@ -1,9 +1,12 @@
+import a1 from "../assets/images/a1.jpeg";
+
+
 export const ARTICLES = [
     {
         id: 1,
         slug: "marketing-technology-agency-ghana",
-        title: "What Is a Marketing Technology Agency, and Why Does It Matter for Ghanaian SMEs?",
-        cardTitle: "What Is a Marketing Technology Agency, and Why Does It Matter for Ghanaian SMEs?",
+        title: "What Is A Marketing Technology Agency, And Why Does It Matter for Ghanaian SMEs?",
+        cardTitle: "What Is A Marketing Technology Agency, And Why Does It Matter for Ghanaian SMEs?",
         excerpt: "Marketing technology connects brand strategy, digital execution and customer systems. Here is what that means for growing businesses in Ghana.",
         category: "Growth Systems",
         author: "Owuraku Arhin",
@@ -13,7 +16,7 @@ export const ARTICLES = [
         featured: true,
 
         // Unsplash images — free to use
-        featuredImage: "https://images.unsplash.com/photo-1664575602554-2087b04935a5?w=1200&q=80",
+        featuredImage: a1,
         featuredImageAlt: "",
 
         infographicImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
