@@ -54,9 +54,9 @@ export default function Footer() {
                                 <li key={s.name}>
                                     <Link to={s.path} className="group inline-flex items-center gap-1.5 text-xs lg:text-sm text-[#08172D]/60 hover:text-[#08172D] transition-colors duration-200">
                                         <span>{s.name}</span>
-                                        <span className="text-[#08172D]/30 group-hover:text-[#15D4C4] transition-colors text-[10px] transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 duration-200">
+                                        {/* <span className="text-[#08172D]/30 group-hover:text-[#15D4C4] transition-colors text-[10px] transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 duration-200">
                                             &#8599;
-                                        </span>
+                                        </span> */}
                                     </Link>
                                 </li>
                             ))}
@@ -65,15 +65,15 @@ export default function Footer() {
 
                     {/* Column 3: Company Links */}
                     <div className="md:col-span-2">
-                        <span className="text-xs lg:text-sm font-bold tracking-tight block mb-4 text-[#08172D]">Company</span>
+                        <span className="text-xs lg:text-sm font-bold tracking-tight block mb-4 text-[#08172D]">Links</span>
                         <ul className="space-y-3">
                             {COMPANY.map((c) => (
                                 <li key={c.name}>
                                     <Link to={c.path} className="group inline-flex items-center gap-1.5 text-xs lg:text-sm text-[#08172D]/60 hover:text-[#08172D] transition-colors duration-200">
                                         <span>{c.name}</span>
-                                        <span className="text-[#08172D]/30 group-hover:text-[#15D4C4] transition-colors text-[10px] transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 duration-200">
+                                        {/* <span className="text-[#08172D]/30 group-hover:text-[#15D4C4] transition-colors text-[10px] transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 duration-200">
                                             &#8599;
-                                        </span>
+                                        </span> */}
                                     </Link>
                                 </li>
                             ))}
