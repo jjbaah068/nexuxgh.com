@@ -1,4 +1,5 @@
 import a1 from "../assets/images/a1.jpeg";
+import a2 from "../assets/images/a2.png"
 
 
 export const ARTICLES = [
@@ -218,6 +219,383 @@ export const ARTICLES = [
 
     {
     id: 2,
+    slug: "website-design-ghana-smes",
+    title: "Website Design in Ghana: What SMEs Should Look For Before Hiring an Agency",
+    cardTitle: "Website Design in Ghana: What SMEs Should Look For Before Hiring an Agency",
+    excerpt: "Before hiring a website design agency in Ghana, SMEs should look beyond visuals. Learn what makes a business website clear, credible, mobile-friendly and built for customer action.",
+    category: "Web Design & Development",
+    author: "Owuraku Arhin",
+    authorRole: "Co-Founder & Strategy Lead, Nexux",
+    date: "June 2026",
+    readTime: "5 min read",
+    featured: false,
+
+    featuredImage: a2,
+
+    img: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&q=80",
+    accent: "#3B5BDB",
+
+    seoTitle: "Website Design in Ghana: What SMEs Should Look For | Nexux",
+    metaDescription: "Before hiring a website design agency in Ghana, SMEs should look beyond visuals. Learn what makes a business website clear, credible, mobile-friendly and built for customer action.",
+
+    content: [
+        {
+            type: "intro",
+            text: "For many SMEs in Ghana, a website is no longer a nice-to-have. It is often the first place potential customers go to understand what a business does, how credible it looks and what step to take next."
+        },
+        {
+            type: "paragraph",
+            text: "But not every website helps a business grow."
+        },
+        {
+            type: "paragraph",
+            text: "Some websites look nice but do not explain the business clearly. Some have beautiful visuals but weak copy. Some are difficult to use on mobile. Others have no clear call-to-action, which means interested customers visit the site but leave without calling, booking, enquiring or buying."
+        },
+        {
+            type: "paragraph",
+            text: "Before hiring a website design agency in Ghana, SMEs should look beyond appearance. A good website should combine strategy, design, content, user experience and business goals."
+        },
+        {
+            type: "paragraph",
+            text: "Here are the key things every SME should consider before starting a website project."
+        },
+        {
+            type: "h2",
+            text: "1. Start With Business Clarity"
+        },
+        {
+            type: "paragraph",
+            text: "A strong website begins before the design starts."
+        },
+        {
+            type: "paragraph",
+            text: "Before colours, layouts and animations, the agency should understand the business clearly. What does the business offer? Who is it trying to reach? What should visitors do after landing on the website?"
+        },
+        {
+            type: "paragraph",
+            text: "For example, a short-stay apartment may want people to make a booking enquiry. A beauty brand may want customers to explore products and place orders. A professional service firm may want visitors to request a consultation."
+        },
+        {
+            type: "paragraph",
+            text: "The purpose of the website should shape the structure."
+        },
+        {
+            type: "paragraph",
+            text: "An SME should work with an agency that asks the right questions first, such as:"
+        },
+        {
+            type: "bullets",
+            items: [
+                "Who is your ideal customer?",
+                "What information do customers usually ask for?",
+                "What action should visitors take?",
+                "What makes your business different?",
+                "What problem should the website solve?",
+            ]
+        },
+        {
+            type: "pullquote",
+            text: "A website without business clarity can easily become an online brochure. A website with clarity becomes a business tool."
+        },
+        {
+            type: "h2",
+            text: "2. Prioritise Mobile-First Design"
+        },
+        {
+            type: "paragraph",
+            text: "Most potential customers will first interact with a business online through mobile. They may click from Instagram, TikTok, WhatsApp, Google Search, a referral link or a digital advert."
+        },
+        {
+            type: "paragraph",
+            text: "This means a business website must look and work properly on phones."
+        },
+        {
+            type: "paragraph",
+            text: "Mobile-first design is not just about shrinking a desktop website to fit a smaller screen. It means designing the experience around how people actually browse, read, tap, scroll and take action on mobile."
+        },
+        {
+            type: "paragraph",
+            text: "A good mobile website should have:"
+        },
+        {
+            type: "bullets",
+            items: [
+                "Clear text that is easy to read",
+                "Fast-loading pages",
+                "Simple navigation",
+                "Visible contact or booking buttons",
+                "Well-arranged images",
+                "Forms that are easy to complete",
+                "Sections that flow naturally",
+            ]
+        },
+        {
+            type: "paragraph",
+            text: "For SMEs, this is very important. If someone visits your website and struggles to understand what you offer or how to contact you, they may leave and move on to another option."
+        },
+        {
+            type: "h2",
+            text: "3. Make the Customer Journey Clear"
+        },
+        {
+            type: "paragraph",
+            text: "A website should guide people from interest to action."
+        },
+        {
+            type: "paragraph",
+            text: "When a potential customer lands on your website, they should quickly understand three things:"
+        },
+        {
+            type: "bullets",
+            items: [
+                "What you offer",
+                "Why they should trust you",
+                "What they should do next",
+            ]
+        },
+        {
+            type: "paragraph",
+            text: "This is where customer journey matters. For a short-stay apartment, the journey may be: View property, see amenities, check location, read FAQs, then tap WhatsApp to enquire."
+        },
+        {
+            type: "paragraph",
+            text: "For a beauty brand, it may be: discover product range, learn benefits, read ingredients, view price, then place order."
+        },
+        {
+            type: "paragraph",
+            text: "For a service business, it may be: understand the service, see proof of work, read the process, then request a call."
+        },
+        {
+            type: "paragraph",
+            text: "A good website design agency should not only focus on how the website looks. It should think about how people move through the website and what makes them confident enough to take the next step."
+        },
+        {
+            type: "paragraph",
+            text: "Clear calls-to-action are important. These may include:"
+        },
+        {
+            type: "bullets",
+            items: [
+                "Book Now",
+                "Enquire on WhatsApp",
+                "Request a Quote",
+                "Schedule a Call",
+                "View Products",
+                "Contact Us",
+                "Get Started",
+            ]
+        },
+        {
+            type: "paragraph",
+            text: "The right CTA depends on the business, but the goal is the same: make the next step easy."
+        },
+        {
+            type: "h2",
+            text: "4. Content Matters as Much as Design"
+        },
+        {
+            type: "paragraph",
+            text: "Many SMEs focus heavily on the look of the website but underestimate the importance of content."
+        },
+        {
+            type: "paragraph",
+            text: "A beautiful website with unclear wording will not perform well."
+        },
+        {
+            type: "paragraph",
+            text: "The content should explain the business in a simple, confident and useful way. Customers should not have to guess what you do, where you operate, what you offer, or how to reach you."
+        },
+        {
+            type: "paragraph",
+            text: "Strong website content may include:"
+        },
+        {
+            type: "bullets",
+            items: [
+                "A clear homepage headline",
+                "A short business introduction",
+                "Service or product descriptions",
+                "Benefits and key features",
+                "FAQs",
+                "Testimonials or proof of work",
+                "Location details",
+                "Contact information",
+                "Booking or enquiry instructions",
+            ]
+        },
+        {
+            type: "paragraph",
+            text: "Good content helps people trust the business. It also helps search engines understand what the website is about."
+        },
+        {
+            type: "paragraph",
+            text: "For example, if a business wants to be found for website design in Ghana, short-stay apartments in Accra, skincare products in Ghana or business consulting services, the website content should be written clearly around those services and search terms."
+        },
+        {
+            type: "h2",
+            text: "5. Look for User Experience, Not Just Design"
+        },
+        {
+            type: "paragraph",
+            text: "Design is important, but experience is what keeps people moving."
+        },
+        {
+            type: "paragraph",
+            text: "User experience is about how easy, natural and useful the website feels for visitors."
+        },
+        {
+            type: "paragraph",
+            text: "A website may have nice colours and images, but if people cannot find what they need, the experience is weak."
+        },
+        {
+            type: "paragraph",
+            text: "Before hiring an agency, SMEs should ask whether the agency thinks about:"
+        },
+        {
+            type: "bullets",
+            items: [
+                "Page structure",
+                "Navigation",
+                "User flow",
+                "Readability",
+                "Loading speed",
+                "Mobile experience",
+                "Accessibility",
+                "Enquiry process",
+                "Conversion points",
+            ]
+        },
+        {
+            type: "pullquote",
+            text: "The best websites are not just attractive. They are easy to use."
+        },
+        {
+            type: "paragraph",
+            text: "For SMEs, this can make a real difference. A customer who finds information quickly is more likely to enquire. A visitor who understands the offer clearly is more likely to trust the brand. A simple booking or contact process can reduce lost opportunities."
+        },
+        {
+            type: "h2",
+            text: "6. Ensure the Website Supports Trust"
+        },
+        {
+            type: "paragraph",
+            text: "Trust is one of the biggest roles a website plays."
+        },
+        {
+            type: "paragraph",
+            text: "Many customers will check a business online before deciding whether to call, visit, book or buy. The website should help the business look credible and organised."
+        },
+        {
+            type: "paragraph",
+            text: "A trust-building website may include:"
+        },
+        {
+            type: "bullets",
+            items: [
+                "Real photos",
+                "Client testimonials",
+                "Project examples",
+                "Business location",
+                "Social media links",
+                "Clear contact details",
+                "Team or founder information",
+                "Frequently asked questions",
+                "Professional design consistency",
+            ]
+        },
+        {
+            type: "paragraph",
+            text: "For businesses that already get attention on social media, a website can help deepen trust. Social media may attract attention, but a well-structured website can help customers understand the business better and take action with more confidence."
+        },
+        {
+            type: "h2",
+            text: "7. Think Beyond Launch"
+        },
+        {
+            type: "paragraph",
+            text: "A website should not be treated as a one-time design project only."
+        },
+        {
+            type: "paragraph",
+            text: "After launch, the business may need updates, analytics, search engine improvements, new pages, blog articles, landing pages, campaign pages or better enquiry tracking."
+        },
+        {
+            type: "paragraph",
+            text: "This is why SMEs should ask what happens after the website goes live."
+        },
+        {
+            type: "paragraph",
+            text: "Important questions include:"
+        },
+        {
+            type: "bullets",
+            items: [
+                "Will the website be easy to update?",
+                "Will basic SEO be included?",
+                "Will analytics be connected?",
+                "Will the agency provide training or support?",
+                "Can new pages be added later?",
+                "Will the website support future campaigns?",
+            ]
+        },
+        {
+            type: "paragraph",
+            text: "A good website should be built with growth in mind."
+        },
+        {
+            type: "h2",
+            text: "8. Where Nexux Fits In"
+        },
+        {
+            type: "paragraph",
+            text: "At Nexux, we believe a website should do more than look good."
+        },
+        {
+            type: "paragraph",
+            text: "It should connect strategy, design and technology in a way that helps people understand the business, trust the brand and take action."
+        },
+        {
+            type: "paragraph",
+            text: "For SMEs, this means building websites that are clear, mobile-friendly, easy to navigate and aligned with business goals."
+        },
+        {
+            type: "paragraph",
+            text: "Our approach starts with understanding the business and the customer journey before designing the digital experience. Whether it is a business website, product website, booking landing page or service-based website, the goal is to create something that supports real growth."
+        },
+        {
+            type: "services",
+            items: [
+                { title: "Brand Strategy & Identity", desc: "We help businesses clarify their positioning, strengthen their visual identity and present themselves consistently across important touchpoints.", link: "/services" },
+                { title: "Web Design & Development", desc: "We design websites and digital experiences that help visitors understand the business and take the next step.", link: "/services" },
+            ]
+        },
+        {
+            type: "h2",
+            text: "Conclusion"
+        },
+        {
+            type: "paragraph",
+            text: "Hiring a website design agency in Ghana should not be based only on who can create the most attractive design."
+        },
+        {
+            type: "paragraph",
+            text: "SMEs should look for an agency that understands business goals, customer behaviour, content, mobile experience and clear calls-to-action."
+        },
+        {
+            type: "paragraph",
+            text: "A good website is not just an online presence. It is a business tool."
+        },
+        {
+            type: "closing",
+            text: "It should help customers understand what you do, trust what they see and take the next step with confidence. Need a website that works for your business? Nexux can help you build a clear, mobile-first website designed around customer action."
+        },
+    ],
+
+    sources: [],
+},
+
+    {
+    id: 3,
     slug: null,
     title: "The content calendar framework we use for every client",
     cardTitle: "The content calendar framework we use for every client",
@@ -236,7 +614,7 @@ export const ARTICLES = [
     sources: [],
 },
 {
-    id: 3,
+    id: 4,
     slug: null,
     title: "Lead funnels that actually work for African SMEs",
     cardTitle: "Lead funnels that actually work for African SMEs",
@@ -255,7 +633,7 @@ export const ARTICLES = [
     sources: [],
 },
 {
-    id: 4,
+    id: 5,
     slug: null,
     title: "5 website mistakes that are costing you customers",
     cardTitle: "5 website mistakes that are costing you customers",
@@ -274,7 +652,7 @@ export const ARTICLES = [
     sources: [],
 },
 {
-    id: 5,
+    id: 6,
     slug: null,
     title: "Why Ghanaian businesses need to think differently about digital",
     cardTitle: "Why Ghanaian businesses need to think differently about digital",
@@ -293,7 +671,7 @@ export const ARTICLES = [
     sources: [],
 },
 {
-    id: 6,
+    id: 7,
     slug: null,
     title: "Messaging clarity: the one thing that separates growing brands",
     cardTitle: "Messaging clarity: the one thing that separates growing brands",
@@ -311,4 +689,5 @@ export const ARTICLES = [
     content: [],
     sources: [],
 },
+
 ];
