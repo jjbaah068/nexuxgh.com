@@ -150,7 +150,7 @@ export default function Footer() {
                 </div>
 
                 {/* Massive Brand Watermark Anchor Text */}
-                <div className="relative w-full select-none pointer-events-none">
+                <div className="relative w-full select-none pointer-events-none mb-18">
                     <h1 className="text-[14vw] md:text-[16vw] font-black tracking-tighter leading-none text-center transform translate-y-[15%]">
                         <span className="text-[#08172D]">Nex</span><span className="text-[#00BFA6]">ux</span>
                     </h1>
