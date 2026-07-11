@@ -6,6 +6,7 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import abouthero from "../assets/images/abouthero.jpg"
 import arhin from "../assets/images/arhin.JPG"
 import james from "../assets/images/james1.jpg"
+import john from "../assets/images/john.png"
 import operateImg from "../assets/images/operateImg.jpeg";
 import { Helmet } from 'react-helmet-async';
 
@@ -70,8 +71,9 @@ const VALUES = [
 ];
 
 const TEAM = [
-    { role: "Co-Founder & Strategy Lead", name: "Arhin Owuraku Agyeman", img: arhin, linkedin: "https://www.linkedin.com/in/owuraku-arhin-oz/" },
-    { role: "Co-Founder & Lead Engineer", name: "James Junior Baah", img: james, linkedin: "https://www.linkedin.com/in/james-kojo-junior-baah/" },
+    { role: "Strategy Lead", name: "Arhin Owuraku Agyeman", img: arhin, linkedin: "https://www.linkedin.com/in/owuraku-arhin-oz/" },
+    { role: "Lead Engineer", name: "James Junior Baah", img: james, linkedin: "https://www.linkedin.com/in/james-kojo-junior-baah/" },
+    { role: "Growth & Partnerships Lead", name: "John Tenkorang", img: john, linkedin: "https://www.linkedin.com/in/johntenkorang/" },
 ];
 
 const HOW_WE_OPERATE = [
