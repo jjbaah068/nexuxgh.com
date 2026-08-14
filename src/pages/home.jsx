@@ -110,7 +110,7 @@ function Step({ n, title, desc }) {
 const HEADLINES = [
     { line1: "We connect strategy,", line2: "design & technology", line3: "to drive", highlight: "real business growth." },
     { line1: "We build brands", line2: "that convert,", line3: "systems that", highlight: "compound results." },
-    { line1: "From confusion", line2: "to clarity", line3: "strategy built for", highlight: "SMEs." },
+    { line1: "From confusion", line2: "to clarity,", line3: "strategy built for", highlight: "SMEs." },
 ];
 
 function RotatingHeadline() {
