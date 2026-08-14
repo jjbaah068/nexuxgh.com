@@ -110,12 +110,12 @@ function Step({ n, title, desc }) {
 const HEADLINES = [
     { line1: "We connect strategy,", line2: "design & technology", line3: "to drive", highlight: "real business growth." },
     { line1: "We build brands", line2: "that convert,", line3: "systems that", highlight: "compound results." },
-    { line1: "From confusion", line2: "to clarity —", line3: "strategy built for", highlight: "SMEs." },
+    { line1: "From confusion", line2: "to clarity", line3: "strategy built for", highlight: "SMEs." },
 ];
 
 function RotatingHeadline() {
     const [index, setIndex] = useState(0);
-    const [phase, setPhase] = useState("enter"); // "enter" | "exit"
+    const [phase, setPhase] = useState("enter"); 
 
     useEffect(() => {
         const cycle = () => {
@@ -174,7 +174,7 @@ export default function Home() {
 
             <Navbar />
 
-            {/* ── 1. HERO ────────────────────────────────────────────── */}
+            {/* ── 1. HERO */}
             <section
                 id="home"
                 className="relative min-h-screen flex flex-col justify-center px-6 pt-28 pb-16 overflow-hidden"
@@ -193,12 +193,7 @@ export default function Home() {
                 />
 
                 <div className="max-w-6xl mx-auto w-full">
-                    {/* Badge */}
-                    {/* <div className="anim-fade-1 inline-flex items-center gap-2 bg-white/80 border border-[#00BFA6]/20 rounded-full px-4 py-1.5 mb-8 w-fit">
-                        <span className="w-2 h-2 rounded-full bg-[#00BFA6]" />
-                        <span className="text-[#0B1F3A]/70 text-xs font-semibold tracking-wide">Marketing Technology Agency · Accra, Ghana</span>
-                    </div> */}
-
+                  
                     {/* Rotating headline */}
                     <div className="anim-fade-2">
                         <RotatingHeadline />
@@ -225,25 +220,7 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* ── 2. STATS ───────────────────────────────────────────── */}
-            {/* <section className="bg-white px-6 py-12 border-y border-gray-100"> */}
-            {/* <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 divide-x divide-gray-100 divide-y md:divide-y-0">
-                    {[
-                        { n: 50, s: "+", label: "Brands Served" },
-                        { n: 98, s: "%", label: "Client Satisfaction" },
-                        { n: 3, s: "×", label: "Avg Growth Multiplier" },
-                        { n: 5, s: "+", label: "Years Experience" },
-                    ].map(({ n, s, label }) => (
-                        <div key={label} className="flex flex-col items-center py-8 px-4 text-center">
-                            <span className="text-[#0B1F3A] font-black leading-none mb-1.5"
-                                style={{ fontSize: "clamp(36px,4vw,52px)" }}>
-                                <Counter to={n} suffix={s} />
-                            </span>
-                            <span className="text-[#8899AA] text-[11px] font-semibold tracking-wider uppercase">{label}</span>
-                        </div>
-                    ))}
-                </div> */}
-            {/* </section> */}
+           
 
             {/* ── 3. SERVICES ────────────────────────────────────────── */}
             <section id="services" className="bg-[#F5F7FA] px-6 py-24">
