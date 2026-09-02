@@ -4,7 +4,7 @@ import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import { Player } from "@lottiefiles/react-lottie-player";
 import abouthero from "../assets/images/abouthero.jpg"
-import arhin from "../assets/images/arhin.JPG"
+// import arhin from "../assets/images/arhin.JPG"
 import james from "../assets/images/james1.jpg"
 import john from "../assets/images/john.png"
 import operateImg from "../assets/images/operateImg.jpeg";
@@ -62,6 +62,18 @@ function Counter({ to, suffix }) {
     return <span ref={ref}>{n}{suffix}</span>;
 }
 
+
+function AvatarPlaceholder() {
+    return (
+        <div className="w-full h-full flex items-center justify-center bg-[#e8eef4]">
+            <svg width="42%" height="42%" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="8" r="4" fill="#c5d0dc" />
+                <path d="M4 20c0-4.4 3.6-7 8-7s8 2.6 8 7" fill="#c5d0dc" />
+            </svg>
+        </div>
+    );
+}
+
 /* ── Data ───────────────────────────────────────────────────────── */
 const VALUES = [
     { icon: "◆", title: "Strategy first, always", desc: "Every project starts with clear strategic thinking." },
@@ -71,7 +83,7 @@ const VALUES = [
 ];
 
 const TEAM = [
-    { role: "Strategy Lead", name: "Arhin Owuraku Agyeman", img: arhin, linkedin: "https://www.linkedin.com/in/owuraku-arhin-oz/" },
+    { role: "Strategy Lead", name: "Owuraku (Agyeman) Arhin", img: null, linkedin: "https://www.linkedin.com/in/owuraku-arhin-oz/" },
     { role: "Lead Engineer", name: "James Junior Baah", img: james, linkedin: "https://www.linkedin.com/in/james-kojo-junior-baah/" },
     { role: "Growth & Partnerships Lead", name: "John Tenkorang", img: john, linkedin: "https://www.linkedin.com/in/johntenkorang/" },
 ];
@@ -298,7 +310,7 @@ export default function About() {
                 </div>
             </section>
 
-            {/* ── HOW WE OPERATE ──────────────────────────────────── */}
+            {/* ── HOW WE OPERATE  */}
             <section className="bg-white px-6 py-24">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
 
@@ -311,12 +323,6 @@ export default function About() {
                                 className="w-full h-full object-cover"
                             />
                         </div>
-                        {/* teal dot grid deco */}
-                        <svg className="absolute -bottom-5 -right-5 pointer-events-none" style={{ width: 120, height: 120 }} viewBox="0 0 120 120">
-                            {[0, 1, 2, 3].map(r => [0, 1, 2, 3].map(c => (
-                                <circle key={`${r}${c}`} cx={c * 30 + 15} cy={r * 30 + 15} r="2.5" fill="#00BFA6" opacity="0.5" />
-                            )))}
-                        </svg>
                     </div>
 
                     {/* RIGHT — copy */}
@@ -436,11 +442,15 @@ export default function About() {
                         {TEAM.map((m, i) => (
                             <div key={m.role} className="reveal" style={{ transitionDelay: `${i * 60}ms` }}>
                                 <div className="w-full aspect-[4/5] rounded-2xl mb-4 overflow-hidden">
-                                    <img
-                                        src={m.img}
-                                        alt={m.name}
-                                        className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
-                                    />
+                                    {m.img ? (
+                                        <img
+                                            src={m.img}
+                                            alt={m.name}
+                                            className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
+                                        />
+                                    ) : (
+                                        <AvatarPlaceholder />
+                                    )}
                                 </div>
                                 <p className="text-[#0B1F3A] font-bold text-sm leading-tight mb-0.5">{m.name}</p>
                                 <p className="text-[#0B1F3A]/45 text-xs tracking-wide mb-3">{m.role}</p>
