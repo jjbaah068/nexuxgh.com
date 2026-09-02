@@ -83,7 +83,7 @@ const VALUES = [
 ];
 
 const TEAM = [
-    { role: "Strategy Lead", name: "Owuraku (Agyeman) Arhin", img: null, linkedin: "https://www.linkedin.com/in/owuraku-arhin-oz/" },
+    { role: "Strategy Lead", name: "Owuraku Agyeman Arhin", img: null, linkedin: "https://www.linkedin.com/in/owuraku-arhin-oz/" },
     { role: "Lead Engineer", name: "James Junior Baah", img: james, linkedin: "https://www.linkedin.com/in/james-kojo-junior-baah/" },
     { role: "Growth & Partnerships Lead", name: "John Tenkorang", img: john, linkedin: "https://www.linkedin.com/in/johntenkorang/" },
 ];
