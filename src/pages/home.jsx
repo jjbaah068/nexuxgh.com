@@ -162,11 +162,11 @@ function Hero() {
                         </p>
 
                         <div className="hero-soft flex flex-wrap gap-3" style={{ animationDelay: "1.7s" }}>
-                            <a href="/contact"
+                            {/* <a href="/contact"
                                 className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-semibold text-sm px-7 py-3.5 rounded-lg transition-colors duration-200 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-white"
                                 style={{ boxShadow: "0 8px 30px rgba(0,191,166,.3)" }}>
                                 Start a project
-                            </a>
+                            </a> */}
                             <a href="/work"
                                 className="border border-white/35 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white font-medium text-sm px-7 py-3.5 rounded-lg transition-all duration-200 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-white">
                                 See our work
