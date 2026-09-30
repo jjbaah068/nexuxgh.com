@@ -1,23 +1,39 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "react-helmet-async";
+import contactHero from "../assets/images/img7.png"; 
 
-const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
-
+/* ── Page styles (fonts now live globally in index.css) ─────────── */
 const STYLES = `
-  body { font-family: 'Plus Jakarta Sans', sans-serif; }
-  h1,h2,h3,h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
+  /* ---------- Hero entry ---------- */
+  @keyframes peekIn {
+    from { opacity: 0; transform: translateY(24px) scale(.98); filter: blur(6px); }
+    to   { opacity: 1; transform: translateY(0) scale(1);      filter: blur(0); }
+  }
+  .hero-photo { animation: peekIn 1.3s cubic-bezier(.16,1,.3,1) .1s both; }
 
-  @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes lineRise {
+    from { transform: translateY(115%) rotate(3deg); opacity: 0; filter: blur(10px); }
+    to   { transform: translateY(0) rotate(0);       opacity: 1; filter: blur(0); }
+  }
+  .hero-line        { display: block; overflow: hidden; padding-bottom: .1em; }
+  .hero-line > span { display: inline-block; animation: lineRise 1.1s cubic-bezier(.16,1,.3,1) both; }
 
-  .anim-1 { animation: fadeUp .65s .05s both; }
-  .anim-2 { animation: fadeUp .65s .18s both; }
-  .anim-3 { animation: fadeUp .65s .30s both; }
-  .anim-4 { animation: fadeUp .65s .42s both; }
-  .anim-5 { animation: fadeUp .65s .52s both; }
+  @keyframes softIn {
+    from { opacity: 0; transform: translateY(12px); filter: blur(4px); }
+    to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+  }
+  .hero-soft { animation: softIn .9s cubic-bezier(.16,1,.3,1) both; }
 
+  @keyframes nudge { 0%,100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+  .nudge { animation: nudge 1.6s ease-in-out infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-photo, .hero-line > span, .hero-soft, .nudge { animation: none !important; }
+  }
+
+  /* ---------- Rest of page ---------- */
   .reveal { opacity:0; transform:translateY(22px); transition: opacity .55s ease, transform .55s ease; }
   .reveal.in { opacity:1; transform:translateY(0); }
 
@@ -27,7 +43,7 @@ const STYLES = `
     padding: 12px 16px;
     border: 1.5px solid #e2e8f0;
     border-radius: 10px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: inherit;
     font-size: 14px;
     color: #0B1F3A;
     background: white;
@@ -37,21 +53,19 @@ const STYLES = `
   .form-input::placeholder { color: rgba(11,31,58,0.3); }
   .form-input:focus { border-color: #00BFA6; box-shadow: 0 0 0 3px rgba(0,191,166,0.08); }
   .form-input:hover:not(:focus) { border-color: #cbd5e1; }
-
   textarea.form-input { resize: none; }
 
   /* Service select chips */
-  .svc-chip { 
-    transition: background .2s, border-color .2s, color .2s; 
+  .svc-chip {
+    transition: background .2s, border-color .2s, color .2s;
     cursor: pointer;
     user-select: none;
   }
-  .svc-chip.selected { 
-    background: #0B1F3A; 
-    border-color: #0B1F3A; 
-    color: white; 
+  .svc-chip.selected {
+    background: #0B1F3A;
+    border-color: #0B1F3A;
+    color: white;
   }
-  .svc-chip.selected .chip-dot { background: #00BFA6; }
 
   /* Submit button */
   .submit-btn { transition: background .2s, transform .15s, box-shadow .2s; }
@@ -103,7 +117,6 @@ const CONTACT_INFO = [
         value: "info@nexuxgh.com",
         href: "mailto:info@nexuxgh.com",
     },
-
     {
         icon: (
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -159,13 +172,7 @@ const CONTACT_INFO = [
 export default function Contact() {
     useReveal();
 
-    const [form, setForm] = useState({
-        name: "",
-        email: "",
-        company: "",
-        message: "",
-        budget: "",
-    });
+    const [form, setForm] = useState({ name: "", email: "", company: "", message: "", budget: "" });
     const [selectedServices, setSelectedServices] = useState([]);
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -180,33 +187,33 @@ export default function Contact() {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-        const res = await fetch("https://formspree.io/f/xvzynywj", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                name: form.name,
-                email: form.email,
-                company: form.company,
-                message: form.message,
-                budget: form.budget,
-                services: selectedServices.join(", "),
-            }),
-        });
-        if (res.ok) {
-            setSubmitted(true);
-        } else {
-            throw new Error("Submission failed");
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        try {
+            const res = await fetch("https://formspree.io/f/xvzynywj", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: form.name,
+                    email: form.email,
+                    company: form.company,
+                    message: form.message,
+                    budget: form.budget,
+                    services: selectedServices.join(", "),
+                }),
+            });
+            if (res.ok) {
+                setSubmitted(true);
+            } else {
+                throw new Error("Submission failed");
+            }
+        } catch (err) {
+            alert("Something went wrong. Please try again or email us directly at info@nexuxgh.com");
+        } finally {
+            setLoading(false);
         }
-    } catch (err) {
-        alert("Something went wrong. Please try again or email us directly at info@nexuxgh.com");
-    } finally {
-        setLoading(false);
-    }
-};
+    };
 
     return (
         <>
@@ -214,45 +221,72 @@ export default function Contact() {
                 <title>Contact Nexux</title>
                 <meta name="description" content="Get in touch with Nexux to discuss your brand, website, or marketing project. Based in Accra, Ghana. We respond within 24 hours." />
             </Helmet>
-            <style>{FONTS + STYLES}</style>
+
+            <style>{STYLES}</style>
+
+            {/* Solid navbar — the light grey hero would make white links unreadable */}
             <Navbar />
 
-            {/* ── HERO  */}
-            <section
-                className="relative pt-36 pb-16 px-6 overflow-hidden"
-                style={{ background: "linear-gradient(135deg, #f0f4f8 0%, #e8f0f7 50%, #f5f9fc 100%)" }}
-            >
-                {/* Deco */}
-                <svg className="absolute pointer-events-none opacity-[0.06]" style={{ right: "-40px", top: "5%", width: "340px" }} viewBox="0 0 380 380">
-                    <rect x="50" y="50" width="280" height="280" rx="36" fill="none" stroke="#0B1F3A" strokeWidth="2" transform="rotate(12 190 190)" />
-                    <rect x="90" y="90" width="200" height="200" rx="24" fill="none" stroke="#0B1F3A" strokeWidth="1.5" transform="rotate(28 190 190)" />
-                </svg>
+            {/* ── HERO: she points down at the headline, the headline leads to the form ── */}
+            <section className="relative overflow-hidden bg-white pt-20 pb-14 md:pb-20">
+                <div className="relative max-w-[736px] mx-auto px-4 md:px-0">
 
-                <div className="max-w-6xl mx-auto">
-                    <h1
-                        className="anim-2 text-[#0B1F3A] font-extrabold leading-[1.06] tracking-tight mb-5"
-                        style={{ fontSize: "clamp(38px, 5.5vw, 68px)", maxWidth: 640 }}
-                    >
-                        Let's build something{" "}
-                        <span className="text-[#00BFA6]">worth talking about.</span>
-                    </h1>
-                    <p
-                        className="anim-3 text-[#0B1F3A]/55 leading-relaxed"
-                        style={{ fontSize: "clamp(15px,1.6vw,18px)", maxWidth: 480 }}
-                    >
-                        Whether you need strategy, design, or a smarter digital system, we’ll help you find the clearest next step.
-                    </p>
+                    {/* Photo + full-width grey band so the wall runs edge to edge */}
+                    <div className="relative">
+                        <div
+                            aria-hidden="true"
+                            className="absolute left-1/2 -translate-x-1/2 w-screen bg-[#D5D6D9]"
+                            style={{ top: "-200px", height: "calc(56.9% + 200px)" }}
+                        />
+                        <img
+                            src={contactHero}
+                            alt="Smiling woman pointing down at the message below"
+                            fetchPriority="high"
+                            className="hero-photo relative block w-full h-auto"
+                            style={{
+                                maskImage: "linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%)",
+                                WebkitMaskImage: "linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%)",
+                            }}
+                        />
+                    </div>
+
+                    {/* Text sits on the white board, right under her fingers */}
+                    <div className="relative z-10 text-center -mt-[22%] px-2">
+                        <span className="hero-soft block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-3"
+                            style={{ animationDelay: ".6s" }}>
+                            Contact Us
+                        </span>
+                        <h1
+                            className="text-[#0B1F3A] font-bold leading-[1.06] mb-4"
+                            style={{ fontSize: "clamp(28px, 4.2vw, 48px)", letterSpacing: "-0.03em" }}
+                        >
+                            <span className="hero-line"><span style={{ animationDelay: ".75s" }}>Let's build something</span></span>
+                            <span className="hero-line"><span className="text-[#00BFA6]" style={{ animationDelay: ".9s" }}>worth talking about.</span></span>
+                        </h1>
+                        <p className="hero-soft text-[#0B1F3A]/60 leading-relaxed mx-auto mb-7"
+                            style={{ fontSize: "clamp(15px,1.4vw,17px)", maxWidth: 440, animationDelay: "1.2s" }}>
+                            Whether you need strategy, design, or a smarter digital system, we’ll help you find the clearest next step.
+                        </p>
+                        <a
+                            href="#contact-form"
+                            className="hero-soft inline-flex items-center gap-2 text-[#0B1F3A] font-semibold text-sm border border-[#0B1F3A]/15 hover:border-[#0B1F3A] rounded-full px-5 py-2.5 transition-colors"
+                            style={{ animationDelay: "1.4s" }}
+                        >
+                            Fill in the form
+                            <svg className="nudge" width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                <path d="M7 2v10M3 8l4 4 4-4" stroke="#00BFA6" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </section>
 
             {/* ── MAIN CONTENT ────────────────────────────────────── */}
-            <section className="bg-[#F5F7FA] px-6 py-16">
+            <section id="contact-form" className="bg-[#F5F7FA] px-6 py-16 scroll-mt-20">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
 
                     {/* ── LEFT: contact info + what to expect ─────── */}
                     <div className="flex flex-col gap-6 lg:sticky lg:top-28">
-
-                        {/* Info cards */}
                         {CONTACT_INFO.map((item) => (
                             <div
                                 key={item.label}
@@ -279,7 +313,6 @@ export default function Contact() {
                             </div>
                         ))}
 
-                        {/* What to expect */}
                         <div className="reveal bg-[#0B1F3A] rounded-2xl p-7 flex flex-col gap-5">
                             <p className="text-[#00BFA6] text-[11px] font-bold tracking-widest uppercase">What happens next</p>
                             <div className="flex flex-col gap-4">
@@ -296,7 +329,6 @@ export default function Contact() {
                             </div>
                         </div>
 
-                        {/* Response time badge */}
                         <div className="reveal flex items-center gap-3 bg-white border border-gray-100 rounded-2xl px-5 py-4">
                             <div className="w-2.5 h-2.5 rounded-full bg-[#00BFA6] shrink-0" style={{ boxShadow: "0 0 0 4px rgba(0,191,166,0.15)" }} />
                             <p className="text-[#0B1F3A]/60 text-sm">
@@ -308,7 +340,6 @@ export default function Contact() {
                     {/* ── RIGHT: form ──────────────────────────────── */}
                     <div className="lg:col-span-2 reveal">
                         {submitted ? (
-                            /* Success state */
                             <div className="bg-white border border-gray-100 rounded-2xl p-12 flex flex-col items-center text-center gap-6">
                                 <div className="w-16 h-16 rounded-full bg-[#00BFA6]/10 border-2 border-[#00BFA6] flex items-center justify-center">
                                     <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
@@ -331,13 +362,13 @@ export default function Contact() {
                         ) : (
                             <form onSubmit={handleSubmit} className="bg-white border border-gray-100 rounded-2xl p-8 flex flex-col gap-7">
 
-                                {/* Name + Email row */}
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                     <div className="flex flex-col gap-2">
-                                        <label className="text-[#0B1F3A] text-xs font-bold tracking-wide uppercase">
+                                        <label htmlFor="name" className="text-[#0B1F3A] text-xs font-bold tracking-wide uppercase">
                                             Your Name <span className="text-[#00BFA6]">*</span>
                                         </label>
                                         <input
+                                            id="name"
                                             type="text"
                                             name="name"
                                             value={form.name}
@@ -348,10 +379,11 @@ export default function Contact() {
                                         />
                                     </div>
                                     <div className="flex flex-col gap-2">
-                                        <label className="text-[#0B1F3A] text-xs font-bold tracking-wide uppercase">
+                                        <label htmlFor="email" className="text-[#0B1F3A] text-xs font-bold tracking-wide uppercase">
                                             Email Address <span className="text-[#00BFA6]">*</span>
                                         </label>
                                         <input
+                                            id="email"
                                             type="email"
                                             name="email"
                                             value={form.email}
@@ -363,13 +395,13 @@ export default function Contact() {
                                     </div>
                                 </div>
 
-                                {/* Company */}
                                 <div className="flex flex-col gap-2">
-                                    <label className="text-[#0B1F3A] text-xs font-bold tracking-wide uppercase">
+                                    <label htmlFor="company" className="text-[#0B1F3A] text-xs font-bold tracking-wide uppercase">
                                         Company / Brand Name
                                         <span className="text-[#0B1F3A]/30 font-normal normal-case ml-1">(optional)</span>
                                     </label>
                                     <input
+                                        id="company"
                                         type="text"
                                         name="company"
                                         value={form.company}
@@ -379,16 +411,16 @@ export default function Contact() {
                                     />
                                 </div>
 
-                                {/* Service chips */}
                                 <div className="flex flex-col gap-3">
-                                    <label className="text-[#0B1F3A] text-xs font-bold tracking-wide uppercase">
+                                    <span className="text-[#0B1F3A] text-xs font-bold tracking-wide uppercase">
                                         What do you need help with? <span className="text-[#00BFA6]">*</span>
-                                    </label>
+                                    </span>
                                     <div className="flex flex-wrap gap-2">
                                         {SERVICES.map((svc) => (
                                             <button
                                                 key={svc}
                                                 type="button"
+                                                aria-pressed={selectedServices.includes(svc)}
                                                 onClick={() => toggleService(svc)}
                                                 className={`svc-chip text-sm font-semibold px-4 py-2 rounded-full border transition-all ${selectedServices.includes(svc)
                                                     ? "selected"
@@ -401,17 +433,17 @@ export default function Contact() {
                                     </div>
                                 </div>
 
-                                {/* Budget */}
                                 <div className="flex flex-col gap-3">
-                                    <label className="text-[#0B1F3A] text-xs font-bold tracking-wide uppercase">
+                                    <span className="text-[#0B1F3A] text-xs font-bold tracking-wide uppercase">
                                         Project Budget
                                         <span className="text-[#0B1F3A]/30 font-normal normal-case ml-1">(optional)</span>
-                                    </label>
+                                    </span>
                                     <div className="flex flex-wrap gap-2">
                                         {BUDGETS.map((b) => (
                                             <button
                                                 key={b}
                                                 type="button"
+                                                aria-pressed={form.budget === b}
                                                 onClick={() => setForm((prev) => ({ ...prev, budget: prev.budget === b ? "" : b }))}
                                                 className={`svc-chip text-sm font-semibold px-4 py-2 rounded-full border transition-all ${form.budget === b
                                                     ? "selected"
@@ -424,12 +456,12 @@ export default function Contact() {
                                     </div>
                                 </div>
 
-                                {/* Message */}
                                 <div className="flex flex-col gap-2">
-                                    <label className="text-[#0B1F3A] text-xs font-bold tracking-wide uppercase">
+                                    <label htmlFor="message" className="text-[#0B1F3A] text-xs font-bold tracking-wide uppercase">
                                         What are you trying to achieve? <span className="text-[#00BFA6]">*</span>
                                     </label>
                                     <textarea
+                                        id="message"
                                         name="message"
                                         value={form.message}
                                         onChange={handleChange}
@@ -440,7 +472,6 @@ export default function Contact() {
                                     />
                                 </div>
 
-                                {/* Submit */}
                                 <button
                                     type="submit"
                                     disabled={loading}
@@ -458,13 +489,13 @@ export default function Contact() {
                                 </button>
 
                                 <p className="text-[#0B1F3A]/30 text-xs text-center">
-                                    We respect your privacy. No spams
+                                    We respect your privacy. No spam.
                                 </p>
                             </form>
                         )}
                     </div>
                 </div>
-            </section >
+            </section>
 
             <Footer />
         </>

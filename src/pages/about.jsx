@@ -3,27 +3,53 @@ import { Link } from "react-router";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import { Player } from "@lottiefiles/react-lottie-player";
-import abouthero from "../assets/images/abouthero.jpg"
+import abouthero from "../assets/images/img3.png";
 // import arhin from "../assets/images/arhin.JPG"
-import james from "../assets/images/james1.jpg"
-import john from "../assets/images/john.png"
+import james from "../assets/images/james1.jpg";
+import john from "../assets/images/john.png";
 import operateImg from "../assets/images/operateImg.jpeg";
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "react-helmet-async";
 
-const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
-
+/* ── Page styles (fonts now live globally in index.css) ─────────── */
 const STYLES = `
-  body { font-family: 'Plus Jakarta Sans', sans-serif; }
-  h1,h2,h3,h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
+  /* ---------- Cinematic hero ---------- */
+  @keyframes heroZoom {
+    from { transform: scale(1.18); filter: brightness(.35) blur(6px); }
+    to   { transform: scale(1.02); filter: brightness(1) blur(0); }
+  }
+  @keyframes heroDrift {
+    from { transform: scale(1.02); }
+    to   { transform: scale(1.08); }
+  }
+  .hero-img {
+    animation:
+      heroZoom 2.4s cubic-bezier(.16,1,.3,1) both,
+      heroDrift 22s ease-in-out 2.4s infinite alternate;
+    will-change: transform;
+  }
 
-  @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
-  @keyframes countUp { from { opacity:0; } to { opacity:1; } }
+  @keyframes lineRise {
+    from { transform: translateY(115%) rotate(4deg); opacity: 0; filter: blur(10px); }
+    to   { transform: translateY(0) rotate(0);       opacity: 1; filter: blur(0); }
+  }
+  .hero-line        { display: block; overflow: hidden; padding-bottom: .1em; }
+  .hero-line > span { display: inline-block; transform-origin: left bottom;
+                      animation: lineRise 1.2s cubic-bezier(.16,1,.3,1) both; }
 
-  .anim-1 { animation: fadeUp .65s .05s both; }
-  .anim-2 { animation: fadeUp .65s .18s both; }
-  .anim-3 { animation: fadeUp .65s .30s both; }
-  .anim-4 { animation: fadeUp .65s .42s both; }
+  @keyframes ruleDraw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .hero-rule { transform-origin: left; animation: ruleDraw 1.4s cubic-bezier(.65,0,.35,1) .5s both; }
 
+  @keyframes softIn {
+    from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+    to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+  }
+  .hero-soft { animation: softIn .9s cubic-bezier(.16,1,.3,1) both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-img, .hero-line > span, .hero-rule, .hero-soft { animation: none !important; }
+  }
+
+  /* ---------- Rest of page ---------- */
   .reveal { opacity:0; transform:translateY(22px); transition: opacity .55s ease, transform .55s ease; }
   .reveal.in { opacity:1; transform:translateY(0); }
 
@@ -62,7 +88,6 @@ function Counter({ to, suffix }) {
     return <span ref={ref}>{n}{suffix}</span>;
 }
 
-
 function AvatarPlaceholder() {
     return (
         <div className="w-full h-full flex items-center justify-center bg-[#e8eef4]">
@@ -75,11 +100,13 @@ function AvatarPlaceholder() {
 }
 
 /* ── Data ───────────────────────────────────────────────────────── */
+const ABOUT_HERO_LINES = ["A marketing technology agency", "built for how modern", "brands actually grow."];
+
 const VALUES = [
     { icon: "◆", title: "Strategy first, always", desc: "Every project starts with clear strategic thinking." },
     { icon: "◇", title: "Clarity over cleverness", desc: "If people don’t understand it quickly, it’s not ready yet." },
-    { icon: "◈", title: "Built to compound", desc: " We build systems designed to generate long-term growth." },
-    { icon: "◉", title: "Data-honest", desc: " We focus on real performance, not vanity metrics." },
+    { icon: "◈", title: "Built to compound", desc: "We build systems designed to generate long-term growth." },
+    { icon: "◉", title: "Data-honest", desc: "We focus on real performance, not vanity metrics." },
 ];
 
 const TEAM = [
@@ -114,63 +141,79 @@ export default function About() {
     useReveal();
 
     return (
-
         <>
             <Helmet>
                 <title>About Nexux</title>
                 <meta name="description" content="Learn about Nexux — a marketing technology agency in Accra built to help Ghanaian SMEs and startups grow with clarity and strategy." />
             </Helmet>
 
-            <style>{FONTS + STYLES}</style>
-            <Navbar />
+            <style>{STYLES}</style>
+
+            {/* transparent = see-through over the hero, white once you scroll */}
+            <Navbar transparent />
 
             {/* ── HERO ────────────────────────────────────────────── */}
-            <section className="relative pt-36 pb-24 px-6 overflow-hidden">
-
-                {/* Background image */}
+            <section className="relative min-h-[88svh] flex flex-col justify-end overflow-hidden bg-[#0B1F3A]">
+                {/* Full-bleed photo */}
                 <img
                     src={abouthero}
-                    alt=""
-                    className="absolute inset-0 w-full h-full object-cover"
+                    alt="Nexux team member at work"
+                    fetchPriority="high"
+                    className="hero-img absolute inset-0 w-full h-full object-cover object-[center_25%]"
                 />
 
-                {/* Dark overlay */}
-                <div
-                    className="absolute inset-0"
-                    style={{ background: "linear-gradient(90deg, rgba(11,31,58,0.85) 0%, rgba(11,31,58,0.60) 55%, rgba(11,31,58,0.20) 100%)" }}
-                />
+                {/* Light overlays: top for the navbar, bottom for the text band */}
+                <div className="absolute inset-0 pointer-events-none"
+                    style={{ background: "linear-gradient(180deg, rgba(11,31,58,.5) 0%, rgba(11,31,58,0) 20%)" }} />
+                <div className="absolute inset-0 pointer-events-none"
+                    style={{ background: "linear-gradient(0deg, rgba(11,31,58,.92) 0%, rgba(11,31,58,.6) 30%, rgba(11,31,58,0) 60%)" }} />
 
-                <div className="relative max-w-6xl mx-auto">
-                    <span className="anim-1 block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-4">
-                        About Nexux
-                    </span>
-                    <h1
-                        className="anim-2 text-white font-extrabold leading-[1.06] tracking-tight mb-6"
-                        style={{ fontSize: "clamp(38px, 5.5vw, 72px)", maxWidth: 820 }}
-                    >
-                        A marketing technology agency built for how{" "}
-                        <span className="text-[#00BFA6]">modern brands actually grow.</span>
-                    </h1>
-                    <p
-                        className="anim-3 text-white/70 leading-relaxed mb-10"
-                        style={{ fontSize: "clamp(15px,1.6vw,18px)", maxWidth: 560 }}
-                    >
-                        We combine strategy, design, and digital technology to help ambitious businesses grow with clarity, consistency, and measurable results.
-                    </p>
-                    <div className="anim-4 flex flex-wrap gap-3">
-                        <Link
-                            to="/contact"
-                            className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-sm px-7 py-3.5 rounded-lg transition-colors duration-200"
-                            style={{ boxShadow: "0 4px 20px rgba(0,191,166,.25)" }}
-                        >
-                            Start a Project →
-                        </Link>
-                        <Link
-                            to="/work"
-                            className="border border-white/30 hover:border-white/60 text-white/75 hover:text-white hover:bg-gray-50 font-medium text-sm px-7 py-3.5 rounded-lg transition-all duration-200"
-                        >
-                            See our work
-                        </Link>
+                {/* Lower-third text band */}
+                <div className="relative z-10 max-w-6xl mx-auto w-full px-6 pb-12 md:pb-16">
+                    {/* <div className="hero-rule relative h-px w-full bg-white/25 mb-8 md:mb-10">
+                        <span className="absolute left-0 top-[-1px] h-[3px] w-16 bg-[#00BFA6] rounded-full" />
+                    </div> */}
+
+                    <div className="grid gap-8 lg:grid-cols-[1.25fr_1fr] lg:gap-16 items-end">
+                        <div>
+                            <span className="hero-soft block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-4"
+                                style={{ animationDelay: ".6s" }}>
+                                About Nexux
+                            </span>
+                            <h1
+                                className="text-white font-semibold leading-[1.06]"
+                                style={{ fontSize: "clamp(30px, 3.6vw, 52px)", letterSpacing: "-0.03em" }}
+                            >
+                                {ABOUT_HERO_LINES.map((line, i) => (
+                                    <span key={line} className="hero-line">
+                                        <span style={{ animationDelay: `${0.7 + i * 0.14}s` }}>{line}</span>
+                                    </span>
+                                ))}
+                            </h1>
+                        </div>
+
+                        <div className="lg:pb-2">
+                            {/* <p className="hero-soft text-white/80 leading-relaxed mb-6"
+                                style={{ fontSize: "clamp(15px,1.3vw,17px)", maxWidth: 400, animationDelay: "1.5s" }}>
+                                Strategy, design, and technology working together so your business grows with clarity and measurable results.
+                            </p> */}
+
+                            {/* <div className="hero-soft flex flex-wrap gap-3" style={{ animationDelay: "1.7s" }}>
+                                <Link
+                                    to="/contact"
+                                    className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-semibold text-sm px-7 py-3.5 rounded-lg transition-colors duration-200"
+                                    style={{ boxShadow: "0 8px 30px rgba(0,191,166,.3)" }}
+                                >
+                                    Start a project
+                                </Link>
+                                <Link
+                                    to="/work"
+                                    className="border border-white/35 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white font-medium text-sm px-7 py-3.5 rounded-lg transition-all duration-200"
+                                >
+                                    See our work
+                                </Link>
+                            </div> */}
+                        </div>
                     </div>
                 </div>
             </section>
@@ -178,20 +221,16 @@ export default function About() {
             {/* ── MISSION & VISION ────────────────────────────────── */}
             <section className="bg-white px-6 py-24">
                 <div className="max-w-6xl mx-auto">
-
-                    {/* Section label */}
                     <span className="reveal block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-12">
                         Mission & Vision
                     </span>
 
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
                         {/* Mission card */}
                         <div
                             className="reveal rounded-2xl p-10 flex flex-col gap-6"
                             style={{ background: "linear-gradient(135deg, #0B1F3A 0%, #0d2848 100%)" }}
                         >
-                            {/* Icon */}
                             <div className="w-12 h-12 rounded-xl bg-[#00BFA6]/15 border border-[#00BFA6]/25 flex items-center justify-center shrink-0">
                                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                                     <circle cx="11" cy="11" r="4" fill="#00BFA6" />
@@ -214,8 +253,7 @@ export default function About() {
                             className="reveal rounded-2xl p-10 flex flex-col gap-6 border border-[#00BFA6]/20"
                             style={{ background: "linear-gradient(135deg, #f0f9f7 0%, #e8f7f4 100%)", transitionDelay: "80ms" }}
                         >
-                            {/* Icon */}
-                            <div className="w-12 h-12 rounded-xl bg-[#0B1F3A]/08 border border-[#0B1F3A]/10 flex items-center justify-center shrink-0">
+                            <div className="w-12 h-12 rounded-xl bg-[#0B1F3A]/[.08] border border-[#0B1F3A]/10 flex items-center justify-center shrink-0">
                                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
                                     <path d="M2 11C2 11 5 5 11 5C17 5 20 11 20 11C20 11 17 17 11 17C5 17 2 11 2 11Z" stroke="#0B1F3A" strokeWidth="1.5" />
                                     <circle cx="11" cy="11" r="3" fill="#00BFA6" />
@@ -231,7 +269,6 @@ export default function About() {
                                 </p>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </section>
@@ -239,7 +276,6 @@ export default function About() {
             {/* ── STORY ───────────────────────────────────────────── */}
             <section className="bg-[#F5F7FA] px-6 py-24">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
-
                     {/* LEFT */}
                     <div className="reveal">
                         <span className="block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-4">
@@ -306,20 +342,19 @@ export default function About() {
                             </div>
                         ))}
                     </div>
-
                 </div>
             </section>
 
-            {/* ── HOW WE OPERATE  */}
+            {/* ── HOW WE OPERATE ──────────────────────────────────── */}
             <section className="bg-white px-6 py-24">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-
                     {/* LEFT — photo */}
                     <div className="reveal relative">
                         <div className="w-full h-[460px] rounded-2xl overflow-hidden">
                             <img
                                 src={operateImg}
                                 alt="Nexux team at work"
+                                loading="lazy"
                                 className="w-full h-full object-cover"
                             />
                         </div>
@@ -389,7 +424,6 @@ export default function About() {
                 </div>
             </section>
 
-
             {/* ── VALUES ──────────────────────────────────────────── */}
             <section className="bg-[#F5F7FA] px-6 py-24">
                 <div className="max-w-6xl mx-auto">
@@ -446,6 +480,7 @@ export default function About() {
                                         <img
                                             src={m.img}
                                             alt={m.name}
+                                            loading="lazy"
                                             className="w-full h-full object-cover object-top transition-transform duration-500 hover:scale-105"
                                         />
                                     ) : (
@@ -458,12 +493,12 @@ export default function About() {
                                     href={m.linkedin}
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    aria-label={`${m.name} on LinkedIn`}
                                     className="inline-flex items-center gap-1.5 text-[#0B1F3A]/40 hover:text-[#0077B5] transition-colors duration-200"
                                 >
                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                                         <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                                     </svg>
-                                    {/* <span className="text-xs font-medium">LinkedIn</span> */}
                                 </a>
                             </div>
                         ))}

@@ -1,17 +1,98 @@
-# React + Vite
+# NEXUX
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+NEXUX is a Vite + React website built for a digital brand and creative agency experience. The app includes marketing-style pages for services, work, about, contact, and insight articles, with navigation powered by React Router.
 
-Currently, two official plugins are available:
+## Project root folder
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The project root is the folder where `package.json` is located:
 
-## React Compiler
+`C:\Users\jjbaah\Desktop\NEXUX\nexux`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech stack
 
-## Expanding the ESLint configuration
+- React 19
+- Vite
+- React Router
+- JavaScript
+- ESLint
+- CSS for styling
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-"# nexuxgh.com" 
+## Getting started
+
+1. Open the project folder:
+   `cd "C:\Users\jjbaah\Desktop\NEXUX\nexux"`
+2. Install dependencies:
+   `npm install`
+3. Start the development server:
+   `npm run dev`
+4. Build for production:
+   `npm run build`
+5. Preview the production build:
+   `npm run preview`
+
+## Project structure
+
+```text
+nexux/
+├── public/
+│   ├── _redirects
+│   ├── robots.txt
+│   └── sitemap.xml
+├── src/
+│   ├── App.jsx
+│   ├── index.css
+│   ├── main.jsx
+│   ├── assets/
+│   │   ├── images/
+│   │   └── videos/
+│   ├── components/
+│   │   ├── footer.jsx
+│   │   ├── navbar.jsx
+│   │   └── scrolltop.jsx
+│   ├── content/
+│   │   └── articles.js
+│   └── pages/
+│       ├── about.jsx
+│       ├── contact.jsx
+│       ├── home.jsx
+│       ├── insight.jsx
+│       ├── insightarticle.jsx
+│       ├── services.jsx
+│       └── work.jsx
+├── eslint.config.js
+├── index.html
+├── package.json
+├── README.md
+├── vite.config.js
+└── public/
+```
+
+## App overview
+
+This project is structured as a multi-page marketing website with reusable UI components and content-driven pages. The routing setup in `src/App.jsx` includes pages for:
+
+- Home
+- Services
+- About
+- Work
+- Contact
+- Insight
+- Insight article detail pages
+
+## Scripts
+
+```json
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  }
+}
+```
+
+## Notes
+
+This project uses a Vite-based React setup and is ready for local development and deployment. If you want, this README can also be expanded with deployment instructions, environment variables, and a more detailed project summary.
+

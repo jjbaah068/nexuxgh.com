@@ -1,32 +1,52 @@
 import { useEffect, useRef, useState } from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
-import ab from "../assets/images/image2.png"
-import { Player } from '@lottiefiles/react-lottie-player';
-import hero from "../assets/images/homehero.jpeg";
-import { Helmet } from 'react-helmet-async';
+import ab from "../assets/images/image2.png";
+import { Player } from "@lottiefiles/react-lottie-player";
+import hero from "../assets/images/img4.png";
+import { Helmet } from "react-helmet-async";
+import ctaImg from '../assets/images/img8.png'
 
-/* ── Google Fonts ───────────────────────────────────────────────── */
-const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
-
-/* ── Keyframes & styles ─────────────────────────────────────────── */
+/* ── Page styles (fonts now live globally in index.css) ─────────── */
 const ANIM_STYLES = `
-  @keyframes fadeUp   { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
-  @keyframes pulse    { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.4;transform:scale(1.6);} }
+  /* ---------- Cinematic hero ---------- */
+  @keyframes heroZoom {
+    from { transform: scale(1.18); filter: brightness(.35) blur(6px); }
+    to   { transform: scale(1.02); filter: brightness(1) blur(0); }
+  }
+  @keyframes heroDrift {
+    from { transform: scale(1.02); }
+    to   { transform: scale(1.08); }
+  }
+  .hero-img {
+    animation:
+      heroZoom 2.4s cubic-bezier(.16,1,.3,1) both,
+      heroDrift 22s ease-in-out 2.4s infinite alternate;
+    will-change: transform;
+  }
 
-  /* Headline cycling animation */
-  @keyframes headlineIn  { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
-  @keyframes headlineOut { from { opacity:1; transform:translateY(0); }    to { opacity:0; transform:translateY(-28px); } }
+  @keyframes lineRise {
+    from { transform: translateY(115%) rotate(4deg); opacity: 0; filter: blur(10px); }
+    to   { transform: translateY(0) rotate(0);       opacity: 1; filter: blur(0); }
+  }
+  .hero-line        { display: block; overflow: hidden; padding-bottom: .1em; }
+  .hero-line > span { display: inline-block; transform-origin: left bottom;
+                      animation: lineRise 1.2s cubic-bezier(.16,1,.3,1) both; }
 
-  .headline-enter { animation: headlineIn 0.55s cubic-bezier(0.22,1,0.36,1) forwards; }
-  .headline-exit  { animation: headlineOut 0.4s ease-in forwards; }
+  @keyframes ruleDraw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .hero-rule { transform-origin: left; animation: ruleDraw 1.4s cubic-bezier(.65,0,.35,1) .5s both; }
 
-  .anim-fade-1 { animation: fadeUp .7s .1s both; }
-  .anim-fade-2 { animation: fadeUp .7s .25s both; }
-  .anim-fade-3 { animation: fadeUp .7s .4s both; }
-  .anim-fade-4 { animation: fadeUp .7s .55s both; }
-  .anim-fade-5 { animation: fadeUp .7s .7s both; }
+  @keyframes softIn {
+    from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+    to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+  }
+  .hero-soft { animation: softIn .9s cubic-bezier(.16,1,.3,1) both; }
 
+  @media (prefers-reduced-motion: reduce) {
+    .hero-img, .hero-line > span, .hero-rule, .hero-soft { animation: none !important; }
+  }
+
+  /* ---------- Rest of page ---------- */
   .reveal { opacity:0; transform:translateY(20px); transition: opacity .6s ease, transform .6s ease; }
   .reveal.in { opacity:1; transform:translateY(0); }
 
@@ -38,15 +58,6 @@ const ANIM_STYLES = `
 
   .proc-step { transition: padding-left .2s; }
   .proc-step:hover { padding-left: 8px; }
-
-  /* Geometric background shapes */
-  .geo-shape {
-    position: absolute;
-    opacity: 0.06;
-  }
-
-  body { font-family: 'Plus Jakarta Sans', sans-serif; }
-  h1, h2, h3, h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
 `;
 
 /* ── Scroll-reveal hook ─────────────────────────────────────────── */
@@ -88,7 +99,6 @@ function ServiceCard({ icon, title, desc }) {
                 <h3 className="text-[#0B1F3A] text-base font-bold mb-2 leading-snug">{title}</h3>
                 <p className="text-[#0B1F3A]/45 text-sm leading-relaxed">{desc}</p>
             </div>
-            {/* <span className="text-[#00BFA6] text-sm font-semibold mt-auto">Learn more →</span> */}
         </div>
     );
 }
@@ -106,54 +116,66 @@ function Step({ n, title, desc }) {
     );
 }
 
-/* ── Rotating Headline ──────────────────────────────────────────── */
-const HEADLINES = [
-    { line1: "We connect strategy,", line2: "design & technology", line3: "to drive", highlight: "real business growth." },
-    { line1: "We build brands", line2: "that convert,", line3: "systems that", highlight: "compound results." },
-    { line1: "From confusion", line2: "to clarity,", line3: "strategy built for", highlight: "SMEs." },
-];
+/* ── Hero ───────────────────────────────────────────────────────── */
+const HERO_LINES = ["Strategy, design", "and technology that", "grow your business."];
 
-function RotatingHeadline() {
-    const [index, setIndex] = useState(0);
-    const [phase, setPhase] = useState("enter"); 
-
-    useEffect(() => {
-        const cycle = () => {
-            // After 3s visible, start exit
-            const exitTimer = setTimeout(() => {
-                setPhase("exit");
-                // After exit anim (400ms), switch text and re-enter
-                const switchTimer = setTimeout(() => {
-                    setIndex((i) => (i + 1) % HEADLINES.length);
-                    setPhase("enter");
-                }, 420);
-                return () => clearTimeout(switchTimer);
-            }, 3000);
-            return () => clearTimeout(exitTimer);
-        };
-
-        const cleanup = cycle();
-        return cleanup;
-    }, [index]);
-
-    const h = HEADLINES[index];
-
+function Hero() {
     return (
-        <div
-            key={index}
-            className={`${phase === "enter" ? "headline-enter" : "headline-exit"}`}
-            style={{ minHeight: "clamp(180px, 22vw, 320px)" }}
-        >
-            <h1
-                className="text-white font-extrabold leading-[1.06] tracking-tight mb-5"
-                style={{ fontSize: "clamp(36px, 5.5vw, 72px)", maxWidth: 720 }}
-            >
-                {h.line1}<br />
-                {h.line2}<br />
-                {h.line3}{" "}
-                <span className="text-[#00BFA6]">{h.highlight}</span>
-            </h1>
-        </div>
+        <section id="home" className="relative min-h-[100svh] flex flex-col justify-end overflow-hidden bg-[#0B1F3A]">
+            {/* Full-bleed photo */}
+            <img
+                src={hero}
+                alt="Smiling woman working on a laptop"
+                fetchPriority="high"
+                className="hero-img absolute inset-0 w-full h-full object-cover object-center lg:object-[center_35%]"
+            />
+
+            {/* Light overlays: top for the navbar, bottom for the text band. The middle stays clear. */}
+            <div className="absolute inset-0 pointer-events-none"
+                style={{ background: "linear-gradient(180deg, rgba(11,31,58,.5) 0%, rgba(11,31,58,0) 20%)" }} />
+            <div className="absolute inset-0 pointer-events-none"
+                style={{ background: "linear-gradient(0deg, rgba(11,31,58,.92) 0%, rgba(11,31,58,.6) 28%, rgba(11,31,58,0) 58%)" }} />
+
+            {/* Lower-third text band */}
+            <div className="relative z-10 max-w-6xl mx-auto w-full px-6 pb-12 md:pb-16">
+                {/* Hairline that draws across, with a teal lead segment */}
+                {/* <div className="hero-rule relative h-px w-full bg-white/25 mb-8 md:mb-10">
+                    <span className="absolute left-0 top-[-1px] h-[3px] w-16 bg-[#00BFA6] rounded-full" />
+                </div> */}
+
+                <div className="grid gap-8 lg:grid-cols-[1.25fr_1fr] lg:gap-16 items-end">
+                    <h1
+                        className="text-white font-semibold leading-[1.06]"
+                        style={{ fontSize: "clamp(30px, 3.6vw, 52px)", letterSpacing: "-0.03em" }}
+                    >
+                        {HERO_LINES.map((line, i) => (
+                            <span key={line} className="hero-line">
+                                <span style={{ animationDelay: `${0.7 + i * 0.14}s` }}>{line}</span>
+                            </span>
+                        ))}
+                    </h1>
+
+                    <div className="lg:pb-2">
+                        <p className="hero-soft text-white/80 leading-relaxed mb-6"
+                            style={{ fontSize: "clamp(15px,1.3vw,17px)", maxWidth: 380, animationDelay: "1.5s" }}>
+                            For SMEs ready to move from confusion to clarity.
+                        </p>
+
+                        <div className="hero-soft flex flex-wrap gap-3" style={{ animationDelay: "1.7s" }}>
+                            <a href="/contact"
+                                className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-semibold text-sm px-7 py-3.5 rounded-lg transition-colors duration-200 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-white"
+                                style={{ boxShadow: "0 8px 30px rgba(0,191,166,.3)" }}>
+                                Start a project
+                            </a>
+                            <a href="/work"
+                                className="border border-white/35 hover:border-white hover:bg-white/10 backdrop-blur-sm text-white font-medium text-sm px-7 py-3.5 rounded-lg transition-all duration-200 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-white">
+                                See our work
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     );
 }
 
@@ -170,57 +192,13 @@ export default function Home() {
                 <meta name="description" content="Nexux is a marketing technology agency in Accra, Ghana helping SMEs grow through brand strategy, digital marketing, website design, and growth systems." />
             </Helmet>
 
-            <style>{FONTS + ANIM_STYLES}</style>
+            <style>{ANIM_STYLES}</style>
 
-            <Navbar />
+            {/* transparent = see-through over the hero, white once you scroll */}
+            <Navbar transparent />
 
             {/* ── 1. HERO */}
-            <section
-                id="home"
-                className="relative min-h-screen flex flex-col justify-center px-6 pt-28 pb-16 overflow-hidden"
-            >
-                {/* Background image */}
-                <img
-                    src={hero}
-                    alt=""
-                    className="absolute inset-0 w-full h-full object-cover"
-                />
-
-                {/* Dark overlay — heavy left where text is, fades right */}
-                <div
-                    className="absolute inset-0"
-                    style={{ background: "linear-gradient(90deg, rgba(11,31,58,0.88) 0%, rgba(11,31,58,0.60) 55%, rgba(11,31,58,0.25) 100%)" }}
-                />
-
-                <div className="max-w-6xl mx-auto w-full">
-                  
-                    {/* Rotating headline */}
-                    <div className="anim-fade-2">
-                        <RotatingHeadline />
-                    </div>
-
-                    {/* Sub */}
-                    <p className="anim-fade-3 text-white/70 font-normal leading-relaxed mb-10"
-                        style={{ fontSize: "clamp(15px,1.6vw,18px)", maxWidth: 460 }}>
-                        Built for SMEs ready to move from confusion to clarity.
-                    </p>
-
-                    {/* CTAs */}
-                    <div className="anim-fade-4 flex flex-wrap gap-3 mb-0">
-                        <a href="/contact"
-                            className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-sm px-8 py-4 rounded-lg transition-colors duration-200 flex items-center gap-2"
-                            style={{ boxShadow: "0 4px 24px rgba(0,191,166,.25)" }}>
-                            Start a Project →
-                        </a>
-                        <a href="/work"
-                            className="border border-white/30 hover:border-white/60 text-white/75 hover:text-white font-medium text-sm px-8 py-4 rounded-lg transition-all duration-200 flex items-center gap-2">
-                            See our work →
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-           
+            <Hero />
 
             {/* ── 3. SERVICES ────────────────────────────────────────── */}
             <section id="services" className="bg-[#F5F7FA] px-6 py-24">
@@ -245,7 +223,7 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* ── 4. ABOUT ───────────────────────────────────────────── */}
+            {/* ── 4. ABOUT */}
             <section id="about" className="bg-white px-6 py-24">
                 <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
                     <div className="reveal w-full h-80 lg:h-[420px] rounded-2xl overflow-hidden">
@@ -255,11 +233,11 @@ export default function Home() {
                         <span className="block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-3">Why Nexux</span>
                         <h2 className="text-[#0B1F3A] font-black leading-tight tracking-tight mb-4"
                             style={{ fontSize: "clamp(26px,3.5vw,42px)" }}>
-                            We don't just build — we grow with your business
+                            We don't just build, we grow with your business
                         </h2>
                         <p className="text-[#556677] text-base leading-relaxed mb-7">
                             Nexux is built for businesses serious about growth. We combine brand thinking,
-                            digital strategy, and precise execution to deliver results that compound — not
+                            digital strategy, and precise execution to deliver results that compound  not
                             just one-off deliverables.
                         </p>
                         <ul className="flex flex-col gap-3 mb-8">
@@ -308,10 +286,7 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="reveal lg:sticky lg:top-24">
-                        <div
-                            className="w-full h-80 lg:h-96 rounded-2xl border border-gray-200 flex items-center justify-center bg-white overflow-hidden"
-                        >
-                            {/* Lottie player — keep existing import if you have it */}
+                        <div className="w-full h-80 lg:h-96 rounded-2xl border border-gray-200 flex items-center justify-center bg-white overflow-hidden">
                             <Player autoplay loop src="https://assets10.lottiefiles.com/packages/lf20_jcikwtux.json" style={{ width: "100%", height: "100%" }} />
                         </div>
                     </div>
@@ -344,36 +319,67 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-
             {/* ── 7. CTA ─────────────────────────────────────────────── */}
-            <section id="contact" className="relative bg-[#0B1F3A] px-6 py-28 text-white text-center overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="w-[600px] h-[300px] opacity-20 rounded-full"
-                        style={{ background: "radial-gradient(ellipse,#00BFA6,transparent 65%)", filter: "blur(50px)" }} />
-                </div>
-                <div className="relative z-10 max-w-2xl mx-auto">
-                    <span className="reveal block text-[#00BFA6] text-[11px] font-semibold tracking-widest uppercase mb-4">Let's Talk</span>
-                    <h2 className="reveal font-black leading-tight tracking-tight mb-5"
-                        style={{ fontSize: "clamp(32px,5.5vw,64px)" }}>
-                        Ready to grow<br />
-                        your <span className="text-[#00BFA6]">brand?</span>
-                    </h2>
-                    <p className="reveal text-white/50 text-base leading-relaxed mb-10 mx-auto" style={{ maxWidth: 400 }}>
-                        Let’s talk about where your business is and where it could be.
-                    </p>
-                    <div className="reveal flex flex-wrap gap-3 justify-center">
-                        <a href="mailto:info@nexuxgh.com"
-                            className="bg-[#00BFA6] hover:bg-[#00a892] text-white font-bold text-[15px] px-9 py-4 rounded-lg transition-colors duration-200"
-                            style={{ boxShadow: "0 0 32px rgba(0,191,166,.3)" }}>
-                            Start a Conversation →
-                        </a>
-                        <a href="/work"
-                            className="border border-white/20 hover:border-white/40 text-white/65 hover:text-white font-medium text-[15px] px-9 py-4 rounded-lg transition-all duration-200">
-                            See Our Work
-                        </a>
+            <section id="contact" className="relative overflow-hidden bg-[#86D3E7]">
+                {/* Desktop: full photo pinned left at section height; its sky-blue background IS the section */}
+                <img
+                    src={ctaImg}
+                    alt="Excited woman shouting out of a smartphone screen"
+                    loading="lazy"
+                    className="hidden lg:block absolute left-0 bottom-0 h-full w-auto max-w-none"
+                    style={{
+                        maskImage: "linear-gradient(90deg, #000 85%, transparent 100%)",
+                        WebkitMaskImage: "linear-gradient(90deg, #000 85%, transparent 100%)",
+                    }}
+                />
+
+                {/* Mobile: photo on top, full width */}
+                {/* <img
+                    src={ctaImg}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    className="lg:hidden block w-full h-auto"
+                /> */}
+
+                <div className="relative z-10 max-w-6xl mx-auto px-6 py-16 lg:py-28 lg:min-h-[560px] flex items-center lg:justify-end">
+                    <div className="max-w-md">
+                        {/* "Sound lines" — the shout lands on the headline */}
+                        <div className="reveal flex items-center gap-3 mb-4">
+                            <svg width="26" height="22" viewBox="0 0 26 22" fill="none" aria-hidden="true">
+                                <path d="M2 4l7 4M1 11h9M2 18l7-4" stroke="#0B1F3A" strokeWidth="2.2" strokeLinecap="round" />
+                            </svg>
+                            <span className="text-[#0B1F3A] text-[11px] font-bold tracking-widest uppercase">Let's Talk</span>
+                        </div>
+
+                        <h2 className="reveal text-[#0B1F3A] font-extrabold leading-[1.02] tracking-tight mb-5"
+                            style={{ fontSize: "clamp(34px,4.8vw,60px)" }}>
+                            Ready to grow<br />
+                            your{" "}
+                            <span className="inline-block bg-white px-3 rounded-xl -rotate-2 shadow-[0_8px_24px_rgba(11,31,58,.15)]">
+                                brand?
+                            </span>
+                        </h2>
+
+                        <p className="reveal text-[#0B1F3A]/75 text-base leading-relaxed mb-9" style={{ maxWidth: 380 }}>
+                            One message is all it takes. Tell us where your business is, and we’ll show you where it could be.
+                        </p>
+
+                        <div className="reveal flex flex-wrap gap-3">
+                            <a href="mailto:info@nexuxgh.com"
+                                className="bg-[#0B1F3A] hover:bg-[#132d52] text-white font-semibold text-[15px] px-8 py-4 rounded-lg transition-colors duration-200"
+                                style={{ boxShadow: "0 12px 30px rgba(11,31,58,.25)" }}>
+                                Start a conversation
+                            </a>
+                            <a href="/work"
+                                className="bg-white/70 hover:bg-white text-[#0B1F3A] font-semibold text-[15px] px-7 py-4 rounded-lg transition-colors duration-200">
+                                See our Work
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
+
 
             <Footer />
         </>

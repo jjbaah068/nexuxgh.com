@@ -1,116 +1,127 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router";
+import { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 
 const LINKS = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Services", path: "/services" },
-    { name: "Work", path: "/work" },
-    { name: "Insight", path: "/insight" },
+    { to: "/", label: "Home" },
+    { to: "/about", label: "About" },
+    { to: "/services", label: "Services" },
+    { to: "/work", label: "Work" },
+    { to: "/insight", label: "Insights" },
 ];
 
-export default function Navbar() {
+/**
+ * <Navbar transparent />  → see-through over a hero image, white after scrolling
+ * <Navbar />              → always white (use on pages without a dark hero)
+ */
+export default function Navbar({ transparent = false }) {
     const [scrolled, setScrolled] = useState(false);
     const [open, setOpen] = useState(false);
-    const location = useLocation();
 
     useEffect(() => {
-        const fn = () => setScrolled(window.scrollY > 50);
-        window.addEventListener("scroll", fn);
-        return () => window.removeEventListener("scroll", fn);
+        const onScroll = () => setScrolled(window.scrollY > 24);
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
-    const isActive = (path) =>
-        path === "/" ? location.pathname === "/" : location.pathname.startsWith(path);
+    // lock page scroll while the mobile menu is open
+    useEffect(() => {
+        document.body.style.overflow = open ? "hidden" : "";
+        return () => { document.body.style.overflow = ""; };
+    }, [open]);
+
+    const solid = !transparent || scrolled || open;
+
+    const linkClass = ({ isActive }) =>
+        [
+            "relative text-sm font-medium transition-colors duration-300 py-1",
+            "after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:bg-[#00BFA6] after:transition-all after:duration-300",
+            isActive ? "after:w-full" : "after:w-0 hover:after:w-full",
+            solid
+                ? isActive ? "text-[#0B1F3A]" : "text-[#0B1F3A]/60 hover:text-[#0B1F3A]"
+                : isActive ? "text-white" : "text-white/75 hover:text-white",
+        ].join(" ");
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-                scrolled
-                    ? "bg-white/98 backdrop-blur-md shadow-sm shadow-black/5 border-b border-gray-100"
-                    : "bg-white/95 backdrop-blur-sm"
-            }`}
+            className={[
+                "fixed inset-x-0 top-0 z-50 transition-all duration-500 ease-out",
+                solid
+                    ? "bg-white/95 backdrop-blur-md shadow-[0_1px_0_rgba(11,31,58,.08),0_8px_30px_rgba(11,31,58,.06)]"
+                    : "bg-transparent",
+            ].join(" ")}
         >
-            <div className="max-w-6xl mx-auto px-6 h-[72px] flex items-center justify-between">
-
-                {/* Logo */}
-                <Link to="/" className="flex items-center gap-2 shrink-0">
+            <nav className={`max-w-6xl mx-auto px-6 flex items-center justify-between transition-all duration-500 ${solid ? "h-20" : "h-24 md:h-28"}`}>
+                <Link to="/" onClick={() => setOpen(false)} className="shrink-0">
+                    {/* white version over the hero, original colours once solid */}
                     <img
                         src={logo}
-                        alt="Nexux marketing technology agency logo"
-                        className="h-full w-full object-contain"
-                        style={{ maxWidth: "160px" }}
+                        alt="Nexux"
+                        className={`w-auto max-w-[320px] md:max-w-[420px] object-contain object-left transition-all duration-500 ${solid ? "h-16 md:h-20" : "h-20 md:h-28 brightness-0 invert"
+                            }`}
                     />
                 </Link>
 
-                {/* Desktop nav */}
-                <nav className="hidden md:flex items-center gap-1 ml-auto mr-6">
-                    {LINKS.map((link) => (
-                        <Link
-                            key={link.name}
-                            to={link.path}
-                            onClick={() => setOpen(false)}
-                            className={`relative text-sm px-4 py-2 rounded-md font-medium transition-colors duration-200 ${
-                                isActive(link.path)
-                                    ? "text-[#0B1F3A]"
-                                    : "text-[#0B1F3A]/50 hover:text-[#0B1F3A]"
-                            }`}
-                        >
-                            {link.name}
-                            {isActive(link.path) && (
-                                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-[2.5px] rounded-full bg-[#00BFA6]" />
-                            )}
-                        </Link>
+                {/* Desktop links */}
+                <ul className="hidden md:flex items-center gap-8">
+                    {LINKS.map(({ to, label }) => (
+                        <li key={to}>
+                            <NavLink to={to} end={to === "/"} className={linkClass}>{label}</NavLink>
+                        </li>
                     ))}
-                </nav>
+                </ul>
 
-                {/* Desktop CTA */}
                 <Link
                     to="/contact"
-                    className="hidden md:inline-flex items-center gap-2 bg-[#00BFA6] hover:bg-[#00a892] text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-colors duration-200 shrink-0"
+                    className="hidden md:inline-flex bg-[#00BFA6] hover:bg-[#00a892] text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors duration-200"
                 >
-                    Start a Project →
+                    Start a project
                 </Link>
 
-                {/* Mobile hamburger */}
+                {/* Mobile toggle */}
                 <button
-                    onClick={() => setOpen(!open)}
-                    className="md:hidden flex flex-col gap-1.5 p-1 cursor-pointer bg-transparent border-none"
-                    aria-label="Toggle menu"
+                    type="button"
+                    aria-label={open ? "Close menu" : "Open menu"}
+                    aria-expanded={open}
+                    onClick={() => setOpen((o) => !o)}
+                    className="md:hidden relative w-10 h-10 -mr-2 flex items-center justify-center"
                 >
-                    <span className={`block w-5 h-0.5 bg-[#0B1F3A] rounded transition-all duration-300 ${open ? "translate-y-2 rotate-45" : ""}`} />
-                    <span className={`block w-5 h-0.5 bg-[#0B1F3A] rounded transition-all duration-300 ${open ? "opacity-0" : ""}`} />
-                    <span className={`block w-5 h-0.5 bg-[#0B1F3A] rounded transition-all duration-300 ${open ? "-translate-y-2 -rotate-45" : ""}`} />
+                    <span className={`absolute h-[2px] w-6 rounded transition-all duration-300 ${solid ? "bg-[#0B1F3A]" : "bg-white"} ${open ? "rotate-45" : "-translate-y-[5px]"}`} />
+                    <span className={`absolute h-[2px] w-6 rounded transition-all duration-300 ${solid ? "bg-[#0B1F3A]" : "bg-white"} ${open ? "-rotate-45" : "translate-y-[5px]"}`} />
                 </button>
-            </div>
+            </nav>
 
             {/* Mobile menu */}
-            {open && (
-                <div className="md:hidden bg-white border-t border-gray-100 px-6 py-6 flex flex-col gap-5">
-                    {LINKS.map((link) => (
-                        <Link
-                            key={link.name}
-                            to={link.path}
-                            onClick={() => setOpen(false)}
-                            className={`text-base font-medium transition-colors ${
-                                isActive(link.path)
-                                    ? "text-[#0B1F3A]"
-                                    : "text-[#0B1F3A]/70 hover:text-[#0B1F3A]"
-                            }`}
-                        >
-                            {link.name}
-                        </Link>
+            <div
+                className={`md:hidden overflow-hidden bg-white transition-[max-height,opacity] duration-500 ease-out ${open ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"}`}
+            >
+                <ul className="px-6 pb-6 pt-2 flex flex-col">
+                    {LINKS.map(({ to, label }) => (
+                        <li key={to} className="border-b border-[#0B1F3A]/[.06]">
+                            <NavLink
+                                to={to}
+                                end={to === "/"}
+                                onClick={() => setOpen(false)}
+                                className={({ isActive }) =>
+                                    `block py-4 text-lg font-semibold ${isActive ? "text-[#00BFA6]" : "text-[#0B1F3A]"}`
+                                }
+                            >
+                                {label}
+                            </NavLink>
+                        </li>
                     ))}
-                    <Link
-                        to="/contact"
-                        onClick={() => setOpen(false)}
-                        className="inline-flex items-center justify-center bg-[#00BFA6] text-white text-sm font-bold px-5 py-3 rounded-lg mt-2"
-                    >
-                        Start a Project →
-                    </Link>
-                </div>
-            )}
+                    <li className="pt-5">
+                        <Link
+                            to="/contact"
+                            onClick={() => setOpen(false)}
+                            className="block text-center bg-[#00BFA6] text-white font-semibold py-4 rounded-lg"
+                        >
+                            Start a project
+                        </Link>
+                    </li>
+                </ul>
+            </div>
         </header>
     );
 }

@@ -2,42 +2,61 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "react-helmet-async";
 import { ARTICLES } from "../content/articles";
 
-const FONTS = `@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');`;
+const SLIDE_MS = 5000;
 
+/* ── Page styles (fonts now live globally in index.css) ─────────── */
 const STYLES = `
-  body { font-family: 'Plus Jakarta Sans', sans-serif; }
-  h1,h2,h3,h4 { font-family: 'Plus Jakarta Sans', sans-serif; }
-
-  @keyframes fadeUp { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
-  .anim-1 { animation: fadeUp .65s .05s both; }
-  .anim-2 { animation: fadeUp .65s .18s both; }
-  .anim-3 { animation: fadeUp .65s .30s both; }
-  .anim-4 { animation: fadeUp .65s .42s both; }
-
-  .reveal { opacity:0; transform:translateY(22px); transition: opacity .55s ease, transform .55s ease; }
-  .reveal.in { opacity:1; transform:translateY(0); }
-
-  /* Hero crossfade */
+  /* ---------- Cinematic slideshow hero ---------- */
   .hero-slide {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
     opacity: 0;
-    transition: opacity 1.2s ease-in-out;
     background-size: cover;
     background-position: center;
+    transition: opacity 1.4s ease-in-out;
+    will-change: opacity, transform;
   }
-  .hero-slide.active { opacity: 1; }
+  .hero-slide.active {
+    opacity: 1;
+    animation: kenBurns ${SLIDE_MS + 1500}ms ease-out both;
+  }
+  @keyframes kenBurns {
+    from { transform: scale(1.12); }
+    to   { transform: scale(1); }
+  }
 
-  /* Slide dots */
+  /* Title: each word rises out of a mask */
+  @keyframes wordRise {
+    from { transform: translateY(110%); opacity: 0; filter: blur(8px); }
+    to   { transform: translateY(0);    opacity: 1; filter: blur(0); }
+  }
+  .word-mask        { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; }
+  .word-mask > span { display: inline-block; animation: wordRise .9s cubic-bezier(.16,1,.3,1) both; }
+
+  @keyframes softIn {
+    from { opacity: 0; transform: translateY(12px); filter: blur(4px); }
+    to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+  }
+  .hero-soft { animation: softIn .8s cubic-bezier(.16,1,.3,1) both; }
+
+  /* Progress line: fills once per slide */
+  @keyframes progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .hero-progress { transform-origin: left; animation: progress ${SLIDE_MS}ms linear both; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slide.active, .word-mask > span, .hero-soft, .hero-progress { animation: none !important; }
+  }
+
+  /* ---------- Rest of page ---------- */
+  .reveal { opacity:0; transform:translateY(22px); transition: opacity .55s ease, transform .55s ease; }
+  .reveal.in { opacity:1; transform:translateY(0); }
+
   .slide-dot { transition: background .3s, width .3s; }
   .slide-dot.active { background: #00BFA6; width: 24px; }
 
-  /* Article card */
   .art-card { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
   .art-card:hover { transform: translateY(-5px); box-shadow: 0 20px 48px rgba(11,31,58,0.10); border-color: rgba(0,191,166,0.30) !important; }
   .art-img { transition: transform .5s ease; }
@@ -58,25 +77,25 @@ function useReveal() {
 
 const HERO_SLIDES = [
     {
-        bg: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1400&q=80",
+        bg: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80",
         category: "Brand Strategy",
         title: "Why most brands fail in the first year and what to do instead",
-        excerpt: "It's rarely about the product. It's almost always about positioning, clarity, and consistency.",
-        readTime: "5 min read",
+        // excerpt: "It's rarely about the product. It's almost always about positioning, clarity, and consistency.",
+        // readTime: "5 min read",
     },
     {
-        bg: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=1400&q=80",
+        bg: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=1600&q=80",
         category: "Digital Marketing",
         title: "The social media strategy that actually compounds results over time",
-        excerpt: "Chasing virality is a trap. Here's the framework we use to build audiences that stay.",
-        readTime: "7 min read",
+        // excerpt: "Chasing virality is a trap. Here's the framework we use to build audiences that stay.",
+        // readTime: "7 min read",
     },
     {
-        bg: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1400&q=80",
+        bg: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=1600&q=80",
         category: "Web Design",
         title: "What makes a website convert and what most agencies get wrong",
-        excerpt: "Beautiful isn't enough. Every decision on your site should be moving someone toward action.",
-        readTime: "6 min read",
+        // excerpt: "Beautiful isn't enough. Every decision on your site should be moving someone toward action.",
+        // readTime: "6 min read",
     },
 ];
 
@@ -91,6 +110,7 @@ function ArticleCard({ article, delay = 0 }) {
                     <img
                         src={article.img}
                         alt={article.title}
+                        loading="lazy"
                         className="art-img w-full h-full object-cover"
                     />
                 ) : (
@@ -149,21 +169,24 @@ export default function Insight() {
     const [currentSlide, setCurrentSlide] = useState(0);
     const timerRef = useRef(null);
 
-    useEffect(() => {
+    const startTimer = () => {
+        clearInterval(timerRef.current);
         timerRef.current = setInterval(() => {
             setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-        }, 5000);
+        }, SLIDE_MS);
+    };
+
+    useEffect(() => {
+        startTimer();
         return () => clearInterval(timerRef.current);
     }, []);
 
     const goToSlide = (i) => {
-        clearInterval(timerRef.current);
         setCurrentSlide(i);
-        timerRef.current = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
-        }, 5000);
+        startTimer();
     };
 
+    const slide = HERO_SLIDES[currentSlide];
     const featured = ARTICLES.find((a) => a.featured);
     const rest = ARTICLES.filter((a) => !a.featured);
 
@@ -174,60 +197,78 @@ export default function Insight() {
                 <meta name="description" content="Read Nexux's insights on brand strategy, digital marketing, web design, and business growth for SMEs in Ghana." />
             </Helmet>
 
-            <style>{FONTS + STYLES}</style>
-            <Navbar />
+            <style>{STYLES}</style>
 
-            {/* ── HERO ────────────────────────────────────────────── */}
-            <section className="relative min-h-[600px] flex items-end overflow-hidden">
+            {/* transparent = see-through over the hero, white once you scroll */}
+            <Navbar transparent />
 
-                {/* Background slides */}
-                {HERO_SLIDES.map((slide, i) => (
+            {/* ── HERO (slideshow) ────────────────────────────────── */}
+            <section className="relative min-h-[88svh] flex flex-col justify-end overflow-hidden bg-[#0B1F3A]">
+
+                {/* Background slides — crossfade + slow Ken Burns zoom */}
+                {HERO_SLIDES.map((s, i) => (
                     <div
                         key={i}
+                        aria-hidden="true"
                         className={`hero-slide ${i === currentSlide ? "active" : ""}`}
-                        style={{ backgroundImage: `url(${slide.bg})` }}
+                        style={{ backgroundImage: `url(${s.bg})` }}
                     />
                 ))}
 
-                {/* Dark overlay */}
-                <div
-                    className="absolute inset-0 z-10"
-                    style={{ background: "linear-gradient(to top, rgba(11,31,58,0.96) 0%, rgba(11,31,58,0.6) 50%, rgba(11,31,58,0.25) 100%)" }}
-                />
+                {/* Light overlays: top for the navbar, bottom for the text band */}
+                <div className="absolute inset-0 z-10 pointer-events-none"
+                    style={{ background: "linear-gradient(180deg, rgba(11,31,58,.55) 0%, rgba(11,31,58,0) 22%)" }} />
+                <div className="absolute inset-0 z-10 pointer-events-none"
+                    style={{ background: "linear-gradient(0deg, rgba(11,31,58,.94) 0%, rgba(11,31,58,.65) 32%, rgba(11,31,58,0) 62%)" }} />
 
-                {/* Content */}
-                <div className="relative z-20 w-full max-w-6xl mx-auto px-6 pb-14 pt-40">
-                    <div className="anim-1 mb-4">
-                        <span className="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full border border-white/20 text-white/70">
-                            {HERO_SLIDES[currentSlide].category}
-                        </span>
-                    </div>
+                {/* Lower-third text band */}
+                <div className="relative z-20 max-w-6xl mx-auto w-full px-6 pb-12 md:pb-16">
 
-                    <h1
-                        className="anim-2 text-white font-extrabold leading-[1.06] tracking-tight mb-4"
-                        style={{ fontSize: "clamp(28px, 4vw, 56px)", maxWidth: 680 }}
-                    >
-                        {HERO_SLIDES[currentSlide].title}
-                    </h1>
+                    {/* Progress line — fills once per slide */}
+                    {/* <div className="relative h-px w-full bg-white/20 mb-8 md:mb-10 overflow-hidden">
+                        <span key={currentSlide} className="hero-progress absolute inset-y-0 left-0 w-full bg-[#00BFA6]" />
+                    </div> */}
 
-                    <p
-                        className="anim-3 text-white/65 leading-relaxed mb-8"
-                        style={{ fontSize: "clamp(14px, 1.4vw, 17px)", maxWidth: 480 }}
-                    >
-                        {HERO_SLIDES[currentSlide].excerpt}
-                    </p>
+                    {/* key re-mounts this block so the entry animation replays on every slide */}
+                    <div key={currentSlide} className="grid gap-8 lg:grid-cols-[1.35fr_1fr] lg:gap-16 items-end">
+                        <div>
+                            <span className="hero-soft inline-block text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full border border-white/25 text-white/80 mb-5"
+                                style={{ animationDelay: ".1s" }}>
+                                {slide.category}
+                            </span>
+                            <h1
+                                className="text-white font-semibold leading-[1.08]"
+                                style={{ fontSize: "clamp(28px, 3.4vw, 48px)", letterSpacing: "-0.03em", maxWidth: 640 }}
+                            >
+                                {slide.title.split(" ").map((word, i) => (
+                                    <span key={i} className="word-mask">
+                                        <span style={{ animationDelay: `${0.25 + i * 0.045}s` }}>{word}&nbsp;</span>
+                                    </span>
+                                ))}
+                            </h1>
+                        </div>
 
-                    <div className="anim-4 flex items-center gap-6">
-                        <span className="text-white/35 text-xs font-medium">{HERO_SLIDES[currentSlide].readTime}</span>
+                        <div className="lg:pb-2">
+                            <p className="hero-soft text-white/80 leading-relaxed mb-5"
+                                style={{ fontSize: "clamp(15px,1.3vw,17px)", maxWidth: 400, animationDelay: ".7s" }}>
+                                {slide.excerpt}
+                            </p>
+                            <span className="hero-soft block text-white/45 text-xs font-medium" style={{ animationDelay: ".85s" }}>
+                                {slide.readTime}
+                            </span>
+                        </div>
                     </div>
 
                     {/* Dots */}
                     <div className="flex items-center gap-2 mt-10">
-                        {HERO_SLIDES.map((_, i) => (
+                        {HERO_SLIDES.map((s, i) => (
                             <button
                                 key={i}
+                                type="button"
                                 onClick={() => goToSlide(i)}
-                                className={`slide-dot h-2 rounded-full bg-white/30 transition-all ${i === currentSlide ? "active" : "w-2"}`}
+                                aria-label={`Show slide ${i + 1}: ${s.category}`}
+                                aria-current={i === currentSlide}
+                                className={`slide-dot h-2 rounded-full bg-white/30 ${i === currentSlide ? "active" : "w-2"}`}
                             />
                         ))}
                     </div>
@@ -243,18 +284,17 @@ export default function Insight() {
                         </span>
                         <Link
                             to={`/insight/${featured.slug}`}
-                            className="reveal art-card block bg-white border border-gray-100 rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2"
+                            className="reveal art-card bg-white border border-gray-100 rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2"
                         >
-                            {/* Image */}
                             <div className="h-72 lg:h-auto min-h-[280px] overflow-hidden">
                                 <img
                                     src={featured.featuredImage || featured.img}
                                     alt={featured.title}
+                                    loading="lazy"
                                     className="art-img w-full h-full object-cover"
                                 />
                             </div>
 
-                            {/* Content */}
                             <div className="p-10 flex flex-col justify-center gap-5">
                                 <div className="flex items-center gap-3">
                                     <span
