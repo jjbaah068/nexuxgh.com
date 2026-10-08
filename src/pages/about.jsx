@@ -6,7 +6,7 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import abouthero from "../assets/images/img3.png";
 // import arhin from "../assets/images/arhin.JPG"
 import james from "../assets/images/james1.jpg";
-import john from "../assets/images/john.png";
+import john from "../assets/images/john1.jpeg";
 import operateImg from "../assets/images/operateImg.jpeg";
 import { Helmet } from "react-helmet-async";
 
