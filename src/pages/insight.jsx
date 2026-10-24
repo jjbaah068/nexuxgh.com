@@ -4,7 +4,7 @@ import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import { Helmet } from "react-helmet-async";
 import { ARTICLES } from "../content/articles";
-
+import insightimg from '../assets/images/insights1.png'
 const SLIDE_MS = 5000;
 
 /* ── Page styles (fonts now live globally in index.css) ─────────── */
@@ -77,7 +77,7 @@ function useReveal() {
 
 const HERO_SLIDES = [
     {
-        bg: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80",
+        bg: insightimg,
         category: "Brand Strategy",
         title: "Why most brands fail in the first year and what to do instead",
         // excerpt: "It's rarely about the product. It's almost always about positioning, clarity, and consistency.",
