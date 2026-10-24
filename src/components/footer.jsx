@@ -146,7 +146,16 @@ export default function Footer() {
 
                 {/* Bottom Metadata Bar */}
                 <div className="py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#08172D]/40 font-medium">
-                    <p>Copyright & Legal . Copyright © {new Date().getFullYear()}</p>
+                    <p>© {new Date().getFullYear()} Nexux Marketing Technology Agency. All rights reserved.</p>
+                    <div className="flex items-center gap-4">
+                        <Link to="/privacy-policy" className="hover:text-[#08172D] hover:underline transition-colors duration-200">
+                            Privacy Policy
+                        </Link>
+                        <span className="text-[#08172D]/20">|</span>
+                        <Link to="/terms" className="hover:text-[#08172D] hover:underline transition-colors duration-200">
+                            Terms & Conditions
+                        </Link>
+                    </div>
                 </div>
 
                 {/* Massive Brand Watermark Anchor Text */}

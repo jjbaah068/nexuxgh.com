@@ -7,6 +7,8 @@ import Contact from "./pages/contact";
 import Insight from "./pages/insight";
 import ScrollToTop from "./components/scrolltop";
 import InsightArticle from "./pages/insightarticle";
+import Privacy from "./pages/privacy";
+import Terms from "./pages/terms";
 
 function RootLayout() {
     return (
@@ -28,6 +30,8 @@ const nexuxRouter = createBrowserRouter([
             { path: "/contact", element: <Contact /> },
             { path: "/insight", element: <Insight /> },
             { path: "/insight/:slug", element: <InsightArticle /> },
+            { path: "/privacy-policy", element: <Privacy /> },
+            { path: "/terms", element: <Terms /> },
         ],
     },
 ]);
